@@ -9,7 +9,7 @@ import teams from "./teams";
 const HomeCard = () => {
   const [team, setTeam] = useState([]);
   const getdata = async () => {
-    const temp = ref(database, "matchDetail/");
+    const temp = ref(database, "match/");
     onValue(temp, async (snapshot) => {
       const matchObject = await snapshot.val();
       let data=[]
@@ -159,7 +159,7 @@ export default HomeCard;
 
 function daysCaluclator() {
   var today = new Date();
-  var date_to_reply = new Date("2023-01-26");
+  var date_to_reply = new Date("2023-10-26");
   var timeinmilisec = today.getTime() - date_to_reply.getTime();
   // console.log(Math.floor(timeinmilisec / (1000 * 60 * 60 * 24)));
   return Math.floor(timeinmilisec / (1000 * 60 * 60 * 24));

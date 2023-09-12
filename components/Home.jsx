@@ -38,17 +38,17 @@ function HomePage({ teamlist }) {
         <div className="md:flex md:gap-4 md:items-center">
           {" "}
           <p className="bg-white py-2 px-3 text-[#F9BD48] font-[800] w-[180px] h-[36px] text-[20px] md:text-[40px] mb-3 flex justify-center items-center md:w-[360px] md:h-[66px]">
-            16<sup>th</sup> <span className="ml-2">EDITION</span>
+            17<sup>th</sup> <span className="ml-2">EDITION</span>
           </p>
           <p className="font-[800] text-[16px] md:text-[24px] md:leading-[29.26px] md:ml-[40px]">
             26<sup>th</sup> - 29<sup>th</sup> <br className="hidden md:flex" />
-            January, 2023
+            October, 2023
           </p>
           <p className="font-[600] text-[12px] mb-7 md:hidden">
             Bring back the Cheers! Bring back the Slogans!
           </p>
         </div>
-        <WinnersAnnouncement teamlist={winnerTeamList} />
+        {/* <WinnersAnnouncement teamlist={winnerTeamList} /> */}
       </div>
 
       <div className="w-full md:w-4/5 md:mx-auto flex flex-col md:flex-row md:items-center md:justify-between">
@@ -98,7 +98,7 @@ export default HomePage;
 
 function daysCaluclator() {
   var today = new Date();
-  var date_to_reply = new Date("2023-01-26");
+  var date_to_reply = new Date("2023-10-26");
   var timeinmilisec = today.getTime() - date_to_reply.getTime();
   // console.log(Math.floor(timeinmilisec / (1000 * 60 * 60 * 24)));
   return Math.floor(timeinmilisec / (1000 * 60 * 60 * 24));
