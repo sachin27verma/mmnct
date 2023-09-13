@@ -12,7 +12,9 @@ const HomeCard = () => {
     const temp = ref(database, "match/");
     onValue(temp, async (snapshot) => {
       const matchObject = await snapshot.val();
+      console.log(matchObject);
       let data=[]
+      if (matchObject)
       Object.keys(matchObject).map(key=>{
         data.push(matchObject[key])
       })
