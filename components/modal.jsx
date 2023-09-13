@@ -11,6 +11,7 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
         nonstriker: "",
         baller: ""
     });
+    const [currOrder, setCurrOrder] = useState(0);
     const [team1name, setteam1name] = useState("Team 1");
     const [team2name, setteam2name] = useState("Team 2");
     const [striker, setStriker] = useState("Striker");
@@ -29,6 +30,7 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
             alert("Match Id Not valid");
             return;
         }
+        setCurrOrder(snapshot?.val().currOrder);
         setteam1name(snapshot?.val().Team1Id);
         setteam2name(snapshot?.val().Team2Id);
         setCurrBattingTeam(snapshot?.val().currBattingTeam);
@@ -56,6 +58,40 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
         }
         setFormData({ ...formData, [name]: value });
     };
+
+    const updateStatusBatsman = async () => {
+        const team = (formData.currBattingTeam === "" ? currBattingTeam : formData.currBattingTeam) === team1name ? "Team1Players" : "Team2Players";
+        if (formData.striker !== striker) {
+            if (striker) {
+                await update(ref(database, `match/${matchId}/${team}/${striker}`), {
+                    "status": "out",
+                });
+            }
+            await update(ref(database, `match/${matchId}/${team}/${formData.striker}`), {
+                "status": "not out",
+                "battingOrder": currOrder
+            });
+            setCurrOrder(currOrder + 1);
+            await update(ref(database, `match/${matchId}`), {
+                "currOrder" : currOrder + 1
+            });
+        }
+        if (formData.nonstriker !== nonstriker) {
+            if (nonstriker)
+                await update(ref(database, `match/${matchId}/${team}/${nonstriker}`), {
+                    "status": "out",
+                });
+            await update(ref(database, `match/${matchId}/${team}/${formData.nonstriker}`), {
+                "status": "not out",
+                "battingOrder": currOrder
+            });
+            setCurrOrder(currOrder + 1);
+            await update(ref(database, `match/${matchId}`), {
+                "currOrder" : currOrder + 1
+            });
+        }
+    }
+
     const submitData = async (e) => {
         e.preventDefault();
         if (formData.baller === '') formData.baller = baller;
@@ -67,8 +103,8 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
             "nonStriker": formData.nonstriker,
             "baller": formData.baller,
             "currBattingTeam": formData.currBattingTeam
-        }
-        );
+        });
+        await updateStatusBatsman();
         onUpdateValues(formData.striker, formData.nonstriker, formData.baller, formData.currBattingTeam);
         alert("Match Updated successfully");
         onRequestClose();
@@ -127,7 +163,7 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
                             <option key="abcd" value="">Select a player</option>
                             {currBattingTeam !== "" && team1Players &&
                                 Object.keys(team1Players).map((playerId) => (
-                                    team1Players[playerId].status === "Did Not Bat" ?
+                                    team1Players[playerId].status === "Did Not Bat" || team1Players[playerId].status === "not out" ?
                                         (
                                             <option key={playerId} value={playerId}>
                                                 {team1Players[playerId].playerName}
@@ -162,7 +198,7 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
                             <option key="abcd" value="">Select a player</option>
                             {currBattingTeam !== "" && team1Players &&
                                 Object.keys(team1Players).map((playerId) => (
-                                    team1Players[playerId].status === "Did Not Bat" ?
+                                    team1Players[playerId].status === "Did Not Bat" || team1Players[playerId].status === "not out" ?
                                         (
                                             <option key={playerId} value={playerId}>
                                                 {team1Players[playerId].playerName}

@@ -13,16 +13,8 @@ const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
   await set(ref(database, "match/" + ID), {
     id: ID,
     timeDate: dateTime,
-
     Team1Id:Team1ID,
     Team2Id:Team2ID,
-    
-    Team1Players: {
-    },
-    Team2Players: {
-    },
-
-   
     Team1Score: ['-'],
     Team2Score: ['-'],
     Team1Extra: 0,
@@ -33,7 +25,8 @@ const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
     Team2prev: 1,
     finalComment: "Match " + ID,
     status: "upcoming",
-    category: category
+    category: category,
+    currOrder : 1
   }).then(() => {
     console.log("mattch added");
   }).catch(err => console.log(err));
@@ -199,7 +192,6 @@ const strikerChange = async(matchId,run)=>{
 
 };
 async function getTeamIdFromName(teamName) {
-  console.log(teamName);
   try {
     // Query the "participating-teams" collection for the team with the given name
     const teamsCollection = collection(db, "participating-teams");
@@ -221,7 +213,6 @@ async function getTeamIdFromName(teamName) {
 }
 
 async function getPlayersByTeamName(teamName) {
-  console.log("HII"+teamName);
   try {
     // Get the team ID using the provided function
     const teamId = await getTeamIdFromName(teamName);
@@ -286,7 +277,6 @@ const updateTeam1PlayerScore = async (matchID, playerID, run) => {
         await update(matchRef, {
           [`${playerID}/score`]: scoreArray,
         });
-        console.log(`Player ${player.playerName}'s score updated.`);
       } catch (err) {
         console.error("Error updating player score:", err);
       }
@@ -327,7 +317,6 @@ const updateTeam2PlayerScore = async (matchID, playerID, run) => {
         await update(matchRef, {
           [`${playerID}/score`]: scoreArray,
         });
-        console.log(`Player ${player.playerName}'s score updated.`);
       } catch (err) {
         console.error("Error updating player score:", err);
       }
@@ -367,8 +356,6 @@ const updateTeam1BowlersStats= async (matchID,playerID,run) => {
       await update(matchRef, {
         [`${playerID}/score`]: scoreArray,
       });
-
-      console.log(`Player ${player.playerName}'s bowling stats updated.`);
     } catch (err) {
       console.error("Error updating player bowling stats:", err);
     }
@@ -380,12 +367,10 @@ const updateTeam2BowlersStats= async (matchID,playerID,run) => {
   const matchRef = ref(database, "match/" + matchID + "/Team2Players");
   const matchSnapshot = await get(matchRef);
   const matchData = matchSnapshot.val();
-
   if (!matchData) {
     console.log("Match not found.");
     return;
   }
-
   if (matchData && matchData[playerID]) {
     const player = matchData[playerID];
     const scoreArray = player.score;
@@ -406,8 +391,6 @@ const updateTeam2BowlersStats= async (matchID,playerID,run) => {
       await update(matchRef, {
         [`${playerID}/score`]: scoreArray,
       });
-
-      console.log(`Player ${player.playerName}'s bowling stats updated.`);
     } catch (err) {
       console.error("Error updating player bowling stats:", err);
     }
@@ -415,6 +398,16 @@ const updateTeam2BowlersStats= async (matchID,playerID,run) => {
     console.log("Player or team not found in the match data.");
   }
 };
+
+async function changeInnings(matchId) {
+  await update(ref(database, "match/" + matchId), {
+    "striker" : null,
+    "nonStriker" : null,
+    "currBattingTeam" : null,
+    "baller" : null,
+    "currOrder" : 1
+  });
+}
 
 async function afterMatchClosed(matchId) {
   const data = await fetchData(matchId);
@@ -430,12 +423,9 @@ async function afterMatchClosed(matchId) {
 }
 
 const getPlayerScore = (players, player) => {
-  console.log("List of players: ", players);
-  console.log("Player id is", player);
   var totalRuns = 0;
   var ballPlayed = 0;
   if (players) {
-    console.log(players[player])
     for (var i = 0; i <= 10; i++) {
       totalRuns += i * players[player].score[i];
       ballPlayed += players[player].score[i];
@@ -445,7 +435,6 @@ const getPlayerScore = (players, player) => {
 }
 
 async function updatePlayerHistory(playerId, playerData, matchId) {
-  console.log(playerId, playerData);
   db.doc(`participating-team-member/${playerId}`)
     .get()
     .then((doc) => {
@@ -493,6 +482,7 @@ export {
   afterMatchClosed,
   forcefullyChangeStriker,
   strikerChange,
-  getPlayerScore
+  getPlayerScore,
+  changeInnings
 };
 

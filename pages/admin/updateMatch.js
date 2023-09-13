@@ -12,6 +12,7 @@ import {
   updateTeam1PlayerScore,
   updateTeam2BowlersStats,
   updateTeam2PlayerScore,
+  changeInnings
 } from "../../components/matchFunctions.js";
 import { child, ref, get } from "firebase/database";
 import { database, db } from "../../components/db/Firebase";
@@ -88,6 +89,13 @@ const UpdateMatch = ({ auth_users }) => {
     let temp2 = nonstriker;
     setStriker(temp2);
     setnonStriker(temp1);
+  }
+
+  const changeMatchInnings = async(e) => {
+    e.preventDefault();
+    await changeInnings(currId);
+    alert("Innings changed Successfully.");
+    openModal();
   }
 
   const submitData = async (e) => {
@@ -496,6 +504,19 @@ const UpdateMatch = ({ auth_users }) => {
                 onClick={submitData}
               >
                 Update Match
+              </button>
+            </div>
+          </div>
+          <br></br>
+          <div class="md:flex md:items-center">
+            <div class="md:w-1/3"></div>
+            <div class="md:w-2/3">
+              <button
+                class="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                type="submit"
+                onClick={changeMatchInnings}
+              >
+                Change Innings
               </button>
             </div>
           </div>
