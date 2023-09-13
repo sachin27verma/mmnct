@@ -87,18 +87,18 @@ const getOver = (score, prev, extra) => {
   return [overFormat, Over]
 }
 const addPlayerToMatch = async (matchID, teamID, playerID, playerName) => {
-  // Retrieve the current match data
-  //let teamID="Team1Players";
+// Retrieve the current match data
+//let teamID="Team1Players";
   const matchRef = ref(database, "match/" + matchID);
   const matchSnapshot = await get(matchRef);
   const matchData = matchSnapshot.val();
-  //console.log(teamID);
+//console.log(teamID);
   if (!matchData) {
     console.log("Match not found."); // Handle the case where the match doesn't exist
     return;
   }
 
-  // Create the player object
+//Create the player object
   const playerObject = {
     playerName: playerName,
     score: Array(15).fill(0),
@@ -106,19 +106,19 @@ const addPlayerToMatch = async (matchID, teamID, playerID, playerName) => {
     battingOrder:0,
   };
 
-  // Check if the team exists in the match data
+//Check if the team exists in the match data
   if (matchData[teamID]) {
-    // Check if the players object exists for the tea
+// Check if the players object exists for the tea
 
     if (matchData[teamID][playerID]) {
       console.log("Player is already added to the team.");
       return;
     }
 
-    // Add the player object to the team's players
+//Add the player object to the team's players
     matchData[teamID][playerID] = playerObject;
 
-    // Update the database with the modified match data
+//Update the database with the modified match data
     try {
       await set(matchRef, matchData);
       console.log("Player added successfully.");
@@ -130,7 +130,7 @@ const addPlayerToMatch = async (matchID, teamID, playerID, playerName) => {
       [playerID] : playerObject
     };
     await set(matchRef, matchData);
-   // console.log("Team not found in the match data."); // Handle the case where the team doesn't exist in the match
+//console.log("Team not found in the match data."); // Handle the case where the team doesn't exist in the match
   }
 };
 
@@ -138,27 +138,27 @@ const forcefullyChangeStriker = async (matchId) => {
   try {
     const dbRef = ref(database);
 
-    // Get the current data from the match node
+//Get the current data from the match node
     let snapshot = await get(child(dbRef, "match/" + matchId));
 
-    // Ensure that the match node exists
+//Ensure that the match node exists
     if (snapshot) {
       const matchData = snapshot.val();
 
-      // Swap the data in the striker and non-striker fields
+//Swap the data in the striker and non-striker fields
       const updatedData = {};
       updatedData["striker"] = matchData["nonStriker"];
       updatedData["nonStriker"] = matchData["striker"];
 
-      // Update the data in the database
+//Update the data in the database
       await update(child(dbRef, "match/" + matchId), updatedData);
 
-     // console.log("Striker and non-striker data swapped successfully.");
+//console.log("Striker and non-striker data swapped successfully.");
     } else {
-      //console.log("Match node does not exist.");
+//console.log("Match node does not exist.");
     }
   } catch (error) {
-    //console.error("Error swapping striker and non-striker data:", error);
+//console.error("Error swapping striker and non-striker data:", error);
   }
 };
 
@@ -166,20 +166,20 @@ const strikerChange = async(matchId,run)=>{
   try {
     const dbRef = ref(database);
 
-    // Get the current data from the match node
+//Get the current data from the match node
     let snapshot = await get(child(dbRef, "match/" + matchId));
 
-    // Ensure that the match node exists
+//Ensure that the match node exists
     run=parseInt(run);
     if (run%2!=0) {
       const matchData = snapshot.val();
 
-      // Swap the data in the striker and non-striker fields
+//Swap the data in the striker and non-striker fields
       const updatedData = {};
       updatedData["striker"] = matchData["nonStriker"];
       updatedData["nonStriker"] = matchData["striker"];
 
-      // Update the data in the database
+//Update the data in the database
       await update(child(dbRef, "match/" + matchId), updatedData);
 
       console.log("Striker and non-striker data swapped successfully.");
@@ -193,44 +193,47 @@ const strikerChange = async(matchId,run)=>{
 };
 async function getTeamIdFromName(teamName) {
   try {
-    // Query the "participating-teams" collection for the team with the given name
+//Query the "participating-teams" collection for the team with the given name
     const teamsCollection = collection(db, "participating-teams");
     const teamQuery = query(teamsCollection, where("teamName", "==", teamName));
     const querySnapshot = await getDocs(teamQuery);
 
-    // If there is a matching team document, return its ID
+//If there is a matching team document, return its ID
     if (!querySnapshot.empty) {
       const teamDoc = querySnapshot.docs[0];
       return teamDoc.id;
     } else {
       console.log("Team not found.");
-      return null; // Return null if the team is not found
+      return null; 
+//Return null if the team is not found
     }
   } catch (error) {
     console.error("Error fetching team ID:", error);
-    return null; // Handle the error and return null
+    return null; 
+//Handle the error and return null
   }
 }
 
 async function getPlayersByTeamName(teamName) {
   try {
-    // Get the team ID using the provided function
+    //Get the team ID using the provided function
     const teamId = await getTeamIdFromName(teamName);
     if (teamId) {
-      // Query the "participating-team-member" collection for players with the matching "teamId"
+      
+    //Query the "participating-team-member" collection for players with the matching "teamId"
       const playersCollection = collection(db, "participating-team-member");
       const playersQuery = query(playersCollection, where("teamId", "==", teamId));
       const querySnapshot = await getDocs(playersQuery);
 
       const players = [];
 
-      // Iterate through the query result and extract only "player name" and "player id" fields
+    //Iterate through the query result and extract only "player name" and "player id" fields
       querySnapshot.forEach((doc) => {
         const playerData = doc.data();
         players.push({
           id: doc.id,
           playerName: playerData.name,
-          // Add more fields as needed, or omit fields you don't need
+    //Add more fields as needed, or omit fields you don't need
         });
       });
 
@@ -270,6 +273,10 @@ const updateTeam1PlayerScore = async (matchID, playerID, run) => {
       run=parseInt(run);
       //console.log(run+"  nb");
     }
+    else if(run.endsWith("b")){
+      //run=parseInt(run);
+      run=0;
+    }
     if (!isNaN(run)) { // Check if 'run' is a valid number
       scoreArray[run] = (scoreArray[run] || 0) + 1;
       // Update the player's score in the database
@@ -296,11 +303,10 @@ const updateTeam2PlayerScore = async (matchID, playerID, run) => {
     console.log("Match not found.");
     return;
   }
-  
-
   if (matchData && matchData[playerID]) {
     const player = matchData[playerID];
     const scoreArray = player.score;
+
     if(run.endsWith("w")){
       run=parseInt(run);
      // console.log(run+"  w");
@@ -309,6 +315,11 @@ const updateTeam2PlayerScore = async (matchID, playerID, run) => {
       run=parseInt(run);
       //console.log(run+"  nb");
     }
+    else if(run.endsWith("b")){
+      //run=parseInt(run);
+      run=0;
+    }
+    
     if (!isNaN(run)) { 
       // Check if 'run' is a valid number
       scoreArray[run] = (scoreArray[run] || 0) + 1;
@@ -344,9 +355,13 @@ const updateTeam1BowlersStats= async (matchID,playerID,run) => {
   if(run.endsWith("w")){
     scoreArray[14]=scoreArray[14]+1;
   }
-  if(run.endsWith("nb")||run.endsWith("wd")){
+  else if(run.endsWith("nb")||run.endsWith("wd")){
     scoreArray[13]=scoreArray[13]+1;
     scoreArray[12]--;
+  }
+  else if(run.endsWith("b")){
+    //run=parseInt(run);
+    run=0;
   }
   var runs = parseInt(run);
   
@@ -371,21 +386,25 @@ const updateTeam2BowlersStats= async (matchID,playerID,run) => {
     console.log("Match not found.");
     return;
   }
+
   if (matchData && matchData[playerID]) {
     const player = matchData[playerID];
     const scoreArray = player.score;
 
-  scoreArray[12]++;
-  var runs = parseInt(run);
-  
-  scoreArray[13]=scoreArray[13]+runs;
-  if(run.endsWith("w")){
-    scoreArray[14]=scoreArray[14]+1;
-  }
-  if(run.endsWith("nb")||run.endsWith("wd")){
-    scoreArray[13]=scoreArray[13]+1;
-    scoreArray[12]--;
-  }
+    scoreArray[12]++;
+    if(run.endsWith("w")){
+      scoreArray[14]=scoreArray[14]+1;
+    }
+    if(run.endsWith("nb")||run.endsWith("wd")){
+      scoreArray[13]=scoreArray[13]+1;
+      scoreArray[12]--;
+    }
+    else if(run.endsWith("b")){
+    //run=parseInt(run);
+      run=0;
+    }
+    var runs = parseInt(run);
+    scoreArray[13]=scoreArray[13]+runs;
     // Update the player's run and wicket in the database
     try {
       await update(matchRef, {

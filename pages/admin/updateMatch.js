@@ -112,7 +112,7 @@ const UpdateMatch = ({ auth_users }) => {
       let prev = data.Team1prev;
       if ((totalBall - extras) % 6 == 5) { callModal = true; handleForcedStrikerChange() }
       if ((totalBall - extras) % 6 == 0) { prev = totalBall; }
-      if (team1Run.length == 2 && team1Run[1] === "w") { wicket++; callModal = true; }
+      if (team1Run.length == 2 && (team1Run[1] === "w"||team1Run[1]==="r")) { wicket++; callModal = true; }
       else if (team1Run.length == 3) extras++;
       await Team1Update(
         currId,
@@ -141,7 +141,7 @@ const UpdateMatch = ({ auth_users }) => {
       let prev = data.Team2prev;
       if ((totalBall - extras) % 6 == 5) { callModal = true; handleForcedStrikerChange() }
       if ((totalBall - extras) % 6 == 0) { prev = totalBall }
-      if (team2Run.length == 2 && team2Run[1] === "w") { wicket++; callModal = true; }
+      if (team2Run.length == 2 && (team2Run[1] === "w"||team2Run[1]==="r")) { wicket++; callModal = true; }
       else if (team2Run.length == 3) extras++;
       await Team2Update(
         currId,
