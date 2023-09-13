@@ -20,6 +20,8 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
     const [currBattingTeam, setCurrBattingTeam] = useState("");
     const [team1Players, setTeam1Players] = useState({});
     const [team2Players, setTeam2Players] = useState({});
+    const [battingTeam,setBattingTeam] = useState({});
+    const [ballerTeam,setBallerTeam] = useState({});
 
     const getMatchDetails = async (matchId) => {
         const dbref = ref(database);
@@ -46,14 +48,12 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
         name = e.target.name;
         value = e.target.value;
         if (name === "currBattingTeam") {
-            var data1 = team1Players;
-            var data2 = team2Players;
             if (value === team1name) {
-                setTeam1Players(data1);
-                setTeam2Players(data2);
+                setBattingTeam(team1Players);
+                setBallerTeam(team2Players);
             } else {
-                setTeam2Players(data1);
-                setTeam1Players(data2);
+                setBattingTeam(team2Players);
+                setBallerTeam(team1Players);
             }
         }
         setFormData({ ...formData, [name]: value });
@@ -161,12 +161,12 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
                             onChange={handleChange}
                         >
                             <option key="abcd" value="">Select a player</option>
-                            {currBattingTeam !== "" && team1Players &&
-                                Object.keys(team1Players).map((playerId) => (
-                                    team1Players[playerId].status === "Did Not Bat" || team1Players[playerId].status === "not out" ?
+                            {currBattingTeam !== "" && battingTeam &&
+                                Object.keys(battingTeam).map((playerId) => (
+                                    battingTeam[playerId].status === "Did Not Bat" || battingTeam[playerId].status === "not out" ?
                                         (
                                             <option key={playerId} value={playerId}>
-                                                {team1Players[playerId].playerName}
+                                                {battingTeam[playerId].playerName}
                                             </option>
                                         ) :
                                         (
@@ -196,12 +196,12 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
                             onChange={handleChange}
                         >
                             <option key="abcd" value="">Select a player</option>
-                            {currBattingTeam !== "" && team1Players &&
-                                Object.keys(team1Players).map((playerId) => (
-                                    team1Players[playerId].status === "Did Not Bat" || team1Players[playerId].status === "not out" ?
+                            {currBattingTeam !== "" && battingTeam &&
+                                Object.keys(battingTeam).map((playerId) => (
+                                    battingTeam[playerId].status === "Did Not Bat" || battingTeam[playerId].status === "not out" ?
                                         (
                                             <option key={playerId} value={playerId}>
-                                                {team1Players[playerId].playerName}
+                                                {battingTeam[playerId].playerName}
                                             </option>
                                         ) :
                                         (
@@ -231,10 +231,10 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
                             onChange={handleChange}
                         >
                             <option key="abcd" value="">Select a player</option>
-                            {currBattingTeam !== "" && team2Players &&
-                                Object.keys(team2Players).map((playerId) => (
+                            {currBattingTeam !== "" && ballerTeam &&
+                                Object.keys(ballerTeam).map((playerId) => (
                                     <option key={playerId} value={playerId}>
-                                        {team2Players[playerId].playerName}
+                                        {ballerTeam[playerId].playerName}
                                     </option>
                                 ))}
                         </select>
