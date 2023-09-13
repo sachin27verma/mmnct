@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { totalScore, getOver,getPlayerScore } from "../components/matchFunctions";
+import { totalScore, getOver, getPlayerScore } from "../components/matchFunctions";
 import teams from "./teams";
 
 const OngoingMatchCard = (props) => {
@@ -15,7 +15,6 @@ const OngoingMatchCard = (props) => {
     return <></>;
   }
   let matchData = props["matchData"][0];
-  console.log(props);
   return (
     <>
       {matchData.map((curElem) => {
@@ -56,15 +55,20 @@ const OngoingMatchCard = (props) => {
                     {curElem.currBattingTeam === curElem.Team1Id ?
                       <div>
                         <p className="text-black-400">
-                          <sup> Striker : {curElem.Team1Players[curElem.striker]?.playerName} {getPlayerScore(curElem.Team1Players,curElem.striker)}</sup> </p>
+                          <sup> Striker : {curElem.Team1Players[curElem.striker]?.playerName} {getPlayerScore(curElem.Team1Players, curElem.striker)}</sup> </p>
                         <p className="text-black-400">
-                          <sup>Non-Striker :{curElem.Team1Players[curElem.nonStriker]?.playerName} {getPlayerScore(curElem.Team1Players,curElem.nonStriker)}</sup>
+                          <sup>Non-Striker :{curElem.Team1Players[curElem.nonStriker]?.playerName} {getPlayerScore(curElem.Team1Players, curElem.nonStriker)}</sup>
                         </p>
                       </div>
                       :
                       <p className="text-black-400">
-                      <sup> Baller : {curElem.Team1Players[curElem.baller]?.playerName} </sup><br></br>
-                      <sup>{curElem.Team1Players[curElem.baller].score[14]}-{curElem.Team1Players[curElem.baller].score[13]}({Math.floor(curElem.Team1Players[curElem.baller].score[12]/6)}).{curElem.Team1Players[curElem.baller].score[12]%6}</sup> </p>
+                        {
+                          curElem.baller ? <div><sup> Baller : {curElem.Team1Players[curElem.baller]?.playerName} </sup><br></br>
+                            <sup>{curElem.Team1Players[curElem.baller].score[14]}-{curElem.Team1Players[curElem.baller].score[13]}({Math.floor(curElem.Team1Players[curElem.baller].score[12] / 6)}).{curElem.Team1Players[curElem.baller].score[12] % 6}</sup> </div>
+                            :
+                            <></>
+                        }
+                      </p>
                     }
                   </div>
                   <div>
@@ -133,15 +137,20 @@ const OngoingMatchCard = (props) => {
                     {curElem.currBattingTeam === curElem.Team2Id ?
                       <div>
                         <p className="text-black-400">
-                          <sup> Striker : {curElem.Team2Players[curElem.striker]?.playerName} {getPlayerScore(curElem.Team2Players,curElem.striker)}</sup> </p>
+                          <sup> Striker : {curElem.Team2Players[curElem.striker]?.playerName} {getPlayerScore(curElem.Team2Players, curElem.striker)}</sup> </p>
                         <p className="text-black-400">
-                          <sup>Non-Striker :{curElem.Team2Players[curElem.nonStriker]?.playerName} {getPlayerScore(curElem.Team2Players,curElem.nonStriker)}</sup>
+                          <sup>Non-Striker :{curElem.Team2Players[curElem.nonStriker]?.playerName} {getPlayerScore(curElem.Team2Players, curElem.nonStriker)}</sup>
                         </p>
                       </div>
                       :
                       <p className="text-black-400">
-                        <sup> Baller : {curElem.Team2Players[curElem.baller]?.playerName} </sup><br></br>
-                        <sup>{curElem.Team2Players[curElem.baller].score[14]}-{curElem.Team2Players[curElem.baller].score[13]}({Math.floor(curElem.Team2Players[curElem.baller].score[12]/6)}.{Math.floor(curElem.Team2Players[curElem.baller].score[12]%6)})</sup> </p>
+                        {
+                          curElem.baller ? <div><sup> Baller : {curElem.Team2Players[curElem.baller]?.playerName} </sup><br></br>
+                            <sup>{curElem.Team2Players[curElem.baller].score[14]}-{curElem.Team2Players[curElem.baller].score[13]}({Math.floor(curElem.Team2Players[curElem.baller].score[12] / 6)}).{curElem.Team2Players[curElem.baller].score[12] % 6}</sup> </div>
+                            :
+                            <></>
+                        }
+                        </p>
                     }
                   </div>
                 </div>
