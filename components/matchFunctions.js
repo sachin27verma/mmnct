@@ -265,7 +265,7 @@ const updateTeam1PlayerScore = async (matchID, playerID, run) => {
 
     //console.log("player is"+ player);
     //console.log(scoreArray);
-    if(run.endsWith("w")){
+    if(run.endsWith("w")||run.endsWith("r")){
       run=parseInt(run);
      // console.log(run+"  w");
     }
@@ -307,7 +307,7 @@ const updateTeam2PlayerScore = async (matchID, playerID, run) => {
     const player = matchData[playerID];
     const scoreArray = player.score;
 
-    if(run.endsWith("w")){
+    if(run.endsWith("w")||run.endsWith("r")){
       run=parseInt(run);
      // console.log(run+"  w");
     }
@@ -319,7 +319,7 @@ const updateTeam2PlayerScore = async (matchID, playerID, run) => {
       //run=parseInt(run);
       run=0;
     }
-    
+
     if (!isNaN(run)) { 
       // Check if 'run' is a valid number
       scoreArray[run] = (scoreArray[run] || 0) + 1;
