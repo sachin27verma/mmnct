@@ -101,7 +101,7 @@ const UpdateMatch = ({ auth_users }) => {
   const submitData = async (e) => {
     e.preventDefault();
     let callModal = false;
-    const { team1Run, team2Run, comment } = formData;
+    let { team1Run, team2Run, comment } = formData;
     let matchStatus = "ongoing";
     if (isChecked) matchStatus = "past";
     let data = await fetchData(currId);
@@ -114,8 +114,9 @@ const UpdateMatch = ({ auth_users }) => {
       if ((totalBall - extras) % 6 == 0) { prev = totalBall; }
       if (team1Run.length == 2 && (team1Run[1] === "w" || team1Run[1] === "r")) { wicket++; callModal = true; }
       else if (team1Run.length == 3 && team1Run[1] == "n") extras++;
-      else if (team1Run.length == 3 && team1Run[1] == "w") {extras++;extras += parseInt(team1Run);}
-      else if (team1Run.length == 2 && team1Run[1] === "b") extras += parseInt(team1Run);
+      else if (team1Run.length == 3 && team1Run[1] == "w") {extras++;}//extras += parseInt(team1Run);}
+      else if (team1Run.length == 2 && team1Run[1] === "b"){extras += parseInt(team1Run);team1Run="0";
+      }
       await Team1Update(
         currId,
         wicket,
@@ -145,8 +146,9 @@ const UpdateMatch = ({ auth_users }) => {
       if ((totalBall - extras) % 6 == 0) { prev = totalBall }
       if (team2Run.length == 2 && (team2Run[1] === "w" || team2Run[1] === "r")) { wicket++; callModal = true; }
       else if (team2Run.length == 3 && team2Run[1] == "n") extras++;
-      else if (team2Run.length == 3 && team2Run[1] == "w") {extras++;extras += parseInt(team2Run);}
-      else if (team2Run.length == 2 && team2Run[1] === "b") extras += parseInt(team2Run);
+      else if (team2Run.length == 3 && team2Run[1] == "w") {extras++;extras += parseInt(team2Run);team2Run="0"}
+      else if (team2Run.length == 2 && team2Run[1] === "b") {extras += parseInt(team2Run);}
+      else if (team2Run.length == 2 && team2Run[1] === "b"){extras += parseInt(team2Run);}
       await Team2Update(
         currId,
         wicket,
