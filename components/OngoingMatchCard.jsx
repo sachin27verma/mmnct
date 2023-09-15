@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { totalScore, getOver, getPlayerScore } from "../components/matchFunctions";
+import { totalScore, getOver, getPlayerScore ,extraOfInnings} from "../components/matchFunctions";
 import teams from "./teams";
 
 const OngoingMatchCard = (props) => {
@@ -94,6 +94,12 @@ const OngoingMatchCard = (props) => {
                       }
                       )
                     </p>
+                    <p className="text-orange-500 font-bold">
+                     extras:  {extraOfInnings(
+                        curElem.Team1Score,
+                        curElem.Team1Extra,
+                      )}
+                    </p>
                   </div>
                 </div>
                 <div>
@@ -121,6 +127,12 @@ const OngoingMatchCard = (props) => {
                         )[0]
                       }
                       )
+                    </p>
+                    <p className="text-orange-500 font-bold">
+                     extras:  {extraOfInnings(
+                        curElem.Team2Score,
+                        curElem.Team2Extra,
+                      )}
                     </p>
                   </div>
                   <div className={teamNameStyle}>

@@ -69,7 +69,20 @@ const totalScore = (score, extra, wicket) => {
   return currscore.toString() + "/" + wicket.toString();
 };
 
-
+const extraOfInnings = (score, extra) => {
+ 
+  let extra2=extra;
+  for(var i=1;i<score.length;i++){
+    if(score[i].endsWith("nb")){
+      extra2=extra2+0;
+    }
+    else if(score[i].endsWith("wd")||score[i].endsWith("b")){
+      extra2=extra2+parseInt(score[i]);
+    }
+   
+  }
+  return extra2;
+}
 const getOver = (score, prev, extra) => {
   const thisOver = new Array();
   let curr = score.length - 1;
@@ -505,6 +518,7 @@ export {
   forcefullyChangeStriker,
   strikerChange,
   getPlayerScore,
-  changeInnings
+  changeInnings,
+  extraOfInnings
 };
 
