@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import Modal from 'react-modal';
 import { child, ref, get, set, update } from "firebase/database";
 import { database, db } from "./db/Firebase";
@@ -20,8 +20,8 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
     const [currBattingTeam, setCurrBattingTeam] = useState("");
     const [team1Players, setTeam1Players] = useState({});
     const [team2Players, setTeam2Players] = useState({});
-    const [battingTeam,setBattingTeam] = useState({});
-    const [ballerTeam,setBallerTeam] = useState({});
+    const [battingTeam, setBattingTeam] = useState({});
+    const [ballerTeam, setBallerTeam] = useState({});
 
     const getMatchDetails = async (matchId) => {
         const dbref = ref(database);
@@ -32,17 +32,31 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
             alert("Match Id Not valid");
             return;
         }
-        setCurrOrder(snapshot?.val().currOrder);
-        setteam1name(snapshot?.val().Team1Id);
-        setteam2name(snapshot?.val().Team2Id);
-        setCurrBattingTeam(snapshot?.val().currBattingTeam);
-        setStriker(snapshot?.val().striker);
-        setnonStriker(snapshot?.val().nonStriker);
-        setBaller(snapshot?.val().baller);
-        setTeam1Players(snapshot?.val().Team1Players);
-        setTeam2Players(snapshot?.val().Team2Players);
+        const matchData = snapshot.val();
+        setCurrOrder(matchData.currOrder);
+        setteam1name(matchData.Team1Id);
+        setteam2name(matchData.Team2Id);
+        setCurrBattingTeam(matchData.currBattingTeam);
+        setStriker(matchData.striker);
+        setnonStriker(matchData.nonStriker);
+        setBaller(matchData.baller);
+        setTeam1Players(matchData.Team1Players);
+        setTeam2Players(matchData.Team2Players);
+
+        if (matchData.currBattingTeam === matchData.Team1Id) {
+            setBattingTeam(matchData.Team1Players);
+            setBallerTeam(matchData.Team2Players);
+        } else {
+            setBattingTeam(matchData.Team2Players);
+            setBallerTeam(matchData.Team1Players);
+        }
     }
-    getMatchDetails(matchId);
+
+    useEffect(() => {
+        // Fetch match details when the component mounts
+        getMatchDetails(matchId);
+    }, [matchId]);
+
     let name, value;
     const handleChange = (e) => {
         name = e.target.name;
@@ -73,7 +87,7 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
             });
             setCurrOrder(currOrder + 1);
             await update(ref(database, `match/${matchId}`), {
-                "currOrder" : currOrder + 1
+                "currOrder": currOrder + 1
             });
         }
         if (formData.nonstriker !== nonstriker) {
@@ -87,7 +101,7 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
             });
             setCurrOrder(currOrder + 1);
             await update(ref(database, `match/${matchId}`), {
-                "currOrder" : currOrder + 1
+                "currOrder": currOrder + 1
             });
         }
     }
