@@ -82,8 +82,9 @@ const UpdateMatch = ({ auth_users }) => {
     setIsChecked(!isChecked);
   };
 
-  const handleForcedStrikerChange = async () => {
-    //e.preventDefault();
+  const handleForcedStrikerChange = async (e) => {
+    if (e)
+      e.preventDefault();
     await forcefullyChangeStriker(currId);
     let temp1 = striker;
     let temp2 = nonstriker;
