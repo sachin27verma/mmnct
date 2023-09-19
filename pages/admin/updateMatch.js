@@ -111,13 +111,10 @@ const UpdateMatch = ({ auth_users }) => {
       let wicket = data.Team1Wicket;
       let extras = data.Team1Extra;
       let prev = data.Team1prev;
-      if ((totalBall - extras) % 6 == 5) { callModal = true; handleForcedStrikerChange() }
-      if ((totalBall - extras) % 6 == 0) { prev = totalBall; }
+      if ((totalBall - extras) % 6 == 0) { callModal = true; handleForcedStrikerChange() }
+      if ((totalBall - extras) % 6 == 0) { prev = totalBall + 1; }
       if (team1Run.length == 2 && (team1Run[1] === "w" || team1Run[1] === "r")) { wicket++; callModal = true; }
       else if (team1Run.length == 3) extras++;
-      // else if (team1Run.length == 3 && team1Run[1] == "n") extras++;
-      //else if (team1Run.length == 3 && team1Run[1] == "w") {extras++;}//extras += parseInt(team1Run);}
-      //else if (team1Run.length == 2 && team1Run[1] === "b"){extras += parseInt(team1Run);team1Run="0";}
       await Team1Update(
         currId,
         wicket,
@@ -143,14 +140,10 @@ const UpdateMatch = ({ auth_users }) => {
       let wicket = data.Team2Wicket;
       let extras = data.Team2Extra;
       let prev = data.Team2prev;
-      if ((totalBall - extras) % 6 == 5) { callModal = true; handleForcedStrikerChange() }
-      if ((totalBall - extras) % 6 == 0) { prev = totalBall }
+      if ((totalBall - extras) % 6 == 0) { callModal = true; handleForcedStrikerChange() }
+      if ((totalBall - extras) % 6 == 0) { prev = totalBall + 1; }
       if (team2Run.length == 2 && (team2Run[1] === "w" || team2Run[1] === "r")) { wicket++; callModal = true; }
       else if (team2Run.length == 3) extras++;
-      //else if (team2Run.length == 3 && team2Run[1] == "n") extras++;
-      //else if (team2Run.length == 3 && team2Run[1] == "w") {extras++;extras += parseInt(team2Run);}
-      //else if (team2Run.length == 2 && team2Run[1] === "b") {extras += parseInt(team2Run);}
-     // else if (team2Run.length == 2 && team2Run[1] === "b"){extras += parseInt(team2Run);}
       await Team2Update(
         currId,
         wicket,
