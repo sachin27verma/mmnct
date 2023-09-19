@@ -204,7 +204,10 @@ const UpdateMatch = ({ auth_users }) => {
     }
     setFormData({ ...formData, [name]: value });
   };
-
+const handleEmergencyButton =async(e)=>{
+  e.preventDefault();
+  openModal();
+}
   
   // if (!session) {
   //   return (
@@ -525,6 +528,19 @@ const UpdateMatch = ({ auth_users }) => {
                 onClick={changeMatchInnings}
               >
                 Change Innings
+              </button>
+            </div>
+          </div>
+          <br></br>
+          <div class="md:flex md:items-center">
+            <div class="md:w-1/3"></div>
+            <div class="md:w-2/3">
+              <button
+                class="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                type="submit"
+                onClick= {handleEmergencyButton}
+              >
+                Emergency Button
               </button>
             </div>
           </div>

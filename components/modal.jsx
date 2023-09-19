@@ -225,7 +225,7 @@ export default function CustomModal({ isOpen, onRequestClose, matchId, onUpdateV
                         </select>
                     </div>
                 </div>
-
+                            
                 {/* current baller */}
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">

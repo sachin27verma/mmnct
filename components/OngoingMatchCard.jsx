@@ -24,9 +24,14 @@ const OngoingMatchCard = (props) => {
         ) {
           return <></>;
         }
+        //console.log(curElem);
         return (
           <>
+          
+          
+         
             <div className="flex flex-col bg-white md:justify-evenly lg:w-10/12 w-11/12 text-sm items-center justify-center shadow-lg pb-4 mx-4 rounded-lg">
+          
               {curElem.tag === "" ? (
                 <div></div>
               ) : (<div className="border-[#7f1d1d] bg-[#fde047] flex flex-col items-center justify-center w-full px-3 lg:px-6 py-1.5 mb-3">
@@ -34,6 +39,7 @@ const OngoingMatchCard = (props) => {
                   {curElem.tag}
                 </p>
               </div>)}
+              <Link href={`/scorecard?matchId=${curElem.id}`} >
               <div className="flex justify-evenly w-full">
                 {/* team 1 */}
                 <div className={`${teamStyle}`}>
@@ -193,8 +199,11 @@ const OngoingMatchCard = (props) => {
                 <p className="text-black-400">
                   <sup>{curElem.timeDate}</sup>
                 </p>
+               
               </div>
+              </Link>
             </div>
+          
           </>
         );
       })}
