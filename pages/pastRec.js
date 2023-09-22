@@ -33,7 +33,7 @@ const ParticipatingTeams = ({ teamList }) => {
   const [totalPages, setTotalPages] = useState(0);
   const [maleTeams, setMaleTeams] = useState([]);
   const [femaleTeams, setFemaleTeams] = useState([]);
-  const [edition, setEdition] = useState("17");
+  const [edition, setEdition] = useState("16");
   const maleColor = "#508CD4";
   const femaleColor = "#CE3AB3";
 
