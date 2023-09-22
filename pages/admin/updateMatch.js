@@ -2,6 +2,7 @@ import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import { afterMatchClosed } from "../../components/matchFunctions.js";
 import {
   fetchData,
   forcefullyChangeStriker,

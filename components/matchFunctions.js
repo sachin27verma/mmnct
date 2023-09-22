@@ -1,12 +1,14 @@
 import { database } from "./db/Firebase";
 import { child, ref, get, set, update } from "firebase/database";
 import { db } from "./db/Firebase";
+//import { getFirestore, doc, updateDoc } from "firebase/firestore";
 import {
   collection,
   doc,
   query,
   getDocs,
   getDoc,
+  updateDoc,
   where,
 } from "firebase/firestore";
 const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
@@ -470,40 +472,40 @@ const getPlayerScore = (players, player) => {
 }
 
 async function updatePlayerHistory(playerId, playerData, matchId) {
-  db.doc(`participating-team-member/${playerId}`)
-    .get()
-    .then((doc) => {
-      if (doc.exists) {
-        const data = doc.data();
-        if (!data.hasOwnProperty('stats')) {
-          // Field does not exist, so add it
-          const updateObject = {};
-          updateObject['stats'] = playerData.score;
-          updateObject['pastrecords'] = {
-            [matchId]: playerData.score
-          }
-          return db.doc(`participating-team-member/${playerId}`).update(updateObject);
-        } else {
-          const existingValue = data['stats'];
-          for (var i = 0; i < existingValue.length; i++)
-            existingValue[i] += playerData.score[i];
-          const updateObject = {};
-          updateObject['stats'] = existingValue;
-          updateObject['pastrecords'] = {
-            [matchId]: playerData.score
-          }
-          return db.doc(`participating-team-member/${playerId}`).update(updateObject);
-        }
+  
+  const playerDocRef = doc(db, `participating-team-member/${playerId}`);
+
+getDoc(playerDocRef)
+  .then((docSnapshot) => {
+    if (docSnapshot.exists()) {
+      const data = docSnapshot.data();
+      if (!data.hasOwnProperty('stats')) {
+        // Field does not exist, so add it
+        const updateObject = {
+          stats: playerData.score,
+          [`pastrecords.${matchId}`]: playerData.score
+        };
+        return updateDoc(playerDocRef, updateObject);
       } else {
-        console.log('No such document!');
+        const existingStats = data['stats'];
+        const updatedStats = existingStats.map((value, index) => value + playerData.score[index]);
+        const updateObject = {
+          stats: updatedStats,
+          [`pastrecords.${matchId}`]: playerData.score
+        };
+        return updateDoc(playerDocRef, updateObject);
       }
-    })
-    .then(() => {
-      console.log('Field added or updated successfully.');
-    })
-    .catch((error) => {
-      console.error('Error adding or updating field:', error);
-    });
+    } else {
+      console.log('No such document!');
+    }
+  })
+  .then(() => {
+    console.log('Field added or updated successfully.');
+  })
+  .catch((error) => {
+    console.error('Error adding or updating field:', error);
+  });
+
 }
 
 export {
