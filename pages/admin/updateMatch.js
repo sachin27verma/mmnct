@@ -107,7 +107,7 @@ const UpdateMatch = ({ auth_users }) => {
     if (isChecked) matchStatus = "past";
     let data = await fetchData(currId);
     if (team1Run.length != 0) {
-      let totalBall = data.Team1Score.length - 1;
+      let totalBall = data.Team1Score.length;
       let wicket = data.Team1Wicket;
       let extras = data.Team1Extra;
       let prev = data.Team1prev;
@@ -129,7 +129,7 @@ const UpdateMatch = ({ auth_users }) => {
       if(team1Run!=""){await strikerChange(currId, team1Run);}
       let Team1BatsmenRun = parseInt(team1Run)
       if (Team1BatsmenRun % 2 != 0 &&!isNaN(Team1BatsmenRun)) {
-        console.log("hello i am called");
+        //console.log("hello i am called");
         let temp1 = striker;
         let temp2 = nonstriker;
         setStriker(temp2);
