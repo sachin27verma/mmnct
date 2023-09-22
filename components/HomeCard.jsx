@@ -29,7 +29,6 @@ const HomeCard = () => {
     <>
       {team?.length === 0 ? (
         <>
-          <div></div>
         </>
       ) : (
         <div className=" flex flex-col justify-center ml-12 pr-16 pl-3 w-fit md:w-fit md:pr-28 days-counter md:mx-auto md:mb-4 h-fit">

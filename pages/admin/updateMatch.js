@@ -111,7 +111,7 @@ const UpdateMatch = ({ auth_users }) => {
       let wicket = data.Team1Wicket;
       let extras = data.Team1Extra;
       let prev = data.Team1prev;
-      if ((totalBall - extras) % 6 == 0) { callModal = true; handleForcedStrikerChange() }
+      if ((totalBall - extras) % 6 == 0 && (totalBall - extras) / 6 != 0) { callModal = true; handleForcedStrikerChange() }
       if ((totalBall - extras) % 6 == 0) { prev = totalBall + 1; }
       if (team1Run.length == 2 && (team1Run[1] === "w" || team1Run[1] === "r")) { wicket++; callModal = true; }
       else if (team1Run.length == 3) extras++;
@@ -140,7 +140,7 @@ const UpdateMatch = ({ auth_users }) => {
       let wicket = data.Team2Wicket;
       let extras = data.Team2Extra;
       let prev = data.Team2prev;
-      if ((totalBall - extras) % 6 == 0) { callModal = true; handleForcedStrikerChange() }
+      if ((totalBall - extras) % 6 == 0 && (totalBall - extras) / 6 != 0) { callModal = true; handleForcedStrikerChange() }
       if ((totalBall - extras) % 6 == 0) { prev = totalBall + 1; }
       if (team2Run.length == 2 && (team2Run[1] === "w" || team2Run[1] === "r")) { wicket++; callModal = true; }
       else if (team2Run.length == 3) extras++;
@@ -326,6 +326,7 @@ const handleEmergencyButton =async(e)=>{
                 id="match_id"
                 name="team1Run"
                 type="text"
+                disabled={team1name !== currBattingTeam}
                 value={formData.team1Run}
                 onChange={handleChange}
               />
@@ -349,6 +350,7 @@ const handleEmergencyButton =async(e)=>{
                 type="text"
                 value={formData.team2Run}
                 onChange={handleChange}
+                disabled={team2name !== currBattingTeam}
               />
             </div>
           </div>
@@ -378,27 +380,25 @@ const handleEmergencyButton =async(e)=>{
                 className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                 for="team_name"
               >
-                Enter Current Striker Details :
+              Current Striker Details :
               </label>
             </div>
             <div class="md:w-2/3">
-              <select
+              <input
                 class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                 id="match_id"
                 name="striker"
                 type="text"
                 disabled
-                value={formData.striker === '' ? striker : formData.striker}
-                onChange={handleChange}
-              >
-                <option key="abcd" value="">Select a player</option>
+                value={team1Players && team2Players ? team1Players[striker]?.playerName || team2Players[striker]?.playerName : " "}
+              />
+                {/* <option key="abcd" value="">Select a player</option>
                 {currBattingTeam !== "" && team1Players &&
                   Object.keys(team1Players).map((playerId) => (
                     <option key={playerId} value={playerId}>
                       {team1Players[playerId].playerName}
                     </option>
-                  ))}
-              </select>
+                  ))} */}
             </div>
           </div>
 
@@ -413,22 +413,21 @@ const handleEmergencyButton =async(e)=>{
               </label>
             </div>
             <div class="md:w-2/3">
-              <select
+              <input
                 class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                 id="match_id"
                 name="nonstriker"
                 disabled
-                value={formData.nonstriker === "" ? nonstriker : formData.nonstriker}
-                onChange={handleChange}
-              >
-                <option key="abcd" value="">Select a player</option>
+                value={team1Players && team2Players ? team1Players[nonstriker]?.playerName || team2Players[nonstriker]?.playerName : " "}
+              />
+                {/* <option key="abcd" value="">Select a player</option>
                 {currBattingTeam !== "" && team1Players &&
                   Object.keys(team1Players).map((playerId) => (
                     <option key={playerId} value={playerId}>
                       {team1Players[playerId].playerName}
                     </option>
                   ))}
-              </select>
+              </select> */}
             </div>
           </div>
           <div class="md:flex md:items-center">
@@ -455,26 +454,26 @@ const handleEmergencyButton =async(e)=>{
                 className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                 for="team_name"
               >
-                Enter Current Baller Details:
+              Current Baller Details:
               </label>
             </div>
             <div class="md:w-2/3">
-              <select
+              <input
                 class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                 id="match_id"
                 name="baller"
                 disabled
-                value={formData.baller === "" ? baller : formData.baller}
+                value={team1Players && team2Players?  team1Players[baller]?.playerName || team2Players[baller]?.playerName : " "}
                 onChange={handleChange}
-              >
-                <option value="">Select a player</option>
+              />
+                {/* <option value="">Select a player</option>
                 {currBattingTeam !== "" && team2Players &&
                   Object.keys(team2Players).map((playerId) => (
                     <option value={playerId}>
                       {team2Players[playerId].playerName}
                     </option>
                   ))}
-              </select>
+              </select> */}
             </div>
           </div>
 
