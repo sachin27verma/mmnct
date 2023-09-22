@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { database } from '../components/db/Firebase';
-import { ref, get } from "firebase/database";
+import { ref, get,onValue } from "firebase/database";
 
 const Scorecard = () => {
   const router = useRouter();
@@ -49,24 +49,25 @@ const Scorecard = () => {
   useEffect(() => {
     if (matchId) {
       const matchRef = ref(database, "match/" + matchId);
-
-      get(matchRef)
-        .then((snapshot) => {
-          if (snapshot.exists()) {
-            const data = snapshot.val();
-            setMatchData(data);
-            setTeam1BattingData(data.Team1Players); // Set team1 batting data
-            setTeam2BattingData(data.Team2Players); // Set team2 batting data
-            setTeam1BowlingData(data.Team1Players); 
-            setTeam2BowlingData(data.Team2Players); 
-            console.log(data);
-          } else {
-            console.log("No match data available");
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching match data:", error);
-        });
+  
+      const unsubscribe = onValue(matchRef, (snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          setMatchData(data);
+          setTeam1BattingData(data.Team1Players);
+          setTeam2BattingData(data.Team2Players);
+          setTeam1BowlingData(data.Team1Players);
+          setTeam2BowlingData(data.Team2Players);
+          console.log(data);
+        } else {
+          console.log("No match data available");
+        }
+      });
+  
+      // Cleanup the listener when the component unmounts
+      return () => {
+        unsubscribe();
+      };
     }
   }, [matchId]);
 var runs;

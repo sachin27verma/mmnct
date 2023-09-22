@@ -126,9 +126,10 @@ const UpdateMatch = ({ auth_users }) => {
         comment
       );
       await updateTeam1PlayerScore(currId, striker, team1Run);
-      await strikerChange(currId, team1Run);
+      if(team1Run!=""){await strikerChange(currId, team1Run);}
       let Team1BatsmenRun = parseInt(team1Run)
-      if (Team1BatsmenRun % 2 != 0) {
+      if (Team1BatsmenRun % 2 != 0 &&!isNaN(Team1BatsmenRun)) {
+        console.log("hello i am called");
         let temp1 = striker;
         let temp2 = nonstriker;
         setStriker(temp2);
@@ -155,9 +156,11 @@ const UpdateMatch = ({ auth_users }) => {
         comment
       );
       await updateTeam2PlayerScore(currId, striker, team2Run);
-      await strikerChange(currId, team2Run);
+      if(team2Run!=""){await strikerChange(currId, team2Run);}
+      
       let Team2BatsmenRun = parseInt(team2Run)
-      if (Team2BatsmenRun % 2 != 0) {
+      if (Team2BatsmenRun % 2 != 0 && !isNaN(Team2BatsmenRun)) {
+        console.log("hello i am called");
         let temp1 = striker;
         let temp2 = nonstriker;
         setStriker(temp2);
