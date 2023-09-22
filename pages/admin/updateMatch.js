@@ -129,7 +129,6 @@ const UpdateMatch = ({ auth_users }) => {
       if(team1Run!=""){await strikerChange(currId, team1Run);}
       let Team1BatsmenRun = parseInt(team1Run)
       if (Team1BatsmenRun % 2 != 0 &&!isNaN(Team1BatsmenRun)) {
-        //console.log("hello i am called");
         let temp1 = striker;
         let temp2 = nonstriker;
         setStriker(temp2);
@@ -160,13 +159,16 @@ const UpdateMatch = ({ auth_users }) => {
       
       let Team2BatsmenRun = parseInt(team2Run)
       if (Team2BatsmenRun % 2 != 0 && !isNaN(Team2BatsmenRun)) {
-        console.log("hello i am called");
         let temp1 = striker;
         let temp2 = nonstriker;
         setStriker(temp2);
         setnonStriker(temp1);
       }
       await updateTeam1BowlersStats(currId, baller, team2Run);
+    }
+
+    if (matchStatus === "past") {
+      await afterMatchClosed(currId);
     }
     setFormData({
       team1Run: "",
