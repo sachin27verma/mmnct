@@ -7,28 +7,35 @@ import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../components/db/Firebase";
 import Image from "next/image";
 import SuggestionsFromUsers from "../components/SuggestionsFromUsers";
-
+import DeveloperComponent from "../components/Developers";
 //Net js server side props for fetching data from firebase
 export async function getServerSideProps() {
   const querySnapshot = await getDocs(
     query(collection(db, "team"), orderBy("name", "desc"))
   );
   let developers = [];
-
+  let oldDevelopers = [];
   querySnapshot.forEach((doc) => {
     let data = doc.data();
-    if (data.position == "developer") {
+    if (data.position == "developer" && data.edition == "17" ) {
       developers.push(data);
+    }
+  });
+  querySnapshot.forEach((doc) => {
+    let data = doc.data();
+    if (data.position == "developer" && data.edition == "16" ) {
+      oldDevelopers.push(data);
     }
   });
   return {
     props: {
       developers,
+      oldDevelopers
     },
   };
 }
 
-export default function developer({ developers }) {
+export default function developer({ developers , oldDevelopers}) {
   return (
     <div>
       <Head>
@@ -55,6 +62,7 @@ export default function developer({ developers }) {
             })}
         </div>
       </div>
+      <DeveloperComponent developers={oldDevelopers} text="Old Developers"/>
       <SuggestionsFromUsers />
       <Footer />
     </div>
