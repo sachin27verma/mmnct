@@ -4,6 +4,7 @@ import { db, dbRef, storage } from "../components/db/Firebase";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { listAll, ref, getDownloadURL } from "firebase/storage";
 import Link from "next/link";
+import Head from "next/head";
 import { child, get } from "firebase/database";
 import PrevYearMatchCard from "../components/PrevYearMatchCard";
 import Navbar from "../components/Navbar";
@@ -112,9 +113,9 @@ const PastRec=({teamList, matchData,coordinators,
   const StylesBasedonChoice = (choice) => {
     if (selectedChoice === choice) {
       if (selectedGender === "male") {
-        return "bg-[#508CD4] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[103px] px-2 shadow-lg";
+        return "bg-[#508CD4] font-[700] text-[25px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[70px] w-[103px] px-2 shadow-lg";
       } else  {
-        return "bg-[#CE3AB3] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[124px] px-2 shadow-lg";
+        return "bg-[#CE3AB3] font-[700] text-[25px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[70px] w-[124px] px-2 shadow-lg";
       }
     } else {
       return "";
@@ -212,6 +213,10 @@ const PastRec=({teamList, matchData,coordinators,
   
     return (
       <>
+      <Head>
+        <title>Past Records</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className={``} >
       {/* bg-gradient-to-b ${decisionsBasedonGender()} to-white */}
       <p className="font-[800] text-[28px] leading-[34.13px] text-[#FFFDFA] text-center  pt-10 mb-3">
@@ -716,7 +721,7 @@ return (
   {/*  */}
     
   <p className=" text-white text-[38px] leading-[58.51px] text-center  font-bold py-10 ">
-               <span className=" rounded-lg p-2 border-2 border-white  " > Select Edition
+               <span > Select Edition
                 <select value={edition} onChange={(e)=>setEdition(e.target.value)} className=" cursor-pointer ml-2 font-semibold   text-[#414447]  border-2 rounded-lg text-[26px]" > 
                    
                     <option value={"16"} className="rounded-lg hover:cursor-pointer  font-semibold text-[20px] ">16</option>
@@ -730,12 +735,13 @@ return (
        <div className="flex justify-center items-center py-5  ">
               {/* buttons to switch between men and women team */}
               <div className="flex items-center mx-auto border-2 bg-white text-gray-500 px-4 py-2 gap-2 text-center rounded-lg font-[600] text-[30px]">
+              {/* bg-white text-gray-500 flex justify-evenly w-[223px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-6 */}
                 {/* men's button */}
                 <div
                   onClick={() => {
                     setSelectedChoice("squads");
                   }}
-                  className={` h-[44px] flex justify-center items-center cursor-pointer`}
+                  className={` h-[40px] flex justify-center items-center cursor-pointer`}
                 >
                   <p
                     className={`${StylesBasedonChoice(
@@ -751,7 +757,7 @@ return (
                   onClick={() => {
                     setSelectedChoice("matches");
                   }}
-                  className={` h-[44px] flex justify-center items-center cursor-pointer`}
+                  className={` h-[40px] flex justify-center items-center cursor-pointer`}
                 >
                   <p
                     className={`${StylesBasedonChoice(

@@ -58,6 +58,9 @@ const OngoingMatchCard = (props) => {
                     <p className={`${teamName} ml-1 hidden lg:flex`}>
                       {curElem.Team1Id}
                     </p>
+                    <p className="text-sm">
+                        ({teams[curElem.Team1Id].teamType})
+                      </p>
                     {curElem.currBattingTeam === curElem.Team1Id ?
                       <div>
                         {
@@ -162,6 +165,9 @@ const OngoingMatchCard = (props) => {
                     <p className={`${teamName} ml-1 hidden lg:flex`}>
                       {curElem.Team2Id}
                     </p>
+                    <p className="text-sm">
+                        ({teams[curElem.Team2Id].teamType})
+                      </p>
                     {curElem.currBattingTeam === curElem.Team2Id ?
                       <div>
                         {

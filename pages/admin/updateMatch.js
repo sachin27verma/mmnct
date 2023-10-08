@@ -64,7 +64,7 @@ const UpdateMatch = ({ auth_users }) => {
     setcurrId(matchId.target.value);
     const dbref = ref(database);
     let snapshot = await get(
-      child(dbref, "match/" + matchId.target.value)
+      child(dbref, "matchDetail/" + matchId.target.value)
     );
     setteam1name(snapshot?.val().Team1Id);
     setteam2name(snapshot?.val().Team2Id);
@@ -208,29 +208,29 @@ const handleEmergencyButton =async(e)=>{
   openModal();
 }
   
-  // if (!session) {
-  //   return (
-  //     <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
-  //       <p>You need to sign in to access this page!</p>
-  //       <button
-  //         className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-  //         onClick={() => {
-  //           signIn("google");
-  //         }}
-  //       >
-  //         Sign in
-  //       </button>
-  //     </div>
-  //   );
-  // }
+  if (!session) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        <p>You need to sign in to access this page!</p>
+        <button
+          className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+          onClick={() => {
+            signIn("google");
+          }}
+        >
+          Sign in
+        </button>
+      </div>
+    );
+  }
 
-  // if (!validated) {
-  //   return (
-  //     <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
-  //       Sorry, you are not authorised to access this page!
-  //     </div>
-  //   );
-  // }
+  if (!validated) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        Sorry, you are not authorised to access this page!
+      </div>
+    );
+  }
 
   return (
     <div>
