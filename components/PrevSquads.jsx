@@ -86,8 +86,8 @@ const ParticipatingTeams = ({ teamList, edition }) => {
   
     return (
       <>
-      <div >
-      {/* className={`bg-gradient-to-b ${decisionsBasedonGender()} to-white`} */}
+      <div className={`bg-gradient-to-b ${decisionsBasedonGender()} to-white`} >
+      {/*  */}
       <p className="font-[800] text-[28px] leading-[34.13px] text-[#FFFDFA] text-center  pt-10 mb-3">
          
             

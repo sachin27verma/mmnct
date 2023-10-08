@@ -57,24 +57,11 @@ import { getDocs, collection } from "firebase/firestore";
 
 export default function PrevEdMatch ({matchData})  {
   console.log(matchData);
-  // let MatchD = [];
-  // const [matchData, setMatchData] = useState(MatchD);
+
   const [selectedGender, setSelectedGender] = useState("male");
   const [selectedTime, setSelectedTime] = useState("present");
   
-  // useEffect(() => {
-  //   // const temp = ref(database, "matchDetail/");
-  //   // onValue(temp, async (snapshot) => {
-  //   //   const matchObject = await snapshot.val();
-  //   //   let data = [];
-  //   //   Object.keys(matchObject).map((key) => {
-  //   //     data.push(matchObject[key]);
-  //   //   });
-  //   //   setMatchData(data);
-  //   // });
-  //   setMatchData(fetchCollectionData("pastYearMatches"))
-
-  // }, []);
+ 
   
 
   const StylesBasedonGender = (gender) => {
@@ -114,8 +101,8 @@ export default function PrevEdMatch ({matchData})  {
   // console.log(matchData)
   return (
     <>
-      <div >
-      {/* className={`bg-gradient-to-b ${decisionsBasedonGender()} to-white`} */}
+      <div className={`bg-gradient-to-b ${decisionsBasedonGender()} to-white`} >
+      {/*  */}
         <div className="md:hidden flex flex-col">
           <div className="flex flex-1 flex-col items-center">
             <div className="flex justify-center items-center mt-10">
