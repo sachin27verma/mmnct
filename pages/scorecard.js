@@ -2,7 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { database } from '../components/db/Firebase';
 import { ref, get,onValue } from "firebase/database";
-
+import { totalScore, getOver ,extraOfInnings} from "../components/matchFunctions";
+{/* <p className="text-orange-500 font-bold">
+{totalScore(
+  curElem.Team1Score,
+  curElem.Team1Extra,
+  curElem.Team1Wicket
+)}
+</p> */}
 const Scorecard = () => {
   const router = useRouter();
   const { matchId } = router.query;
@@ -14,6 +21,12 @@ const Scorecard = () => {
   const [team2BattingData, setTeam2BattingData] = useState([]); // State to store team2 batting data
   const [team1BowlingData, setTeam1BowlingData] = useState([]);
   const [team2BowlingData, setTeam2BowlingData] = useState([]);
+  const[team1Totalrun,setTeam1Totalrun]=useState([]);
+  const[team2Totalrun,setTeam2Totalrun]=useState([]);
+  const [team1Over, setTeam1Over] = useState([]);
+const [team2Over, setTeam2Over] = useState([]);
+const[team1Extras,setTeam1Extras]=useState([]);
+const[team2Extras,setTeam2Extras]=useState([]);
   const getPlayerScore = (score) => {
     var totalRuns = 0;
     //var ballPlayed = 0;
@@ -58,9 +71,16 @@ const Scorecard = () => {
           setTeam2BattingData(data.Team2Players);
           setTeam1BowlingData(data.Team1Players);
           setTeam2BowlingData(data.Team2Players);
-          console.log(data);
+          setTeam1Totalrun(totalScore(data.Team1Score,data.Team1Extra,data.Team1Wicket));
+          setTeam2Totalrun(totalScore(data.Team2Score,data.Team2Extra,data.Team2Wicket));
+          setTeam1Over(getOver(data.Team1Score,data.Team1prev,data.Team1Extra)[0]);
+          setTeam2Over(getOver(data.Team2Score,data.Team2prev,data.Team2Extra)[0]);
+          setTeam1Extras(extraOfInnings(data.Team1Score,data.Team1Extra));
+          setTeam2Extras(extraOfInnings(data.Team2Score,data.Team2Extra));
+
+          //console.log(data);
         } else {
-          console.log("No match data available");
+         // console.log("No match data available");
         }
       });
   
@@ -156,12 +176,16 @@ var balls;
             return null;
           }
           return (
+            <>
             <tr key={playerId}>
               <td>{player.playerName}</td>
               <td>{ballsToOvers(player.score[12])}</td>
               <td>{player.score[13]}</td>
                 <td>{player.score[14]}</td>
             </tr>
+
+                
+                  </>
           );
         })}
         </tbody>
@@ -196,6 +220,37 @@ var balls;
         {selectedTeam === 'team1' ? populateBattingStats(team1BattingData) : null}
         {selectedTeam === 'team2' ? populateBattingStats(team2BattingData) : null}
       </div>
+     
+
+{/* Display total score for Team 1 */}
+{selectedTeam === 'team1' && (
+       <div>
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Total Score: {team1Totalrun}</h3>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Overs: {team1Over}</h3>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Extras: {team1Extras}</h3>
+          </div>
+          </div>
+        )}
+
+        {/* Display total score for Team 2 */}
+        {selectedTeam === 'team2' && (
+          <div>
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Total Score: {team2Totalrun}</h3>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Overs: {team2Over}</h3>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Extras: {team2Extras}</h3>
+          </div>
+          </div>
+        )}
 
       <div>
         <h2 className="text-xl font-semibold mb-2">Bowling Statistics</h2>
