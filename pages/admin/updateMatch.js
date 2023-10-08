@@ -2,7 +2,6 @@ import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import { afterMatchClosed } from "../../components/matchFunctions.js";
 import {
   fetchData,
   forcefullyChangeStriker,
@@ -13,7 +12,8 @@ import {
   updateTeam1PlayerScore,
   updateTeam2BowlersStats,
   updateTeam2PlayerScore,
-  changeInnings
+  changeInnings,
+  afterMatchClosed
 } from "../../components/matchFunctions.js";
 import { child, ref, get } from "firebase/database";
 import { database, db } from "../../components/db/Firebase";

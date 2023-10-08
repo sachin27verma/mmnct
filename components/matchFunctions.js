@@ -72,16 +72,16 @@ const totalScore = (score, extra, wicket) => {
 };
 
 const extraOfInnings = (score, extra) => {
- 
-  let extra2=extra;
-  for(var i=1;i<score.length;i++){
-    if(score[i].endsWith("nb")){
-      extra2=extra2+0;
+
+  let extra2 = extra;
+  for (var i = 1; i < score.length; i++) {
+    if (score[i].endsWith("nb")) {
+      extra2 = extra2 + 0;
     }
-    else if(score[i].endsWith("wd")||score[i].endsWith("b")){
-      extra2=extra2+parseInt(score[i]);
+    else if (score[i].endsWith("wd") || score[i].endsWith("b")) {
+      extra2 = extra2 + parseInt(score[i]);
     }
-   
+
   }
   return extra2;
 }
@@ -280,9 +280,9 @@ const updateTeam1PlayerScore = async (matchID, playerID, run) => {
 
     //console.log("player is"+ player);
     //console.log(scoreArray);
-    if(run.endsWith("w")||run.endsWith("r")){
-      run=parseInt(run);
-     // console.log(run+"  w");
+    if (run.endsWith("w") || run.endsWith("r")) {
+      run = parseInt(run);
+      // console.log(run+"  w");
     }
     else if (run.endsWith("nb")) {
       run = parseInt(run);
@@ -322,9 +322,9 @@ const updateTeam2PlayerScore = async (matchID, playerID, run) => {
     const player = matchData[playerID];
     const scoreArray = player.score;
 
-    if(run.endsWith("w")||run.endsWith("r")){
-      run=parseInt(run);
-     // console.log(run+"  w");
+    if (run.endsWith("w") || run.endsWith("r")) {
+      run = parseInt(run);
+      // console.log(run+"  w");
     }
     else if (run.endsWith("nb")) {
       run = parseInt(run);
@@ -335,7 +335,7 @@ const updateTeam2PlayerScore = async (matchID, playerID, run) => {
       run = 0;
     }
 
-    if (!isNaN(run)) { 
+    if (!isNaN(run)) {
       // Check if 'run' is a valid number
       scoreArray[run] = (scoreArray[run] || 0) + 1;
       // Update the player's score in the database
@@ -491,39 +491,38 @@ const getPlayerScore = (players, player) => {
 }
 
 async function updatePlayerHistory(playerId, playerData, matchId) {
-  
-  const playerDocRef = doc(db, `participating-team-member/${playerId}`);
 
-getDoc(playerDocRef)
-  .then((docSnapshot) => {
-    if (docSnapshot.exists()) {
-      const data = docSnapshot.data();
-      if (!data.hasOwnProperty('stats')) {
-        // Field does not exist, so add it
-        const updateObject = {
-          stats: playerData.score,
-          [`pastrecords.${matchId}`]: playerData.score
-        };
-        return updateDoc(playerDocRef, updateObject);
+  const playerDocRef = doc(db, `participating-team-member/${playerId}`);
+  getDoc(playerDocRef)
+    .then((docSnapshot) => {
+      if (docSnapshot.exists()) {
+        const data = docSnapshot.data();
+        if (!data.hasOwnProperty('stats')) {
+          // Field does not exist, so add it
+          const updateObject = {
+            stats: playerData.score,
+            [`pastrecords.${matchId}`]: playerData.score
+          };
+          return updateDoc(playerDocRef, updateObject);
+        } else {
+          const existingStats = data['stats'];
+          const updatedStats = existingStats.map((value, index) => value + playerData.score[index]);
+          const updateObject = {
+            stats: updatedStats,
+            [`pastrecords.${matchId}`]: playerData.score
+          };
+          return updateDoc(playerDocRef, updateObject);
+        }
       } else {
-        const existingStats = data['stats'];
-        const updatedStats = existingStats.map((value, index) => value + playerData.score[index]);
-        const updateObject = {
-          stats: updatedStats,
-          [`pastrecords.${matchId}`]: playerData.score
-        };
-        return updateDoc(playerDocRef, updateObject);
+        console.log('No such document!');
       }
-    } else {
-      console.log('No such document!');
-    }
-  })
-  .then(() => {
-    console.log('Field added or updated successfully.');
-  })
-  .catch((error) => {
-    console.error('Error adding or updating field:', error);
-  });
+    })
+    .then(() => {
+      console.log('Field added or updated successfully.');
+    })
+    .catch((error) => {
+      console.error('Error adding or updating field:', error);
+    });
 
 }
 function calculateRunRate(team1TotalScore,team2TotalScore,team1TotalBalls,team2TotalBalls){
