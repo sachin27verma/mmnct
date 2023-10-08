@@ -112,9 +112,9 @@ const PastRec=({teamList, matchData,coordinators,
   const StylesBasedonChoice = (choice) => {
     if (selectedChoice === choice) {
       if (selectedGender === "male") {
-        return "bg-[#508CD4] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[103px] px-2 shadow-lg";
+        return "bg-[#508CD4] font-[700] text-[25px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[70px] w-[103px] px-2 shadow-lg";
       } else  {
-        return "bg-[#CE3AB3] font-[700] text-[20px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[51px] w-[124px] px-2 shadow-lg";
+        return "bg-[#CE3AB3] font-[700] text-[25px] md:text-[39px] md:w-auto md:h-[71px] leading-[24.38px] text-white h-[70px] w-[124px] px-2 shadow-lg";
       }
     } else {
       return "";
@@ -730,12 +730,13 @@ return (
        <div className="flex justify-center items-center py-5  ">
               {/* buttons to switch between men and women team */}
               <div className="flex items-center mx-auto border-2 bg-white text-gray-500 px-4 py-2 gap-2 text-center rounded-lg font-[600] text-[30px]">
+              {/* bg-white text-gray-500 flex justify-evenly w-[223px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-6 */}
                 {/* men's button */}
                 <div
                   onClick={() => {
                     setSelectedChoice("squads");
                   }}
-                  className={` h-[44px] flex justify-center items-center cursor-pointer`}
+                  className={` h-[40px] flex justify-center items-center cursor-pointer`}
                 >
                   <p
                     className={`${StylesBasedonChoice(
@@ -751,7 +752,7 @@ return (
                   onClick={() => {
                     setSelectedChoice("matches");
                   }}
-                  className={` h-[44px] flex justify-center items-center cursor-pointer`}
+                  className={` h-[40px] flex justify-center items-center cursor-pointer`}
                 >
                   <p
                     className={`${StylesBasedonChoice(
