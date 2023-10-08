@@ -14,7 +14,14 @@ export async function getServerSideProps() {
     query(collection(db, "team"), orderBy("name", "desc"))
   );
   let developers = [];
-  let oldDevelopers = [];
+  let _16thEditionDevelopers = [];
+  
+  querySnapshot.forEach((doc) => {
+    let data = doc.data();
+    if (data.position == "leaddeveloper" && data.edition == "17" ) {
+      developers.push(data);
+    }
+  });
   querySnapshot.forEach((doc) => {
     let data = doc.data();
     if (data.position == "developer" && data.edition == "17" ) {
@@ -24,18 +31,18 @@ export async function getServerSideProps() {
   querySnapshot.forEach((doc) => {
     let data = doc.data();
     if (data.position == "developer" && data.edition == "16" ) {
-      oldDevelopers.push(data);
+      _16thEditionDevelopers.push(data);
     }
   });
   return {
     props: {
       developers,
-      oldDevelopers
+      _16thEditionDevelopers
     },
   };
 }
 
-export default function developer({ developers , oldDevelopers}) {
+export default function developer({ developers , _16thEditionDevelopers}) {
   return (
     <div>
       <Head>
@@ -62,7 +69,7 @@ export default function developer({ developers , oldDevelopers}) {
             })}
         </div>
       </div>
-      <DeveloperComponent developers={oldDevelopers} text="Old Developers"/>
+      <DeveloperComponent developers={_16thEditionDevelopers} text="16th Edition Developers"/>
       <SuggestionsFromUsers />
       <Footer />
     </div>
