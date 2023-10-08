@@ -18,7 +18,8 @@ export default function DeveloperComponent({ developers, text }) {
               alt="loading"
             />
           )}
-          <div className="grid gap-2 lg:grid-cols-2 justify-items-center place-items-center ">
+          <div className={`grid gap-2  justify-items-center place-items-center ${developers.length === 1 ? '' : 'lg:grid-cols-2'}`} >
+          {/* className="grid gap-2 lg:grid-cols-2 justify-items-center place-items-center " */}
             {developers.length != 0 &&
               developers.map((developer, index) => {
                 return <Teamcard details={developer} key={index} />;
