@@ -35,7 +35,7 @@ const AddMatch = ({ auth_users }) => {
 
   const fetchData = async () => {
     const dbref = ref(database);
-    let snapshot = await get(child(dbref, "match/"));
+    let snapshot = await get(child(dbref, "matchDetail/"));
     console.log(snapshot.val());
     setFormData({
       ...formData,
@@ -69,29 +69,29 @@ const AddMatch = ({ auth_users }) => {
       alert("Please fill all the fields");
     }
   };
-  // if (!session) {
-  //   return (
-  //     <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
-  //       <p>You need to sign in to access this page!</p>
-  //       <button
-  //         className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-  //         onClick={() => {
-  //           signIn("google");
-  //         }}
-  //       >
-  //         Sign in
-  //       </button>
-  //     </div>
-  //   );
-  // }
+  if (!session) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        <p>You need to sign in to access this page!</p>
+        <button
+          className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+          onClick={() => {
+            signIn("google");
+          }}
+        >
+          Sign in
+        </button>
+      </div>
+    );
+  }
 
-  // if (!validated) {
-  //   return (
-  //     <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
-  //       Sorry, you are not authorised to access this page!
-  //     </div>
-  //   );
-  // }
+  if (!validated) {
+    return (
+      <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
+        Sorry, you are not authorised to access this page!
+      </div>
+    );
+  }
   return (
     <div>
       <Head>
