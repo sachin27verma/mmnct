@@ -123,7 +123,7 @@ export async function getServerSideProps() {
   return {
     props: {
       teamList: data,
-      sponsorImgList: sponsor_img,
+       sponsorImgList: sponsor_img,
       matches: matches,
     },
   };
