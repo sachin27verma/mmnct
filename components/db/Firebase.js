@@ -5,20 +5,15 @@ import { getFirestore, initializeFirestore } from "firebase/firestore";
 import { getDatabase, ref } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB_NhDFJCRkbTA7Ta9TdI5waE_lvfT4gAU",
-  authDomain: "mmnct-fac3f.firebaseapp.com",
-  databaseURL: "https://mmnct-fac3f-default-rtdb.firebaseio.com",
-  projectId: "mmnct-fac3f",
-  storageBucket: "mmnct-fac3f.appspot.com",
-  messagingSenderId: "411682587074",
-  appId: "1:411682587074:web:03f12edd898f488500565b",
-  measurementId: "G-414HCTVM9Q"
-
-
-
-
-
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 };
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
