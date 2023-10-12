@@ -7,7 +7,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 // import useWindowSize from 'react-use/lib/useWindowSize'
-// import Confetti from "react-confetti";
+import Confetti from "react-confetti";
 import { BsFullscreen } from "react-icons/bs";
 const PlayerDetails = ({player}) => {
   const [gender, setGender] = useState("boy");
@@ -320,14 +320,14 @@ const PlayerDetails = ({player}) => {
             keyBoardControl={true}
             className="gd-carousel"
             containerClass="carousel-container"
-            autoPlay={true}
+            // autoPlay={true}
           >
        <div style={boxStyle} className=" w-4/5 p-2 rounded-lg mx-auto my-5 ">
     <div
       className={`${
         gender === "girl"
           ? " text-center w-full bg-pink-500 text-lg font-bold rounded-xl text-white space-x-3 "
-          : "text-center w-full bg-blue-500 text-lg font-bold rounded-xl text-white space-x-3 m-2"
+          : "text-center w-full bg-blue-500 text-lg font-bold rounded-xl text-white space-x-3"
       }`}
     >
       {" "}
@@ -436,7 +436,7 @@ const PlayerDetails = ({player}) => {
       className={`${
         gender === "girl"
           ? " text-center w-full bg-pink-500 text-lg font-bold rounded-xl text-white space-x-3 "
-          : "text-center w-full bg-blue-500 text-lg font-bold rounded-xl text-white space-x-3 m-2"
+          : "text-center w-full bg-blue-500 text-lg font-bold rounded-xl text-white space-x-3 "
       }`}
     >
       {" "}
@@ -539,7 +539,7 @@ const PlayerDetails = ({player}) => {
       className={`${
         gender === "girl"
           ? " text-center w-full bg-pink-500 text-lg font-bold rounded-xl text-white space-x-3 "
-          : "text-center w-full bg-blue-500 text-lg font-bold rounded-xl text-white space-x-3 m-2"
+          : "text-center w-full bg-blue-500 text-lg font-bold rounded-xl text-white space-x-3"
       }`}
     >
       {" "}
@@ -642,7 +642,7 @@ const PlayerDetails = ({player}) => {
       className={`${
         gender === "girl"
           ? " text-center w-full bg-pink-500 text-lg font-bold rounded-xl text-white space-x-3 "
-          : "text-center w-full bg-blue-500 text-lg font-bold rounded-xl text-white space-x-3 m-2"
+          : "text-center w-full bg-blue-500 text-lg font-bold rounded-xl text-white space-x-3 "
       }`}
     >
       {" "}
@@ -745,7 +745,7 @@ const PlayerDetails = ({player}) => {
       className={`${
         gender === "girl"
           ? " text-center w-full bg-pink-500 text-lg font-bold rounded-xl text-white space-x-3 "
-          : "text-center w-full bg-blue-500 text-lg font-bold rounded-xl text-white space-x-3 m-2"
+          : "text-center w-full bg-blue-500 text-lg font-bold rounded-xl text-white space-x-3"
       }`}
     >
       {" "}
