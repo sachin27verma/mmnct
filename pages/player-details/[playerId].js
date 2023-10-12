@@ -320,7 +320,7 @@ const PlayerDetails = ({player}) => {
             keyBoardControl={true}
             className="gd-carousel"
             containerClass="carousel-container"
-            // autoPlay={true}
+            autoPlay={true}
           >
        <div style={boxStyle} className=" w-4/5 p-2 rounded-lg mx-auto my-5 ">
     <div
