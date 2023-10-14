@@ -61,7 +61,7 @@ const PlayerPastRecord = (props) => {
                         }`}
                 >
                     {" "}
-                    Match No. {props.id}
+                    Match No. {props?.id}
                 </div>
                 <div className="w-full p-2 m-1 ">
                     <div className=" rounded-xl flex m-3 mx-auto  ">
@@ -71,7 +71,7 @@ const PlayerPastRecord = (props) => {
                         </p>
                         <p className="   text-center w-full  text-lg font-bold rounded-r-md text-black space-x-3">
                             {" "}
-                            {"opponent"}
+                            {props?.value?.opponent}
                         </p>
                         <hr className=" bg-red-400" />
                     </div>
@@ -89,7 +89,7 @@ const PlayerPastRecord = (props) => {
                         </p>
                         <p className="   text-center w-full  text-lg font-bold rounded-r-md text-black space-x-3">
                             {" "}
-                            {getPlayerScore(props.value)}
+                            {getPlayerScore(props?.value?.score)}
                         </p>
                         <hr className=" bg-red-400" />
                     </div>
@@ -106,7 +106,7 @@ const PlayerPastRecord = (props) => {
                         </p>
                         <p className="   text-center w-full  text-lg font-bold rounded-r-md text-black space-x-3">
                             {" "}
-                            {props?.value[4]}
+                            {props.value && props.value.score && props.value.score[4] ? props.value.score[4] : 0}
                         </p>
                         <hr className=" bg-red-400" />
                     </div>
@@ -123,7 +123,7 @@ const PlayerPastRecord = (props) => {
                         </p>
                         <p className="   text-center w-full  text-lg font-bold rounded-r-md text-black space-x-3">
                             {" "}
-                            {props?.value[6]}
+                            {props.value && props.value.score && props.value.score[6] ? props.value.score[6] : 0}
                         </p>
                         <hr className=" bg-red-400" />
                     </div>
@@ -139,7 +139,7 @@ const PlayerPastRecord = (props) => {
                         </p>
                         <p className="   text-center w-full text-lg font-bold rounded-r-md text-black space-x-3">
                             {" "}
-                            {props?.value[14]}
+                            {props.value && props.value.score && props.value.score[14] ? props.value.score[14] : 0}
                         </p>
                         <hr className=" bg-red-400" />
                     </div>
@@ -155,7 +155,7 @@ const PlayerPastRecord = (props) => {
                         </p>
                         <p className="   text-center w-full  text-lg font-bold rounded-r-md text-black space-x-3">
                             {" "}
-                            {calculateStrikeRate(getPlayerScore(props.value), getPlayerBalls(props.value))}
+                            {calculateStrikeRate(getPlayerScore(props.value.score), getPlayerBalls(props.value.score))}
                         </p>
                         <hr className=" bg-red-400" />
                     </div>
