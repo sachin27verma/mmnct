@@ -10,6 +10,7 @@ import {
   getDoc,
   updateDoc,
   where,
+  arrayUnion,
 } from "firebase/firestore";
 const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
   await set(ref(database, "matchDetail/" + ID), {
@@ -550,33 +551,37 @@ function calculateWomenRunRate(team1TotalScore,team2TotalScore,team1TotalBalls,t
 async function updateNetRunRate(teamOneId, teamTwoId, team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls) {
   
 
-  const team1Ref = db.collection('participating-teams').doc(teamOneId);
-  const team2Ref = db.collection('participating-teams').doc(teamTwoId);
+  // const team1Ref = db.collection('participating-teams').doc(teamOneId);
+  // const team2Ref = db.collection('participating-teams').doc(teamTwoId);
 
-  const team1Data = await team1Ref.get();
-  const team2Data = await team2Ref.get();
+  // const team1Data = await team1Ref.get();
+  // const team2Data = await team2Ref.get();
  // console.log(team1Data);
   //console.log(team2Data);
+  const team1Ref = doc(db, 'participating-teams', teamOneId);
+  const team2Ref = doc(db, 'participating-teams', teamTwoId);
 
+  const team1Data = await getDoc(team1Ref);
+  const team2Data = await getDoc(team2Ref);
   const team1RunRate = team1Data.exists ? (team1Data.data().runRate || []) : [];
   const team2RunRate = team2Data.exists ? (team2Data.data().runRate || []) : [];
 
-  const runRateTeam1 = (gender=="Male")?calculateMenRunRate(team1TotalScore,team2TotalScore,team1TotalBalls,team2TotalBalls):calculateWomenRunRate(team1TotalScore,team2TotalScore,team1TotalBalls,team2TotalBalls);
+  const runRateTeam1 = (team1Data.data().gender=="Male")?calculateMenRunRate(team1TotalScore,team2TotalScore,team1TotalBalls,team2TotalBalls):calculateWomenRunRate(team1TotalScore,team2TotalScore,team1TotalBalls,team2TotalBalls);
   const runRateTeam2 = (-1)*runRateTeam1;
   console.log(runRateTeam1);
   console.log(runRateTeam2);
 
   
-  team1RunRate.push(runRateTeam1);
-  team2RunRate.push(runRateTeam2);
+  // team1RunRate.push(runRateTeam1);
+  // team2RunRate.push(runRateTeam2);
 
  
-  await team1Ref.update({
-      runRate: team1RunRate,
+  await updateDoc(team1Ref, {
+    runRate: arrayUnion(runRateTeam1),
   });
 
-  await team2Ref.update({
-      runRate: team2RunRate,
+  await updateDoc(team2Ref, {
+    runRate: arrayUnion(runRateTeam2),
   });
 
   console.log('Run rates for the current match updated successfully!');
