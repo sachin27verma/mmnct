@@ -121,7 +121,7 @@ const addPlayerToMatch = async (matchID, teamID, playerID, playerName) => {
     status: "Did Not Bat",
     battingOrder: 0,
   };
-
+  playerObject.score = playerObject.score.map((value, index) => (index === 10 ? 1 : 0));
   //Check if the team exists in the match data
   if (matchData[teamID]) {
     // Check if the players object exists for the tea
@@ -465,11 +465,11 @@ await updateNetRunRate(teamOneid,teamTwoid,Team1totalScore,Team2totalScore,team1
   
 let playerDetail = Object.entries(data.Team1Players);
   for (const [key, value] of playerDetail) {
-    await updatePlayerHistory(key, value, matchId);
+    await updatePlayerHistory(key, value, matchId,Team2Id);
   }
   playerDetail = Object.entries(data.Team2Players);
   for (const [key, value] of playerDetail) {
-    await updatePlayerHistory(key, value, matchId);
+    await updatePlayerHistory(key, value, matchId,Team1Id);
   }
   return 0;
 }
@@ -491,9 +491,10 @@ const getPlayerScore = (players, player) => {
   return totalRuns + "(" + ballPlayed + ")";
 }
 
-async function updatePlayerHistory(playerId, playerData, matchId) {
+async function updatePlayerHistory(playerId, playerData, matchId,OpponentId) {
 
   const playerDocRef = doc(db, `participating-team-member/${playerId}`);
+  playerData[11] = getPlayerScore(playerData.score);
   getDoc(playerDocRef)
     .then((docSnapshot) => {
       if (docSnapshot.exists()) {
@@ -502,15 +503,21 @@ async function updatePlayerHistory(playerId, playerData, matchId) {
           // Field does not exist, so add it
           const updateObject = {
             stats: playerData.score,
-            [`pastrecords.${matchId}`]: playerData.score
+            [`pastrecords.${matchId}`]: playerData.score,
+            [`pastrecords.${matchId}.opponent`]: OpponentId
           };
           return updateDoc(playerDocRef, updateObject);
         } else {
           const existingStats = data['stats'];
-          const updatedStats = existingStats.map((value, index) => value + playerData.score[index]);
+          const updatedStats = existingStats.map((value, index) => {
+            (index !== 11) ?
+            value + playerData.score[index] :
+            (playerData[11] > value ? playerData[11] :  value)
+          })
           const updateObject = {
             stats: updatedStats,
-            [`pastrecords.${matchId}`]: playerData.score
+            [`pastrecords.${matchId}`]: playerData.score,
+            [`pastrecords.${matchId}.opponent`]: OpponentId
           };
           return updateDoc(playerDocRef, updateObject);
         }

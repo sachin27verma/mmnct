@@ -69,7 +69,7 @@ const Scorecard = () => {
   }
   useEffect(() => {
     if (matchId) {
-      const matchRef = ref(database, "match/" + matchId);
+      const matchRef = ref(database, "matchDetail/" + matchId);
 
       const unsubscribe = onValue(matchRef, (snapshot) => {
         if (snapshot.exists()) {
@@ -112,13 +112,13 @@ const Scorecard = () => {
   const [male_color, setmale_color] = useState(true);
   // console.log(matchData +" helo000");
    const team1Datas =  teams[matchData?.Team1Id];
-
    const team2Datas =  teams[matchData?.Team2Id];
 
   //console.log(team1Datas);
    const color1=team1Datas?.themeColor;
    //console.log(color1);
    const color2=team2Datas?.themeColor;
+
    //console.log(color2);
   // const team1_color = "bg-[#1f1f1f]";
   
@@ -128,6 +128,7 @@ const Scorecard = () => {
   // const color_2 = "[#fdffff]";
   const team1_color = `bg-[${teams[matchData?.Team1Id]?.themeColor}]`;
   const team2_color = `bg-[${teams[matchData?.Team2Id]?.themeColor}]`;
+  const ballteam2 = `bowling_stats w-full h-12 mt-[7px] ${team2_color} flex align-middle items-center justify-between rounded-3xl text-white text-sm sm:text-xl  px-4`
 
 //   const teamColor=(TeamId)=>{
 //     const teamDatas=teams[TeamId];
@@ -391,7 +392,7 @@ const Scorecard = () => {
         <div className="team_1">
           <div className=" batting px-3   ">
             <div
-              className={`batting_stats w-full  h-12 ${team_1 ? team1_color : team2_color} flex align-middle items-center justify-between rounded-3xl mt-3  px-4 text-white text-sm sm:text-xl mb-2`}>
+              className={`batting_stats w-full  h-12 ${team_1 ? `bg-[${teams[matchData?.Team1Id]?.themeColor}]` : `bg-[${teams[matchData?.TeamId]?.themeColor}]`} flex align-middle items-center justify-between rounded-3xl mt-3  px-4 text-white text-sm sm:text-xl mb-2`}>
               <p className="w-[40%]  not-italic font-semibold leading-[normal] tracking-[2px] ">
                 Batting
               </p>
@@ -434,7 +435,7 @@ const Scorecard = () => {
           {/* {*****************Bowling***********} */}
           <div className="bowling px-3 py-4">
             <div
-              className={`bowling_stats w-full h-12 mt-[7px] ${team2_color} flex align-middle items-center justify-between rounded-3xl text-white text-sm sm:text-xl  px-4`}>
+              className={ballteam2}>
               <p className=" sm:w-[40%] w-[50%] not-italic font-semibold leading-[normal] tracking-[2px] ">
                 Bowlers
               </p>
