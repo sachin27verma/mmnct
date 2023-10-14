@@ -64,7 +64,7 @@ const Scorecard = () => {
       console.error('Overs bowled cannot be zero.');
       return null;
     }
-  
+
     const economyRate = (runsConceded / noOfBallsBowled) * 6;
     return economyRate.toFixed(2); // Rounding to two decimal places
   }
@@ -75,7 +75,7 @@ const Scorecard = () => {
       const unsubscribe = onValue(matchRef, (snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-         // console.log("helooo" + data);
+          // console.log("helooo" + data);
           setMatchData(data);
           setTeam1BattingData(data.Team1Players);
           setTeam2BattingData(data.Team2Players);
@@ -111,17 +111,17 @@ const Scorecard = () => {
     return strikeRate.toFixed(1); // Round to 2 decimal places
   };
   // console.log(matchData +" helo000");
-   const team1Datas =  teams[matchData?.Team1Id];
-   const team2Datas =  teams[matchData?.Team2Id];
+  const team1Datas = teams[matchData?.Team1Id];
+  const team2Datas = teams[matchData?.Team2Id];
 
   //console.log(team1Datas);
-   const color1=team1Datas?.themeColor;
-   //console.log(color1);
-   const color2=team2Datas?.themeColor;
+  const color1 = team1Datas?.themeColor;
+  //console.log(color1);
+  const color2 = team2Datas?.themeColor;
 
-   //console.log(color2);
+  //console.log(color2);
   // const team1_color = "bg-[#1f1f1f]";
-  
+
   // const team2_color = `bg-[${color2}]`;
   // console.log("hii" + team2_color);
   // const color_1 = "[#1f1f1f]";
@@ -130,12 +130,12 @@ const Scorecard = () => {
   const team2_color = `bg-[${teams[matchData?.Team2Id]?.themeColor}]`;
   const ballteam2 = `bowling_stats w-full h-12 mt-[7px] ${team2_color} flex align-middle items-center justify-between rounded-3xl text-white text-sm sm:text-xl  px-4`
 
-//   const teamColor=(TeamId)=>{
-//     const teamDatas=teams[TeamId];
-//     const color2=teamDatas?.themeColor;
-//     const teamColor = `bg-[${color2}]`
-//  return teamColor
-//   }
+  //   const teamColor=(TeamId)=>{
+  //     const teamDatas=teams[TeamId];
+  //     const color2=teamDatas?.themeColor;
+  //     const teamColor = `bg-[${color2}]`
+  //  return teamColor
+  //   }
 
   const populateBattingStats = (battingData) => {
     const battingPlayers = [];
@@ -159,7 +159,7 @@ const Scorecard = () => {
 
     // when Batsman starts playing ********
     return (
-      
+
       battingPlayers.map((player) => (
         <div key={player.playerName} className="wrapp">
           <div className="player_stat text-black text-sm sm:text-md md:text-lg lg:texl-xl flex align-middle items-center justify-between px-4  ">
@@ -212,18 +212,18 @@ const Scorecard = () => {
   };
   const yetToBatStats = (battingData) => {
     let yetToBat = [];
-  
+
     Object.keys(battingData).forEach((playerId) => {
       let player = battingData[playerId];
-     // console.log("kii" + player);
-  
+      // console.log("kii" + player);
+
       if (player.status === 'Did Not Bat') {
-       
+
         yetToBat.push(player);
       }
     });
-  
-   
+
+
     return yetToBat;
   }
   // const teamName =  matchData.Team1Id;
@@ -241,39 +241,39 @@ const Scorecard = () => {
         if (player.score[12] === 0) {
           return null;
         }
-                 return(
+        return (
 
-        <div className="wrapp">
-          <div className="player_stat flex text-black  text-sm sm:text-md md:text-lg lg:text-xl align-middle items-center justify-between px-4 my-2 mt-4  ">
-            <div className="sm:w-[40%] w-[50%]  ">
-              <p className=" not-italic  font-semibold leading-[normal] ">
-                {/* Bowler name */}
-                {player.playerName}
-              </p>
+          <div className="wrapp">
+            <div className="player_stat flex text-black  text-sm sm:text-md md:text-lg lg:text-xl align-middle items-center justify-between px-4 my-2 mt-4  ">
+              <div className="sm:w-[40%] w-[50%]  ">
+                <p className=" not-italic  font-semibold leading-[normal] ">
+                  {/* Bowler name */}
+                  {player.playerName}
+                </p>
+              </div>
+              <div className=" w-[50%]  sm:w-[60%] flex text-right">
+                <p className=" not-italic font-normal leading-[normal] w-[25%] ">
+                  {/* No of over */}
+                  {ballsToOvers(player.score[12])}
+                </p>
+                <p className=" not-italic font-normal leading-[normal] w-[20%]">
+                  {/* total run spend */}
+                  {player.score[13]}
+                </p>
+                <p className="not-italic font-normal leading-[normal] w-[20%]">
+                  {/* No of wickets */}
+                  {player.score[14]}
+                </p>
+                <p className=" not-italic font-normal leading-[normal] w-[35%]">
+                  {/* Bowler Economy */}
+                  {/* 6.95 */}
+                  {calculateEconomyRate(player.score[13], player.score[12])}
+                </p>
+              </div>
             </div>
-            <div className=" w-[50%]  sm:w-[60%] flex text-right">
-              <p className=" not-italic font-normal leading-[normal] w-[25%] ">
-                {/* No of over */}
-                {ballsToOvers(player.score[12])}
-              </p>
-              <p className=" not-italic font-normal leading-[normal] w-[20%]">
-                {/* total run spend */}
-              {player.score[13]}
-              </p>
-              <p className="not-italic font-normal leading-[normal] w-[20%]">
-                {/* No of wickets */}
-                {player.score[14]}
-              </p>
-              <p className=" not-italic font-normal leading-[normal] w-[35%]">
-                {/* Bowler Economy */}
-                {/* 6.95 */}
-                {calculateEconomyRate(player.score[13],player.score[12])}
-              </p>
-            </div>
+            <hr className=" w-[95%] text-center mx-auto bg-black" />
           </div>
-          <hr className=" w-[95%] text-center mx-auto bg-black" />
-        </div>
-      )
+        )
       }
       )
 
@@ -375,81 +375,183 @@ const Scorecard = () => {
     if (team_2 === false) {
       seteam_2(true);
       seteam_1(false);
-     // console.log("2");
+      // console.log("2");
     }
   };
 
   //  overall  team 1 REcord *****************************************888***
-  
 
-//   const team1Datas =  teams[matchData?.Team1Id];
 
-//  const team2Datas =  teams[matchData?.Team2Id];
- 
+  //   const team1Datas =  teams[matchData?.Team1Id];
+
+  //  const team2Datas =  teams[matchData?.Team2Id];
+
+  // const teamno_1 = (
+  //   <div>
+  //     {team_1 && (
+  //       <div className="team_1">
+  //         {yetToBatStats(team1BattingData).length !== 11 && (
+  //           <div className=" batting px-3   ">
+
+  //             <div
+  //               className={`batting_stats w-full  h-12 ${team_1 ? `bg-[${teams[matchData?.Team1Id]?.themeColor}]` : `bg-[${teams[matchData?.TeamId]?.themeColor}]`} flex align-middle items-center justify-between rounded-3xl mt-3  px-4 text-white text-sm sm:text-xl mb-2`}>
+  //               <p className="w-[40%]  not-italic font-semibold leading-[normal] tracking-[2px] ">
+  //                 Batting
+  //               </p>
+
+  //               <div className=" w-[60%] flex text-right">
+  //                 <p className=" not-italic font-bold leading-[normal] w-[30%] ">
+  //                   R(B)
+  //                 </p>
+
+  //                 <p className=" not-italic font-bold leading-[normal] w-[20%]">
+  //                   4s
+  //                 </p>
+  //                 <p className=" not-italic font-bold leading-[normal] w-[20%]">
+  //                   6s
+  //                 </p>
+  //                 <p className=" not-italic font-bold leading-[normal] w-[30%]">
+  //                   S/R
+  //                 </p>
+  //               </div>
+  //             </div>
+  //             {populateBattingStats(team1BattingData)}
+  //             {team1kaExtra}
+  //             {team1Total_runs}
+  //             {/* Yet to bat team 1  */}
+  //             <div className=" px-4  font-semibold text-sm sm:text-md md:text-lg lg:text-xl text-black item-left sm:flex-row h-auto justify-between align-middle py-2">
+  //               <p className="  not-italic font-semibold leading-[normal] tracking-[2px]">
+  //                 Yet To Bat
+  //               </p>
+  //               <p className="text-[#000F95]  text-left text-xs sm:text-sm md:text-md lg:text-lg   not-italic font-medium leading-[normal]  ">
+  //                 {yetToBatStats(team1BattingData).map((player, index, array) => (
+  //                   <span key={player.playerId}>
+  //                     {/* Render relevant information about the player */}
+  //                     {player.playerName}
+  //                     {/* Add a comma and space after each player name, except for the last one */}
+  //                     {index < array.length - 1 ? ', ' : ''}
+  //                   </span>
+  //                 ))}
+  //               </p>
+  //             </div>
+  //           </div>
+  //         {/* {*****************Bowling***********} */}
+  //         <div className="bowling px-3 py-4">
+  //           <div
+  //             className={ballteam2}>
+  //             <p className=" sm:w-[40%] w-[50%] not-italic font-semibold leading-[normal] tracking-[2px] ">
+  //               Bowlers
+  //             </p>
+  //             <div className=" flex w-[50%] sm:w-[60%] text-right">
+  //               <p className=" not-italic font-bold leading-[normal] w-[25%] ">
+  //                 O
+  //               </p>
+  //               <p className=" not-italic font-bold leading-[normal] w-[20%] ">
+  //                 R
+  //               </p>
+  //               <p className=" not-italic font-bold leading-[normal] w-[20%]">
+  //                 W
+  //               </p>
+  //               <p className=" not-italic font-bold leading-[normal] w-[35%]">
+  //                 ECO
+  //               </p>
+  //             </div>
+  //           </div>
+  //           {/* {console.log(team2BowlingData)} */}
+  //           {populateBowlingStats(team2BowlingData)}
+  //         </div>
+  //         )
+  //         }
+  //       </div>
+
+  //     )}
+  //   </div>
+
+  // );
   const teamno_1 = (
     <div>
       {team_1 && (
         <div className="team_1">
-          <div className=" batting px-3   ">
-            <div
-              className={`batting_stats w-full  h-12 ${team_1 ? `bg-[${teams[matchData?.Team1Id]?.themeColor}]` : `bg-[${teams[matchData?.TeamId]?.themeColor}]`} flex align-middle items-center justify-between rounded-3xl mt-3  px-4 text-white text-sm sm:text-xl mb-2`}>
-              <p className="w-[40%]  not-italic font-semibold leading-[normal] tracking-[2px] ">
-                Batting
-              </p>
-              <div className=" w-[60%] flex text-right">
-                <p className=" not-italic font-bold leading-[normal] w-[30%] ">
-                  R(B)
+          {yetToBatStats(team1BattingData).length !== 11 && (
+            <div className="batting px-3">
+              <div
+                className={`batting_stats w-full h-12 ${team_1 ? `bg-[${teams[matchData?.Team1Id]?.themeColor}]` : `bg-[${teams[matchData?.TeamId]?.themeColor}]`} flex align-middle items-center justify-between rounded-3xl mt-3 px-4 text-white text-sm sm:text-xl mb-2`}
+              >
+                <p className="w-[40%] not-italic font-semibold leading-[normal] tracking-[2px]">
+                  Batting
                 </p>
-
-                <p className=" not-italic font-bold leading-[normal] w-[20%]">
-                  4s
+                <div className=" w-[60%] flex text-right">
+                  <p className="not-italic font-bold leading-[normal] w-[30%]">
+                    R(B)
+                  </p>
+                  <p className="not-italic font-bold leading-[normal] w-[20%]">
+                    4s
+                  </p>
+                  <p className="not-italic font-bold leading-[normal] w-[20%]">
+                    6s
+                  </p>
+                  <p className="not-italic font-bold leading-[normal] w-[30%]">
+                    S/R
+                  </p>
+                </div>
+              </div>
+              {populateBattingStats(team1BattingData)}
+              {team1kaExtra}
+              {team1Total_runs}
+              {/* Yet to bat team 1  */}
+              <div className=" px-4 font-semibold text-sm sm:text-md md:text-lg lg:text-xl text-black item-left sm:flex-row h-auto justify-between align-middle py-2">
+                <p className="not-italic font-semibold leading-[normal] tracking-[2px]">
+                  Yet To Bat
                 </p>
-                <p className=" not-italic font-bold leading-[normal] w-[20%]">
-                  6s
-                </p>
-                <p className=" not-italic font-bold leading-[normal] w-[30%]">
-                  S/R
+                <p className="text-[#000F95] text-left text-xs sm:text-sm md:text-md lg:text-lg not-italic font-medium leading-[normal]">
+                  {yetToBatStats(team1BattingData).map(
+                    (player, index, array) => (
+                      <span key={player.playerId}>
+                        {/* Render relevant information about the player */}
+                        {player.playerName}
+                        {/* Add a comma and space after each player name, except for the last one */}
+                        {index < array.length - 1 ? ', ' : ''}
+                      </span>
+                    )
+                  )}
                 </p>
               </div>
             </div>
-            {populateBattingStats(team1BattingData)}
-            {team1kaExtra}
-            {team1Total_runs}
-            {/* Yet to bat team 1  */}
-            <div className=" px-4  font-semibold text-sm sm:text-md md:text-lg lg:text-xl text-black item-left sm:flex-row h-auto justify-between align-middle py-2">
-              <p className="  not-italic font-semibold leading-[normal] tracking-[2px]">
-                Yet To Bat
-              </p>
-              <p className="text-[#000F95]  text-left text-xs sm:text-sm md:text-md lg:text-lg   not-italic font-medium leading-[normal]  ">
-              {yetToBatStats(team1BattingData).map((player, index, array) => (
-    <span key={player.playerId}>
-      {/* Render relevant information about the player */}
-      {player.playerName}
-      {/* Add a comma and space after each player name, except for the last one */}
-      {index < array.length - 1 ? ', ' : ''}
-    </span>
-  ))}
-              </p>
-            </div>
-          </div>
+          )}
+          {yetToBatStats(team1BattingData).length === 11 && (
+  <div>
+    <p className="w-[40%] not-italic font-semibold leading-[normal] tracking-[2px]">
+      TeamLineUp
+    </p>
+
+    <div className="batting px-3 wrapp player_stat text-black text-sm sm:text-md md:text-lg lg:texl-xl flex align-middle items-center justify-between px-4">
+      <div className="w-[40%]">
+        {yetToBatStats(team1BattingData).map((player, index, array) => (
+          <span key={player.playerId}>
+            <p className="not-italic font-semibold leading-[normal]">
+              {/* Batsman name */}
+              {player.playerName}
+            </p>
+            <hr className="w-[95%] text-center mx-auto bg-black h-0 mb-2" />
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+)}
+
+
           {/* {*****************Bowling***********} */}
           <div className="bowling px-3 py-4">
-            <div
-              className={ballteam2}>
-              <p className=" sm:w-[40%] w-[50%] not-italic font-semibold leading-[normal] tracking-[2px] ">
+            <div className={ballteam2}>
+              <p className="sm:w-[40%] w-[50%] not-italic font-semibold leading-[normal] tracking-[2px]">
                 Bowlers
               </p>
-              <div className=" flex w-[50%] sm:w-[60%] text-right">
-                <p className=" not-italic font-bold leading-[normal] w-[25%] ">
-                  O
-                </p>
-                <p className=" not-italic font-bold leading-[normal] w-[20%] ">
-                  R
-                </p>
-                <p className=" not-italic font-bold leading-[normal] w-[20%]">
-                  W
-                </p>
-                <p className=" not-italic font-bold leading-[normal] w-[35%]">
+              <div className="flex w-[50%] sm:w-[60%] text-right">
+                <p className="not-italic font-bold leading-[normal] w-[25%]">O</p>
+                <p className="not-italic font-bold leading-[normal] w-[20%]">R</p>
+                <p className="not-italic font-bold leading-[normal] w-[20%]">W</p>
+                <p className="not-italic font-bold leading-[normal] w-[35%]">
                   ECO
                 </p>
               </div>
@@ -461,7 +563,7 @@ const Scorecard = () => {
       )}
     </div>
   );
-  
+
 
   //  overall  team 2 REcord ********************************
   const teamno_2 = (
@@ -500,21 +602,21 @@ const Scorecard = () => {
                 Yet To Bat
               </p>
               <p className="text-[#000F95]  text-left text-xs sm:text-sm md:text-md lg:text-lg  not-italic font-medium leading-[normal]  ">
-              {yetToBatStats(team2BattingData).map((player, index, array) => (
-    <span key={player.playerId}>
-     
-      {player.playerName}
-   
-      {index < array.length - 1 ? ', ' : ''}
-    </span>
-  ))}
+                {yetToBatStats(team2BattingData).map((player, index, array) => (
+                  <span key={player.playerId}>
+
+                    {player.playerName}
+
+                    {index < array.length - 1 ? ', ' : ''}
+                  </span>
+                ))}
               </p>
             </div>
           </div>
           {/* {*****************Bowling***********} */}
           <div className="bowling px-3 py-4">
             <div
-              className={`bowling_stats w-full h-12 mt-[7px] ${ team1_color}  flex align-middle items-center justify-between rounded-3xl text-white text-sm sm:text-xl  px-4`}>
+              className={`bowling_stats w-full h-12 mt-[7px] ${team1_color}  flex align-middle items-center justify-between rounded-3xl text-white text-sm sm:text-xl  px-4`}>
               <p className=" sm:w-[40%] w-[50%] not-italic font-semibold leading-[normal] tracking-[2px] ">
                 Bowlers
               </p>
@@ -592,7 +694,7 @@ const Scorecard = () => {
 
                   <div className=" w-full  text-wrap-balance break-normal box-content ">
                     {/* team 1 short Name */}
-                 
+
                     <h4 className="  font-bold">  {team1Datas?.teamCode} </h4>
                     <h3 className=" text-center block sm:hidden  not-italic font-bold leading-[normal]">
                       {/* team 1 summary */}
@@ -607,7 +709,7 @@ const Scorecard = () => {
                 <div>
                   {/* team 1 summary */}
                   <h3 className=" text-center  not-italic font-bold leading-[normal]">
-                  {team1Totalrun}
+                    {team1Totalrun}
                   </h3>
                   <p className=" text-base">({team1Over})</p>
                 </div>
@@ -652,9 +754,9 @@ const Scorecard = () => {
 
                   <div className=" w-full  text-wrap-balance break-normal box-content ">
                     {/* Team 2 short name */}
-                    
-                    <p className="  font-bold">  {team2Datas?.teamCode} 
-                   </p>
+
+                    <p className="  font-bold">  {team2Datas?.teamCode}
+                    </p>
                     {/* team 2 summary */}
                     <h3 className=" text-center block sm:hidden  not-italic font-bold leading-[normal]">
                       {team2Totalrun}<span className=" font-light text-sm">({team2Over})</span>
@@ -685,7 +787,7 @@ const Scorecard = () => {
           <div className="inner_set w-full  mx-auto mt-4 pb-0 sm:pb-5 ">
             <div className=" flex w-[95%] mx-auto text-center rounded-3xl ">
               <button
-                className={`btnn1 h-12  w-[50%] flex rounded-tl-3xl rounded-bl-3xl items-center ${team_1 ? team1_color: `${team1_color} bg-opacity-75`
+                className={`btnn1 h-12  w-[50%] flex rounded-tl-3xl rounded-bl-3xl items-center ${team_1 ? team1_color : `${team1_color} bg-opacity-75`
                   } justify-center text-white text-sm sm:text-xl  not-italic font-bold leading-[normal]  `}
                 onClick={handlechange_1}>
                 {/* Team 1 Full Name */}
