@@ -17,7 +17,7 @@ const PlayerPastRecord = (props) => {
         var totalRuns = 0;
         //var ballPlayed = 0;
         if (score) {
-            for (var i = 0; i <= 10; i++) {
+            for (var i = 0; i < 10; i++) {
                 if (score[i]) {
                     // console.log(score[i]);
                     totalRuns += i * score[i];
@@ -32,7 +32,7 @@ const PlayerPastRecord = (props) => {
         //var totalRuns = 0;
         var ballPlayed = 0;
         if (score) {
-            for (var i = 0; i <= 10; i++) {
+            for (var i = 0; i < 10; i++) {
                 if (score) {
 
                     ballPlayed += score[i];

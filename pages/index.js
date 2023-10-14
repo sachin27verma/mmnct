@@ -103,7 +103,7 @@ export async function getServerSideProps() {
 
   let matches = [];
   let localMatches = [];
-  let snapshot = await get(child(dbRef, "matchDetail/"));
+  let snapshot = await get(child(dbRef, "match/"));
   if (snapshot) {
     localMatches = snapshot.val();
     if (localMatches) {

@@ -21,6 +21,42 @@ import {
 const PlayerDetails = ({ player }) => {
   player = '2Zeb7HCTgshRRllPv1JA';
   const [playerStats, setPlayerStats] = useState("");
+  const getPlayerScore = (score) => {
+    var totalRuns = 0;
+    //var ballPlayed = 0;
+    if (score) {
+      for (var i = 0; i < 10; i++) {
+        if (score[i]) {
+          // console.log(score[i]);
+          totalRuns += i * score[i];
+
+        }
+      }
+    }
+    return totalRuns;
+  }
+  const getPlayerBalls = (score) => {
+    //var totalRuns = 0;
+    var ballPlayed = 0;
+    if (score) {
+      for (var i = 0; i < 10; i++) {
+        if (score) {
+
+          ballPlayed += score[i];
+        }
+      }
+    }
+    return ballPlayed;
+  }
+
+  const calculateStrikeRate = (runs, balls) => {
+    if (balls === 0) {
+      return 0; // Avoid division by zero
+    }
+    const strikeRate = (runs / balls) * 100;
+    return strikeRate.toFixed(1); // Round to 2 decimal places
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -152,7 +188,7 @@ const PlayerDetails = ({ player }) => {
                   </p>
                   <p className="   text-center w-full pl-5  text-lg font-bold rounded-r-md text-black space-x-3">
                     {" "}
-                    1280
+                    {playerStats && playerStats.stats && playerStats.stats[10] ? playerStats.stats[10] : 0}
                   </p>
                   <hr className=" bg-red-400" />
                 </div>
@@ -187,7 +223,7 @@ const PlayerDetails = ({ player }) => {
                   </p>
                   <p className="   text-center w-full pl-5  text-lg font-bold rounded-r-md text-black space-x-3">
                     {" "}
-                    1280
+                    {playerStats && playerStats.stats ? getPlayerScore(playerStats.stats) : 0}
                   </p>
                   <hr className=" bg-red-400" />
                 </div>
@@ -203,7 +239,7 @@ const PlayerDetails = ({ player }) => {
                   </p>
                   <p className="   text-center w-full pl-5  text-lg font-bold rounded-r-md text-black space-x-3">
                     {" "}
-                    1280
+                    {playerStats && playerStats.stats ? calculateStrikeRate(getPlayerScore(playerStats.stats),getPlayerBalls(playerStats.stats)) : 0}
                   </p>
                   <hr className=" bg-red-400" />
                 </div>
@@ -219,7 +255,7 @@ const PlayerDetails = ({ player }) => {
                   </p>
                   <p className="   text-center w-full pl-5  text-lg font-bold rounded-r-md text-black space-x-3">
                     {" "}
-                    1280
+                    {playerStats && playerStats.stats  && playerStats.stats[11] ? playerStats.stats[11] : 0}
                   </p>
                   <hr className=" bg-red-400" />
                 </div>
@@ -235,7 +271,7 @@ const PlayerDetails = ({ player }) => {
                   </p>
                   <p className="   text-center w-full pl-5  text-lg font-bold rounded-r-md text-black space-x-3">
                     {" "}
-                    1280
+                    {playerStats && playerStats.stats  && playerStats.stats[14] ? playerStats.stats[14] : 0}
                   </p>
                   <hr className=" bg-red-400" />
                 </div>

@@ -27,11 +27,12 @@ const Scorecard = () => {
   const [team2Over, setTeam2Over] = useState([]);
   const [team1Extras, setTeam1Extras] = useState([]);
   const [team2Extras, setTeam2Extras] = useState([]);
+  const [male_color, setmale_color] = useState(true);
   const getPlayerScore = (score) => {
     var totalRuns = 0;
     //var ballPlayed = 0;
     if (score) {
-      for (var i = 0; i <= 10; i++) {
+      for (var i = 0; i < 10; i++) {
         if (score[i]) {
           // console.log(score[i]);
           totalRuns += i * score[i];
@@ -45,7 +46,7 @@ const Scorecard = () => {
     //var totalRuns = 0;
     var ballPlayed = 0;
     if (score) {
-      for (var i = 0; i <= 10; i++) {
+      for (var i = 0; i < 10; i++) {
         if (score) {
 
           ballPlayed += score[i];
@@ -69,7 +70,7 @@ const Scorecard = () => {
   }
   useEffect(() => {
     if (matchId) {
-      const matchRef = ref(database, "matchDetail/" + matchId);
+      const matchRef = ref(database, "match/" + matchId);
 
       const unsubscribe = onValue(matchRef, (snapshot) => {
         if (snapshot.exists()) {
@@ -86,7 +87,7 @@ const Scorecard = () => {
           setTeam2Over(getOver(data.Team2Score, data.Team2prev, data.Team2Extra)[0]);
           setTeam1Extras(extraOfInnings(data.Team1Score, data.Team1Extra));
           setTeam2Extras(extraOfInnings(data.Team2Score, data.Team2Extra));
-
+          setmale_color(data.category === "male" ? true : false);
           //console.log(data);
         } else {
           console.log("No match data available");
@@ -109,7 +110,6 @@ const Scorecard = () => {
     const strikeRate = (runs / balls) * 100;
     return strikeRate.toFixed(1); // Round to 2 decimal places
   };
-  const [male_color, setmale_color] = useState(true);
   // console.log(matchData +" helo000");
    const team1Datas =  teams[matchData?.Team1Id];
    const team2Datas =  teams[matchData?.Team2Id];
