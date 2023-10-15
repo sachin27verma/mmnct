@@ -468,101 +468,193 @@ const Scorecard = () => {
   //   </div>
 
   // );
-  const teamno_1 = (
-    <div>
-      {team_1 && (
-        <div className="team_1">
-          {yetToBatStats(team1BattingData).length !== 11 && (
-            <div className="batting px-3">
-              <div
-                className={`batting_stats w-full h-12 ${team_1 ? `bg-[${teams[matchData?.Team1Id]?.themeColor}]` : `bg-[${teams[matchData?.TeamId]?.themeColor}]`} flex align-middle items-center justify-between rounded-3xl mt-3 px-4 text-white text-sm sm:text-xl mb-2`}
-              >
-                <p className="w-[40%] not-italic font-semibold leading-[normal] tracking-[2px]">
-                  Batting
-                </p>
-                <div className=" w-[60%] flex text-right">
-                  <p className="not-italic font-bold leading-[normal] w-[30%]">
-                    R(B)
-                  </p>
-                  <p className="not-italic font-bold leading-[normal] w-[20%]">
-                    4s
-                  </p>
-                  <p className="not-italic font-bold leading-[normal] w-[20%]">
-                    6s
-                  </p>
-                  <p className="not-italic font-bold leading-[normal] w-[30%]">
-                    S/R
-                  </p>
-                </div>
-              </div>
-              {populateBattingStats(team1BattingData)}
-              {team1kaExtra}
-              {team1Total_runs}
-              {/* Yet to bat team 1  */}
-              <div className=" px-4 font-semibold text-sm sm:text-md md:text-lg lg:text-xl text-black item-left sm:flex-row h-auto justify-between align-middle py-2">
-                <p className="not-italic font-semibold leading-[normal] tracking-[2px]">
-                  Yet To Bat
-                </p>
-                <p className="text-[#000F95] text-left text-xs sm:text-sm md:text-md lg:text-lg not-italic font-medium leading-[normal]">
-                  {yetToBatStats(team1BattingData).map(
-                    (player, index, array) => (
-                      <span key={player.playerId}>
-                        {/* Render relevant information about the player */}
-                        {player.playerName}
-                        {/* Add a comma and space after each player name, except for the last one */}
-                        {index < array.length - 1 ? ', ' : ''}
-                      </span>
-                    )
-                  )}
-                </p>
-              </div>
-            </div>
-          )}
-          {yetToBatStats(team1BattingData).length === 11 && (
+//   const teamno_1 = (
+//     <div>
+//       {team_1 && (
+//         <div className="team_1">
+//           {yetToBatStats(team1BattingData).length !== 11 && (
+//             <div className="batting px-3">
+//               <div
+//                 className="batting_stats w-full h-12 ${team_1? `background-color-[${teams[matchData?.Team1Id]?.themeColor}]` : `background-color-[${teams[matchData?.TeamId]?.themeColor}]`} flex align-middle items-center justify-between rounded-3xl mt-3 px-4 text-white text-sm sm:text-xl mb-2" style={{
+//   backgroundColor: team_1
+//     ? `${teams[matchData?.Team1Id]?.themeColor}`
+//     : `${teams[matchData?.TeamId]?.themeColor}`,
+// }}
+
+//               >
+//                 <p className="w-[40%] not-italic font-semibold leading-[normal] tracking-[2px]" >
+//                   Batting
+//                 </p>
+//                 <div className=" w-[60%] flex text-right">
+//                   <p className="not-italic font-bold leading-[normal] w-[30%]">
+//                     R(B)
+//                   </p>
+//                   <p className="not-italic font-bold leading-[normal] w-[20%]">
+//                     4s
+//                   </p>
+//                   <p className="not-italic font-bold leading-[normal] w-[20%]">
+//                     6s
+//                   </p>
+//                   <p className="not-italic font-bold leading-[normal] w-[30%]">
+//                     S/R
+//                   </p>
+//                 </div>
+//               </div>
+//               {populateBattingStats(team1BattingData)}
+//               {team1kaExtra}
+//               {team1Total_runs}
+//               {/* Yet to bat team 1  */}
+//               <div className=" px-4 font-semibold text-sm sm:text-md md:text-lg lg:text-xl text-black item-left sm:flex-row h-auto justify-between align-middle py-2">
+//                 <p className="not-italic font-semibold leading-[normal] tracking-[2px]">
+//                   Yet To Bat
+//                 </p>
+//                 <p className="text-[#000F95] text-left text-xs sm:text-sm md:text-md lg:text-lg not-italic font-medium leading-[normal]">
+//                   {yetToBatStats(team1BattingData).map(
+//                     (player, index, array) => (
+//                       <span key={player.playerId}>
+//                         {/* Render relevant information about the player */}
+//                         {player.playerName}
+//                         {/* Add a comma and space after each player name, except for the last one */}
+//                         {index < array.length - 1 ? ', ' : ''}
+//                       </span>
+//                     )
+//                   )}
+//                 </p>
+//               </div>
+//             </div>
+//           )}
+//           {yetToBatStats(team1BattingData).length === 11 && (
+//   <div>
+//     <p className="w-[40%] not-italic font-semibold leading-[normal] tracking-[2px]">
+//       TeamLineUp
+//     </p>
+
+//     <div className="batting px-3 wrapp player_stat text-black text-sm sm:text-md md:text-lg lg:texl-xl flex align-middle items-center justify-between px-4">
+//       <div className="w-[40%]">
+//         {yetToBatStats(team1BattingData).map((player, index, array) => (
+//           <span key={player.playerId}>
+//             <p className="not-italic font-semibold leading-[normal]">
+//               {/* Batsman name */}
+//               {player.playerName}
+//             </p>
+//             <hr className="w-[95%] text-center mx-auto bg-black h-0 mb-2" />
+//           </span>
+//         ))}
+//       </div>
+//     </div>
+//   </div>
+// )}
+
+
+//           {/* {*****************Bowling***********} */}
+//           <div className="bowling px-3 py-4" >
+//             <div className={ballteam2}>
+//               <p className="sm:w-[40%] w-[50%] not-italic font-semibold leading-[normal] tracking-[2px]" >
+//                 Bowlers
+//               </p>
+//               <div className="flex w-[50%] sm:w-[60%] text-right">
+//                 <p className="not-italic font-bold leading-[normal] w-[25%]">O</p>
+//                 <p className="not-italic font-bold leading-[normal] w-[20%]">R</p>
+//                 <p className="not-italic font-bold leading-[normal] w-[20%]">W</p>
+//                 <p className="not-italic font-bold leading-[normal] w-[35%]">
+//                   ECO
+//                 </p>
+//               </div>
+//             </div>
+//             {/* {console.log(team2BowlingData)} */}
+//             {populateBowlingStats(team2BowlingData)}
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+
+
+const teamno_1 = (
   <div>
-    <p className="w-[40%] not-italic font-semibold leading-[normal] tracking-[2px]">
-      TeamLineUp
-    </p>
-
-    <div className="batting px-3 wrapp player_stat text-black text-sm sm:text-md md:text-lg lg:texl-xl flex align-middle items-center justify-between px-4">
-      <div className="w-[40%]">
-        {yetToBatStats(team1BattingData).map((player, index, array) => (
-          <span key={player.playerId}>
-            <p className="not-italic font-semibold leading-[normal]">
-              {/* Batsman name */}
-              {player.playerName}
+    {team_1 && (
+      <div className="team_1">
+        <div className=" batting px-3   ">
+          <div
+            className="batting_stats w-full  h-12 flex align-middle items-center justify-between rounded-3xl mt-3  px-4 text-white text-sm sm:text-xl mb-2" style={{
+backgroundColor: team_1
+  ? `${teams[matchData?.Team1Id]?.themeColor}`
+  : `${teams[matchData?.Team2Id]?.themeColor}`,
+}}
+>
+            <p className="w-[40%]  not-italic font-semibold leading-[normal] tracking-[2px] ">
+              Batting
             </p>
-            <hr className="w-[95%] text-center mx-auto bg-black h-0 mb-2" />
-          </span>
-        ))}
-      </div>
-    </div>
-  </div>
-)}
+            <div className=" w-[60%] flex text-right">
+              <p className=" not-italic font-bold leading-[normal] w-[30%] ">
+                R(B)
+              </p>
 
+              <p className=" not-italic font-bold leading-[normal] w-[20%]">
+                4s
+              </p>
+              <p className=" not-italic font-bold leading-[normal] w-[20%]">
+                6s
+              </p>
+              <p className=" not-italic font-bold leading-[normal] w-[30%]">
+                S/R
+              </p>
+            </div>
+          </div>
+          {populateBattingStats(team1BattingData)}
 
-          {/* {*****************Bowling***********} */}
-          <div className="bowling px-3 py-4">
-            <div className={ballteam2}>
-              <p className="sm:w-[40%] w-[50%] not-italic font-semibold leading-[normal] tracking-[2px]">
+          {team1kaExtra}
+          {team1Total_runs}
+          {/* yet to bat for team two */}
+          <div className=" px-4  font-semibold text-sm sm:text-md md:text-lg lg:text-xl text-black item-left sm:flex-row h-auto justify-between align-middle py-2" >
+            <p className="  not-italic font-semibold leading-[normal] tracking-[2px]">
+              Yet To Bat
+            </p>
+            <p className="text-[#000F95]  text-left text-xs sm:text-sm md:text-md lg:text-lg  not-italic font-medium leading-[normal]  ">
+              {yetToBatStats(team1BattingData).map((player, index, array) => (
+                <span key={player.playerId}>
+
+                  {player.playerName}
+
+                  {index < array.length - 1 ? ', ' : ''}
+                </span>
+              ))}
+            </p>
+          </div>
+        </div>
+        {/* {*****************Bowling***********} */}
+        <div className="bowling px-3 py-4" >
+            <div
+              className="bowling_stats w-full h-12 mt-[7px] flex align-middle items-center justify-between rounded-3xl text-white text-sm sm:text-xl  px-4"style={{
+  backgroundColor: team_1
+    ? `${teams[matchData?.Team2Id]?.themeColor}`
+    : `${teams[matchData?.Team1Id]?.themeColor}`,
+}}>
+              <p className=" sm:w-[40%] w-[50%] not-italic font-semibold leading-[normal] tracking-[2px] ">
                 Bowlers
               </p>
-              <div className="flex w-[50%] sm:w-[60%] text-right">
-                <p className="not-italic font-bold leading-[normal] w-[25%]">O</p>
-                <p className="not-italic font-bold leading-[normal] w-[20%]">R</p>
-                <p className="not-italic font-bold leading-[normal] w-[20%]">W</p>
-                <p className="not-italic font-bold leading-[normal] w-[35%]">
+              <div className=" flex w-[50%] sm:w-[60%] text-right">
+                <p className=" not-italic font-bold leading-[normal] w-[25%] ">
+                  O
+                </p>
+                <p className=" not-italic font-bold leading-[normal] w-[20%] ">
+                  R
+                </p>
+                <p className=" not-italic font-bold leading-[normal] w-[20%]">
+                  W
+                </p>
+                <p className=" not-italic font-bold leading-[normal] w-[35%]">
                   ECO
                 </p>
               </div>
             </div>
-            {/* {console.log(team2BowlingData)} */}
             {populateBowlingStats(team2BowlingData)}
           </div>
         </div>
       )}
     </div>
-  );
+);
+
 
 
   //  overall  team 2 REcord ********************************
@@ -572,7 +664,12 @@ const Scorecard = () => {
         <div className="team_1">
           <div className=" batting px-3   ">
             <div
-              className={`batting_stats w-full  h-12 ${team_2 ? team2_color : team1_color} flex align-middle items-center justify-between rounded-3xl mt-3  px-4 text-white text-sm sm:text-xl mb-2`}>
+              className="batting_stats w-full  h-12 flex align-middle items-center justify-between rounded-3xl mt-3  px-4 text-white text-sm sm:text-xl mb-2" style={{
+  backgroundColor: team_2
+    ? `${teams[matchData?.Team2Id]?.themeColor}`
+    : `${teams[matchData?.TeamId]?.themeColor}`,
+}}
+>
               <p className="w-[40%]  not-italic font-semibold leading-[normal] tracking-[2px] ">
                 Batting
               </p>
@@ -616,7 +713,11 @@ const Scorecard = () => {
           {/* {*****************Bowling***********} */}
           <div className="bowling px-3 py-4">
             <div
-              className={`bowling_stats w-full h-12 mt-[7px] ${team1_color}  flex align-middle items-center justify-between rounded-3xl text-white text-sm sm:text-xl  px-4`}>
+              className="bowling_stats w-full h-12 mt-[7px] flex align-middle items-center justify-between rounded-3xl text-white text-sm sm:text-xl  px-4" style={{
+  backgroundColor: team_2
+    ? `${teams[matchData?.Team1Id]?.themeColor}`
+    : `${teams[matchData?.Team2Id]?.themeColor}`,
+}}>
               <p className=" sm:w-[40%] w-[50%] not-italic font-semibold leading-[normal] tracking-[2px] ">
                 Bowlers
               </p>
@@ -656,12 +757,17 @@ const Scorecard = () => {
   );
 
   return (
+    <div>
+    
     <div
       className={`  ${!male_color
         ? "bg-gradient-to-b from-[#AA277E] to-white"
         : "bg-gradient-to-b from-[#272CAA] to-white"
-        } text-white   `}>
-      <Navbar />
+        } text-white`}>
+        <div className='text-black'>
+        <Navbar/>
+        </div>
+      
 
       <div className=" w-5/6 mx-auto text-center my-4 sm:text-7xl leading-snug  tracking-widest italic text-3xl  font-bold">
         {" "}
@@ -787,15 +893,21 @@ const Scorecard = () => {
           <div className="inner_set w-full  mx-auto mt-4 pb-0 sm:pb-5 ">
             <div className=" flex w-[95%] mx-auto text-center rounded-3xl ">
               <button
-                className={`btnn1 h-12  w-[50%] flex rounded-tl-3xl rounded-bl-3xl items-center ${team_1 ? team1_color : `${team1_color} bg-opacity-75`
-                  } justify-center text-white text-sm sm:text-xl  not-italic font-bold leading-[normal]  `}
+                className="btnn1 h-12  w-[50%] flex rounded-tl-3xl rounded-bl-3xl items-center justify-center text-white text-sm sm:text-xl  not-italic font-bold leading-[normal]" style={{
+  backgroundColor: team_1 ? teams[matchData?.Team1Id]?.themeColor : teams[matchData?.Team1Id]?.themeColor,
+  opacity: team_1 ? 1 : 0.75,
+}}
                 onClick={handlechange_1}>
                 {/* Team 1 Full Name */}
                 <div className=" px-2 "> {matchData && matchData.Team1Id}</div>
               </button>
               <button
-                className={` btnn2 rounded-tr-3xl rounded-br-3xl h-12  w-[50%]  flex ${team_2 ? team2_color : `${team2_color} bg-opacity-75`
-                  } items-center justify-center text-white text-sm sm:text-xl  not-italic font-bold leading-[normal] `}
+                className="btnn2 rounded-tr-3xl rounded-br-3xl h-12  w-[50%]  flex items-center justify-center text-white text-sm sm:text-xl  not-italic font-bold leading-[normal]" style={{
+  backgroundColor: team_2 ? teams[matchData?.Team2Id]?.themeColor : teams[matchData?.Team2Id]?.themeColor,
+  opacity: team_2 ? 1 : 0.75,
+}}
+
+
                 onClick={handlechange_2}>
                 {/* Team 2 Full name */}
                 <div className=" px-2"> {matchData && matchData.Team2Id} </div>
@@ -820,6 +932,7 @@ const Scorecard = () => {
       </div>
 
       <Footer />
+    </div>
     </div>
   );
 
