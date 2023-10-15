@@ -49,7 +49,7 @@ const PlayerPastRecord = (props) => {
         return strikeRate.toFixed(1); // Round to 2 decimal places
     };
     const gender = props?.gender
-    console.log(props)
+    //console.log(props)
     return (
         <>
 

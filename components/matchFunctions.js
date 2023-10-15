@@ -238,7 +238,7 @@ async function getPlayersByTeamName(teamName) {
 
       //Query the "participating-team-member" collection for players with the matching "teamId"
       const playersCollection = collection(db, "participating-team-member");
-      const playersQuery = query(playersCollection, where("teamId", "==", teamId));
+      const playersQuery = query(playersCollection, where("teamId", "==", teamId),where("edition","==","17"));
       const querySnapshot = await getDocs(playersQuery);
 
       const players = [];
@@ -482,7 +482,7 @@ const getPlayerScore = (players, player) => {
   if (players) {
     for (var i = 0; i < 10; i++) {
       if (players[player]) {
-        console.log(players[player]);
+       // console.log(players[player]);
         totalRuns += i * players[player]?.score[i];
         ballPlayed += players[player]?.score[i];
       }

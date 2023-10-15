@@ -132,7 +132,7 @@ const WinnersAnnouncement = ({ teamlist }) => {
 
   const winnerStyle = "font-bold font-3xl";
 
-  console.log(teamlist);
+  //console.log(teamlist);
 
   if (teamlist.length === 0) {
     return <div>loading...</div>;
