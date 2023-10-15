@@ -9,6 +9,7 @@ import Head from 'next/head';
 import { database } from '../components/db/Firebase';
 import { ref, get, onValue } from "firebase/database";
 import { totalScore, getOver, extraOfInnings } from "../components/matchFunctions";
+import Link from 'next/link';
 import teams from '../components/teams';
 const Scorecard = () => {
   const router = useRouter();
@@ -147,7 +148,7 @@ const Scorecard = () => {
       if (player.status === 'Did Not Bat') {
         yetToBatPlayers.push(player);
       } else {
-        battingPlayers.push(player);
+        battingPlayers.push({ ...player, playerId });
       }
     });
 
@@ -171,7 +172,10 @@ const Scorecard = () => {
               <div className="  w-[40%] ">
                 <p className=" not-italic font-semibold leading-[normal] ">
                   {/* Batsman name */}
+                  <Link href={`/player-details/${player.playerId}`} >
                   {player.playerName}
+                  </Link>
+                 
 
                 </p>
               </div>
@@ -225,7 +229,7 @@ const Scorecard = () => {
 
       if (player.status === 'Did Not Bat') {
 
-        yetToBat.push(player);
+        yetToBat.push({ playerId, ...player });
       }
     });
 
@@ -254,7 +258,9 @@ const Scorecard = () => {
               <div className="sm:w-[40%] w-[50%]  ">
                 <p className=" not-italic  font-semibold leading-[normal] ">
                   {/* Bowler name */}
+                  <Link href={`/player-details/${playerId}`} >
                   {player.playerName}
+                  </Link>
                 </p>
               </div>
               <div className=" w-[50%]  sm:w-[60%] flex text-right">
@@ -619,9 +625,9 @@ backgroundColor: team_1
             <p className="text-[#000F95]  text-left text-xs sm:text-sm md:text-md lg:text-lg  not-italic font-medium leading-[normal]  ">
               {yetToBatStats(team1BattingData).map((player, index, array) => (
                 <span key={player.playerId}>
-
+                <Link href={`/player-details/${player.playerId}`} >
                   {player.playerName}
-
+                  </Link>
                   {index < array.length - 1 ? ', ' : ''}
                 </span>
               ))}
@@ -707,9 +713,9 @@ backgroundColor: team_1
               <p className="text-[#000F95]  text-left text-xs sm:text-sm md:text-md lg:text-lg  not-italic font-medium leading-[normal]  ">
                 {yetToBatStats(team2BattingData).map((player, index, array) => (
                   <span key={player.playerId}>
-
+                  <Link href={`/player-details/${player.playerId}`} >
                     {player.playerName}
-
+                   </Link>
                     {index < array.length - 1 ? ', ' : ''}
                   </span>
                 ))}
