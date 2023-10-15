@@ -32,10 +32,10 @@ function fetchDate() {
   let currentDate = `${year}-${month}-${day}`;
   return currentDate;
 }
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   let matches = [];
   let localMatches = [];
-  let snapshot = await get(child(dbRef, "matchDetail/"));
+  let snapshot = await get(child(dbRef, "match/"));
   if (snapshot) {
     localMatches = snapshot.val();
     if (localMatches) {

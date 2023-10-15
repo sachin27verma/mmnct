@@ -109,12 +109,12 @@ const OngoingMatchCard = (props) => {
                       }
                       )
                     </p>
-                    <p className="text-orange-500 font-bold">
+                    {/* <p className="text-orange-500 font-bold">
                      extras:  {extraOfInnings(
                         curElem.Team1Score,
                         curElem.Team1Extra,
                       )}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
                 <div>
@@ -143,12 +143,12 @@ const OngoingMatchCard = (props) => {
                       }
                       )
                     </p>
-                    <p className="text-orange-500 font-bold">
+                    {/* <p className="text-orange-500 font-bold">
                      extras:  {extraOfInnings(
                         curElem.Team2Score,
                         curElem.Team2Extra,
                       )}
-                    </p>
+                    </p> */}
                   </div>
                   <div className={teamNameStyle}>
                     <img
