@@ -28,7 +28,7 @@ const PlayerDetails = () => {
     Object.keys(teams).map((key) => {
       const value = teams[key];
       if (value.teamId === playerStats.teamId) {
-        console.log(value.teamCategory);
+        // console.log(value.teamCategory);
         (value.teamCategory === "female" ? setGender("girl") : setGender("boy"));
       }
     })
@@ -93,7 +93,7 @@ const PlayerDetails = () => {
       Object.keys(teams).map((key) => {
         const value = teams[key];
         if (value.teamId === playerStats.teamId) {
-          console.log(value.teamCategory);
+          // console.log(value.teamCategory);
           (value.teamCategory === "female" ? setGender("girl") : setGender("boy"));
         }
       })

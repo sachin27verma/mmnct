@@ -482,7 +482,6 @@ const getPlayerScore = (players, player) => {
   if (players) {
     for (var i = 0; i < 10; i++) {
       if (players[player]) {
-        console.log(players[player]);
         totalRuns += i * players[player]?.score[i];
         ballPlayed += players[player]?.score[i];
       }

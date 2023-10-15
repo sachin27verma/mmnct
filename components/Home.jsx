@@ -26,8 +26,6 @@ function HomePage({ teamlist }) {
     setWinnerTeamList(() => decideWinner("SHM", "SAM", teamlist));
   }, []);
 
-  const [live, setlive] = useState(true);
-
   return (
     <div className="flex flex-col md:w-11/12 md:mx-auto tournament-name-container ">
       {/* displaying live score of current match */}
@@ -55,27 +53,21 @@ function HomePage({ teamlist }) {
         {/* graphic and venue along with days to go */}
 
         <div>
-          {/* */}
-          {live ? (
-            <>
-              <HomeCard />{" "}
-            </>
-          ) : (
-            <div className=" flex justify-center items-center w-4/5 md:w-[400px] days-counter mx-auto md:mx-0 md:mb-4 md:gap-4 h-[116px] md:h-[150px]">
-              <span className="text-[#F45178] font-[800] text-[96px] md:-[120px] leading-[117px] md:leading-[146.28px] text-center w-1/2 md:w-[35%]">
-                {daysCaluclator()}
-              </span>
-              <div className="text-[#991746]">
-                <p className="font-[700] text-[40px] md:text-[48px] leading-[49px]">
-                  DAYS
-                </p>
-                <p className="font-[500] text-[40px] md:text-[48px] leading-[49px]">
-                  {" "}
-                  TO GO
-                </p>
-              </div>
+          {/* <HomeCard /> */}
+          <div className=" flex justify-center items-center w-4/5 md:w-[400px] days-counter mx-auto md:mx-0 md:mb-4 md:gap-4 h-[116px] md:h-[150px]">
+            <span className="text-[#F45178] font-[800] text-[96px] md:-[120px] leading-[117px] md:leading-[146.28px] text-center w-1/2 md:w-[35%]">
+              {daysCaluclator()}
+            </span>
+            <div className="text-[#991746]">
+              <p className="font-[700] text-[40px] md:text-[48px] leading-[49px]">
+                DAYS
+              </p>
+              <p className="font-[500] text-[40px] md:text-[48px] leading-[49px]">
+                {" "}
+                TO GO
+              </p>
             </div>
-          )}
+          </div>
 
           <p className="font-[600] text-[20px] hidden md:flex my-10  md:mx-auto leading-[24.38px]">
             Bring back the Cheers! Bring back the Slogans!
@@ -131,9 +123,6 @@ const WinnersAnnouncement = ({ teamlist }) => {
     "flex items-center justify-evenly w-full md:w-2/3 lg:w-1/3 text-center my-2 py-2 rounded-md shadow-md text-2xl button";
 
   const winnerStyle = "font-bold font-3xl";
-
-  console.log(teamlist);
-
   if (teamlist.length === 0) {
     return <div>loading...</div>;
   } else {
