@@ -13,6 +13,7 @@ const PastMatchCard = (props) => {
   return (
     
     <>
+    {/* {console.log(matchData)} */}
       {matchData
         .map((curElem) => {
           if (
@@ -92,6 +93,7 @@ const PastMatchCard = (props) => {
                       </p>
                     </div>
                     <div className={teamNameStyle}>
+                      {/* {console.log(curElem.Team2Id)} */}
                       <img
                         alt="team-logo"
                         className={shortformstyle}

@@ -196,7 +196,7 @@ function AddPlaying11({ auth_users }) {
       </div>
     );
   }
-  // console.log(session);
+  //console.log(session);
   if (!validated) {
     return (
       <div className="h-screen w-screen flex flex-col space-y-4 items-center justify-center">
