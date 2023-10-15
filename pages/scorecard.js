@@ -4,7 +4,7 @@ import Image from "next/image";
 import { TbCricket } from "react-icons/tb";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
+import Head from 'next/head';
 // import { useRouter } from 'next/router';
 import { database } from '../components/db/Firebase';
 import { ref, get, onValue } from "firebase/database";
@@ -159,57 +159,63 @@ const Scorecard = () => {
 
     // when Batsman starts playing ********
     return (
+      <>
+      <Head>
+        <title>Scorecard</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      {
+        battingPlayers.map((player) => (
+          <div key={player.playerName} className="wrapp">
+            <div className="player_stat text-black text-sm sm:text-md md:text-lg lg:texl-xl flex align-middle items-center justify-between px-4  ">
+              <div className="  w-[40%] ">
+                <p className=" not-italic font-semibold leading-[normal] ">
+                  {/* Batsman name */}
+                  {player.playerName}
 
-      battingPlayers.map((player) => (
-        <div key={player.playerName} className="wrapp">
-          <div className="player_stat text-black text-sm sm:text-md md:text-lg lg:texl-xl flex align-middle items-center justify-between px-4  ">
-            <div className="  w-[40%] ">
-              <p className=" not-italic font-semibold leading-[normal] ">
-                {/* Batsman name */}
-                {player.playerName}
+                </p>
+              </div>
+              <div className=" w-[60%]  flex text-right">
+                <p className=" not-italic font-medium leading-[normal] w-[30%]">
 
-              </p>
+                  {/* batsmans score */}
+                  {/* 200 */}
+                  {getPlayerScore(player.score)}
+                  <span className=" text-xs font-light">
+                    {/* total ball played */}
+                    {/* (34) */}
+                    ({getPlayerBalls(player.score)})
+                  </span>
+                </p>
+
+                <p className=" not-italic font-normal leading-[normal] w-[20%]">
+                  {/* No of 4s */}
+                  {player.score[4]}
+                </p>
+                <p className=" not-italic font-normal leading-[normal] w-[20%]">
+                  {/* No of 6s */}
+                  {player.score[6]}
+                </p>
+                <p className=" not-italic font-normal leading-[normal] w-[30%]">
+                  {/* strike rate */}
+                  {calculateStrikeRate(getPlayerScore(player.score), getPlayerBalls(player.score))}
+                </p>
+              </div>
             </div>
-            <div className=" w-[60%]  flex text-right">
-              <p className=" not-italic font-medium leading-[normal] w-[30%]">
-
-                {/* batsmans score */}
-                {/* 200 */}
-                {getPlayerScore(player.score)}
-                <span className=" text-xs font-light">
-                  {/* total ball played */}
-                  {/* (34) */}
-                  ({getPlayerBalls(player.score)})
-                </span>
-              </p>
-
-              <p className=" not-italic font-normal leading-[normal] w-[20%]">
-                {/* No of 4s */}
-                {player.score[4]}
-              </p>
-              <p className=" not-italic font-normal leading-[normal] w-[20%]">
-                {/* No of 6s */}
-                {player.score[6]}
-              </p>
-              <p className=" not-italic font-normal leading-[normal] w-[30%]">
-                {/* strike rate */}
-                {calculateStrikeRate(getPlayerScore(player.score), getPlayerBalls(player.score))}
-              </p>
-            </div>
+            <p className=" my-1 px-4 text-black  text-xs sm:text-sm not-italic font-normal leading-[normal] tracking-wider">
+              {" "}
+              {/* our detail or not out if playing */}
+              {/* c player x,b player y */}
+              {player.status}
+            </p>
+            <hr className=" w-[95%] text-center mx-auto bg-black h-0 mb-2" />
           </div>
-          <p className=" my-1 px-4 text-black  text-xs sm:text-sm not-italic font-normal leading-[normal] tracking-wider">
-            {" "}
-            {/* our detail or not out if playing */}
-            {/* c player x,b player y */}
-            {player.status}
-          </p>
-          <hr className=" w-[95%] text-center mx-auto bg-black h-0 mb-2" />
-        </div>
-      ))
-
+        ))
+      }
+      </>
     );
-
   };
+
   const yetToBatStats = (battingData) => {
     let yetToBat = [];
 
@@ -886,7 +892,7 @@ backgroundColor: team_1
             <p className="text-[#7F7F7F] text-md sm:text-2xl not-italic font-normal leading-[normal]">
               {" "}
               {/* match detail */}
-              MMNCT 2023 | <span> {matchData && matchData.id}th match</span>
+              MMNCT 2023 | Match<span> {matchData && matchData.id}</span>
             </p>
           </div>
           <hr className=" h-1 border bg-blue-700 border-none my-4 w-[80%] mx-auto" />

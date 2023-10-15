@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Image from "next/image";
@@ -7,6 +8,8 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { db } from "../../components/db/Firebase";
 import PlayerPastRecord from "../../components/playerpastrecord";
+import teams from "../../components/teams";
+import Head from "next/head";
 import {
   collection,
   doc,
@@ -18,8 +21,19 @@ import {
 // import useWindowSize from 'react-use/lib/useWindowSize'
 // import Confetti from "react-confetti";
 // import { BsFullscreen } from "react-icons/bs";
-const PlayerDetails = ({ player }) => {
-  player = '2Zeb7HCTgshRRllPv1JA';
+const PlayerDetails = () => {
+  const router = useRouter();
+  const [gender, setGender] = useState("boy");
+  const getTeamCategory = () => {
+    Object.keys(teams).map((key) => {
+      const value = teams[key];
+      if (value.teamId === playerStats.teamId) {
+        console.log(value.teamCategory);
+        (value.teamCategory === "female" ? setGender("girl") : setGender("boy"));
+      }
+    })
+  }
+  const player = router.query.playerId;
   const [playerStats, setPlayerStats] = useState("");
   const getPlayerScore = (score) => {
     var totalRuns = 0;
@@ -64,19 +78,29 @@ const PlayerDetails = ({ player }) => {
         await getDoc(query(docRef)).then((querySnapshot) => {
           let data = querySnapshot.data();
           setPlayerStats(data);
-          console.log(data);
+          getTeamCategory();
         });
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
+
   }, [player]);
 
-  console.log("hey", playerStats);
-  const [gender, setGender] = useState("boy");
-
+  useEffect(() => {
+    const getTeamCategory = () => {
+      Object.keys(teams).map((key) => {
+        const value = teams[key];
+        if (value.teamId === playerStats.teamId) {
+          console.log(value.teamCategory);
+          (value.teamCategory === "female" ? setGender("girl") : setGender("boy"));
+        }
+      })
+    };
+    getTeamCategory();
+  }) , [playerStats]
+  
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -110,6 +134,10 @@ const PlayerDetails = ({ player }) => {
 
   return (
     <>
+    <Head>
+        <title>Player Profile</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       {" "}
       <Navbar />
       <div className={`${gender === "girl" ? " " : ""}text-white`}>
@@ -137,26 +165,26 @@ const PlayerDetails = ({ player }) => {
             <div className="     px-2  ">
               <p className=" text-5xl font-medium md:mt-4 text-center md:text-left lg:text-left mt-2 ">
                 {" "}
-                {playerStats.name}
+                {playerStats?.name}
                 {/* {player Name} */}
               </p>
               <p className="text-lg font-bold md:mt-4 text-center md:text-left lg:text-left mt-2">
                 {" "}
-                {playerStats.roll_no}
+                {playerStats?.roll_no}
                 {/* {player Roll No} */}
               </p>
               <p className="text-lg font-bold md:mt-4 text-center md:text-left lg:text-left mt-2">
-                {playerStats.type}
+                {playerStats?.type}
                 {/* {branch} */}
               </p>
               <p className="text-lg font-bold md:mt-4 text-center md:text-left lg:text-left mt-2">
-                {playerStats.branch}
+                {playerStats?.branch}
                 {/* {branch} */}
               </p>
               <p className=" flex  text-lg font-bold text-center md:text-left lg:text-left md:mt-4 justify-center md:justify-start lg:justify-start mt-2">
                 {/* Role :{" "} */}
                 {/* <TbCricket className=" text-lg mx-2 font-medium h-[30px] w-[20px]" />{" "} */}
-                {playerStats.role === "" || playerStats.role === undefined ? "All-Rounder" : playerStats.role}
+                {playerStats?.role === "" || playerStats.role === undefined ? "All-Rounder" : playerStats.role}
                 {/* {Role} */}
               </p>
             </div>
@@ -239,7 +267,7 @@ const PlayerDetails = ({ player }) => {
                   </p>
                   <p className="   text-center w-full pl-5  text-lg font-bold rounded-r-md text-black space-x-3">
                     {" "}
-                    {playerStats && playerStats.stats ? calculateStrikeRate(getPlayerScore(playerStats.stats),getPlayerBalls(playerStats.stats)) : 0}
+                    {playerStats && playerStats.stats ? calculateStrikeRate(getPlayerScore(playerStats.stats), getPlayerBalls(playerStats.stats)) : 0}
                   </p>
                   <hr className=" bg-red-400" />
                 </div>
@@ -255,7 +283,7 @@ const PlayerDetails = ({ player }) => {
                   </p>
                   <p className="   text-center w-full pl-5  text-lg font-bold rounded-r-md text-black space-x-3">
                     {" "}
-                    {playerStats && playerStats.stats  && playerStats.stats[11] ? playerStats.stats[11] : 0}
+                    {playerStats && playerStats.stats && playerStats.stats[11] ? playerStats.stats[11] : 0}
                   </p>
                   <hr className=" bg-red-400" />
                 </div>
@@ -271,7 +299,7 @@ const PlayerDetails = ({ player }) => {
                   </p>
                   <p className="   text-center w-full pl-5  text-lg font-bold rounded-r-md text-black space-x-3">
                     {" "}
-                    {playerStats && playerStats.stats  && playerStats.stats[14] ? playerStats.stats[14] : 0}
+                    {playerStats && playerStats.stats && playerStats.stats[14] ? playerStats.stats[14] : 0}
                   </p>
                   <hr className=" bg-red-400" />
                 </div>
@@ -399,10 +427,10 @@ const PlayerDetails = ({ player }) => {
           >
             <>
               {playerStats.pastrecords &&
-                Object.keys(playerStats.pastrecords).map((key) => {
+                Object.keys(playerStats.pastrecords).reverse().map((key) => {
                   const value = playerStats.pastrecords[key];
                   // Render PlayerPastRecord component here with value and key
-                  return <PlayerPastRecord value={value} id = {key} gender={gender}/>;
+                  return <PlayerPastRecord value={value} id={key} gender={gender} />;
                 })}
             </>
           </Carousel>
