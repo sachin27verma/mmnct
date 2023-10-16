@@ -489,14 +489,14 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                     Image
                   </label>
                 </div>
-                <div className="md:w-2/3">
+                <div className="md:w-1/3">
                   <input id="file" type="file" accept="image/*" style={{
-                    width: '100%',
+                    // width: '100%',
                     height: 'auto',
                     display: 'block',
                     margin: '0 auto',
                     // Set fixed width and height for the image input
-                    maxWidth: '100px', // Adjust the value as needed
+                   
                     maxHeight: '100px', // Adjust the value as needed
                   }} />
                 </div>
