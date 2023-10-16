@@ -547,7 +547,7 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                     <option value="M.Tech II">M.Tech II</option>
                     <option value="Phd">Phd</option>
                     <option value="Msc">Msc</option>
-                    <option value="faculty">faculty</option>
+                    <option value="Faculty">faculty</option>
                     <option value="Mess">Mess</option>
                   </select>
                 </div>
@@ -625,9 +625,9 @@ const teamId = ({ teamDetails, members, captain, viceCaptain, auth_users }) => {
                     <option value="" disabled selected>
                       Choose One
                     </option>
-                    <option value="BATSMAN">Batsman</option>
-                    <option value="BOWLER">Bowler</option>
-                    <option value="ALL-ROUNDER">All-Rounder</option>
+                    <option value="Batsman">Batsman</option>
+                    <option value="Bowler">Bowler</option>
+                    <option value="All-rounder">All-Rounder</option>
                   </select>
                 </div>
               </div>
