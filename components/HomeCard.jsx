@@ -8,6 +8,8 @@ import teams from "./teams";
 import { VscCircleFilled } from "react-icons/vsc";
 import Image from "next/image";
 import { getPlayerScore } from "../components/matchFunctions";
+import { GiCricketBat, GiTennisBall } from "react-icons/gi";
+
 const HomeCard = () => {
   const [over_summary, setover_summary] = useState([]);
   const [team, setTeam] = useState([]);
@@ -60,16 +62,15 @@ const HomeCard = () => {
   const over = over_summary.map((bowl_value) => (
     <div
       key={bowl_value}
-      className={`h-[25px] w-[25px] text-xs font-semibold ${
-        bowl_value === "W"
-          ? "bg-red-600"
-          : bowl_value === "4" || bowl_value === "6"
+      className={`h-[25px] w-[25px] text-xs font-semibold ${bowl_value === "W"
+        ? "bg-red-600"
+        : bowl_value === "4" || bowl_value === "6"
           ? "bg-[#6360FF]"
           : bowl_value.toString().slice(-2).toUpperCase() === "WD" ||
             bowl_value.toString().slice(-2).toUpperCase() === "NB"
-          ? "bg-green-500 text-[10px]"
-          : "bg-gray-500"
-      }  flex justify-center items-center rounded-full text-white ring-2 ring-[#F9BD48]`}>
+            ? "bg-green-500 text-[10px]"
+            : "bg-gray-500"
+        }  flex justify-center items-center rounded-full text-white ring-2 ring-[#F9BD48]`}>
       <span className="  ">{bowl_value}</span>
     </div>
   ));
@@ -127,11 +128,11 @@ const HomeCard = () => {
                       team[0].Team1Extra,
                       team[0].Team1Wicket
                     ) === "0/0" &&
-                    getOver(
-                      team[0].Team1Score,
-                      team[0].Team1prev,
-                      team[0].Team1Extra
-                    )[0] === "0.0" ? (
+                      getOver(
+                        team[0].Team1Score,
+                        team[0].Team1prev,
+                        team[0].Team1Extra
+                      )[0] === "0.0" ? (
                       "Yet to bat"
                     ) : (
                       <>
@@ -147,17 +148,17 @@ const HomeCard = () => {
                             team[0].Team1Extra,
                             team[0].Team1Wicket
                           ) === "0/0" &&
-                          getOver(
-                            team[0].Team1Score,
-                            team[0].Team1prev,
-                            team[0].Team1Extra
-                          )[0] === "0.0"
+                            getOver(
+                              team[0].Team1Score,
+                              team[0].Team1prev,
+                              team[0].Team1Extra
+                            )[0] === "0.0"
                             ? "Yet to bat"
                             : getOver(
-                                team[0].Team1Score,
-                                team[0].Team1prev,
-                                team[0].Team1Extra
-                              )[0]}
+                              team[0].Team1Score,
+                              team[0].Team1prev,
+                              team[0].Team1Extra
+                            )[0]}
                           )
                         </p>{" "}
                       </>
@@ -202,11 +203,11 @@ const HomeCard = () => {
                       team[0].Team2Extra,
                       team[0].Team2Wicket
                     ) === "0/0" &&
-                    getOver(
-                      team[0].Team2Score,
-                      team[0].Team2prev,
-                      team[0].Team2Extra
-                    )[0] === "0.0" ? (
+                      getOver(
+                        team[0].Team2Score,
+                        team[0].Team2prev,
+                        team[0].Team2Extra
+                      )[0] === "0.0" ? (
                       "Yet to bat"
                     ) : (
                       <>
@@ -222,17 +223,17 @@ const HomeCard = () => {
                             team[0].Team2Extra,
                             team[0].Team2Wicket
                           ) === "0/0" &&
-                          getOver(
-                            team[0].Team2Score,
-                            team[0].Team2prev,
-                            team[0].Team2Extra
-                          )[0] === "0.0"
+                            getOver(
+                              team[0].Team2Score,
+                              team[0].Team2prev,
+                              team[0].Team2Extra
+                            )[0] === "0.0"
                             ? "Yet to bat"
                             : getOver(
-                                team[0].Team2Score,
-                                team[0].Team2prev,
-                                team[0].Team2Extra
-                              )[0]}
+                              team[0].Team2Score,
+                              team[0].Team2prev,
+                              team[0].Team2Extra
+                            )[0]}
                           )
                         </p>{" "}
                       </>
@@ -251,6 +252,9 @@ const HomeCard = () => {
                       {teams[team[0].Team1Id].teamCode} Batting
                     </p>
                     <p className=" text-xs font-semibold">
+                      <span className="">
+                        <GiCricketBat className=" inline-block rotate-180 text-pink-600 " />
+                      </span>
                       {
                         team[0].Team1Players[team[0].striker]?.playerName.split(
                           " "
@@ -258,7 +262,6 @@ const HomeCard = () => {
                       }
                       :{" "}
                       {getPlayerScore(team[0]?.Team1Players, team[0]?.striker)}
-                      <sup>*</sup>
                     </p>
                     <p className="text-xs font-light pr-1">
                       {
@@ -279,6 +282,7 @@ const HomeCard = () => {
                       {teams[team[0].Team2Id].teamCode}-Bowling
                     </p>
                     <p className=" text-xs font-light">
+                      <GiTennisBall className=" inline-block rotate-180 text-pink-600 " />{" "}
                       {
                         team[0].Team2Players[team[0].baller]?.playerName.split(
                           " "
@@ -302,6 +306,7 @@ const HomeCard = () => {
                       {team[0]?.Team1Id.teamCode} Bowling
                     </p>
                     <p className=" text-xs font-light">
+                      <GiTennisBall className=" inline-block rotate-180 text-pink-600 " />{" "}
                       {
                         team[0]?.Team1Players[
                           team[0]?.baller
@@ -321,6 +326,9 @@ const HomeCard = () => {
                       {teams[team[0].Team2Id].teamCode} Batting
                     </p>
                     <p className=" text-xs font-semibold">
+                      <span className="">
+                        <GiCricketBat className=" inline-block rotate-180 text-pink-600 " />
+                      </span>
                       {
                         team[0]?.Team2Players[
                           team[0].striker
@@ -328,7 +336,6 @@ const HomeCard = () => {
                       }
                       :{" "}
                       {getPlayerScore(team[0]?.Team2Players, team[0]?.striker)}
-                      <sup>*</sup>
                     </p>
                     <p className="text-xs font-light pr-1">
                       {
