@@ -111,7 +111,7 @@ const OngoingMatchCard = (props) => {
                       ) : (
                         <p className="text-black-400">
                           {curElem.baller && curElem.baller !== undefined ? (
-                            <div className=" flex flex-col text-right">
+                            <div className=" flex flex-col text-center">
                               {/* Bowler */}
                               <p>
                                 {" "}
@@ -145,7 +145,7 @@ const OngoingMatchCard = (props) => {
                                 )
                               </p>
 
-                              <sup>
+                              <p className="text-xs" >
                                 {
                                   getOver(
                                     curElem.Team2Score,
@@ -153,7 +153,7 @@ const OngoingMatchCard = (props) => {
                                     curElem.Team2Extra
                                   )[1]
                                 }
-                              </sup>
+                              </p  >
                             </div>
                           ) : (
                             <></>

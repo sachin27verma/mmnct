@@ -85,8 +85,8 @@ const HomeCard = () => {
               <div className=" flex justify-between text-black items-center">
                 <p className="  text-2xl font-extrabold text-[#F8C156] px-2 bg-white shadow-lg rounded-2xl">
                   {" "}
-                  <span className=" text-red-600 mx-1 rounded-full">
-                    <VscCircleFilled className=" animate-pulse inline-block  text-sm bg-orange-600 overflow-hidden rounded-full t" />
+                  <span className=" text-green-600 mx-1 rounded-full">
+                    <VscCircleFilled className=" animate-pulse inline-block  text-sm bg-green-600 overflow-hidden rounded-full t" />
                   </span>
                   Live
                 </p>
