@@ -76,7 +76,11 @@ const OngoingMatchCard = (props) => {
                               {" "}
                               <p className="text-black-400">
                                 {/* sticker */}
-                                <p className=" text-xs text-center font-semibold whitespace-nowrap">
+                                <p className=" text-xs text-center font-semibold text-balance 
+                                ">
+                                  <span className="">
+                                    <GiCricketBat className=" inline-block rotate-180 text-pink-600 " />
+                                  </span>
                                   {
                                     curElem.Team1Players[
                                       curElem.striker
@@ -86,13 +90,10 @@ const OngoingMatchCard = (props) => {
                                     curElem.Team1Players,
                                     curElem.striker
                                   )}
-                                  <span className="">
-                                    <GiCricketBat className=" inline-block rotate-180 text-pink-600 " />
-                                  </span>
                                 </p>{" "}
                               </p>
                               {/* Non-striker */}
-                              <p className="text-black-400 text-center  text-[10px] pr-[4px]">
+                              <p className="text-black-400 text-center  text-[10px]">
                                 {
                                   curElem.Team1Players[
                                     curElem.nonStriker
@@ -145,7 +146,7 @@ const OngoingMatchCard = (props) => {
                                 )
                               </p>
 
-                              <p className="text-xs" >
+                              <p className="text-xs">
                                 {
                                   getOver(
                                     curElem.Team2Score,
@@ -153,7 +154,7 @@ const OngoingMatchCard = (props) => {
                                     curElem.Team2Extra
                                   )[1]
                                 }
-                              </p  >
+                              </p>
                             </div>
                           ) : (
                             <></>
@@ -190,7 +191,7 @@ const OngoingMatchCard = (props) => {
                   </div>
                   <div>
                     {" "}
-                    <Image src="/vector-8.png" height={50} width={50} />
+                    <Image src="/vector-8.png" height={65} width={65} />
                   </div>
                   {/* current score and over */}
 
@@ -246,7 +247,10 @@ const OngoingMatchCard = (props) => {
                               {" "}
                               <p className="text-black-400 ">
                                 {/* stricker */}
-                                <p className=" text-xs text-center font-semibold whitespace-nowrap ">
+                                <p className=" text-xs text-center font-semibold  text-balance ">
+                                  <span className="">
+                                    <GiCricketBat className=" inline-block rotate-180 text-pink-600 " />
+                                  </span>
                                   {
                                     curElem.Team2Players[
                                       curElem.striker
@@ -256,12 +260,9 @@ const OngoingMatchCard = (props) => {
                                     curElem.Team2Players,
                                     curElem.striker
                                   )}
-                                  <span className="">
-                                    <GiCricketBat className=" inline-block rotate-180 text-pink-600 " />
-                                  </span>
                                 </p>{" "}
                               </p>
-                              <p className="text-black-400 text-center  text-[10px] pr-[4px]">
+                              <p className="text-black-400 text-center  text-[10px] ">
                                 {/* non-sticker */}
                                 {
                                   curElem.Team2Players[
@@ -281,7 +282,7 @@ const OngoingMatchCard = (props) => {
                       ) : (
                         <p className="text-black-400">
                           {curElem.baller && curElem.baller !== undefined ? (
-                            <div className=" flex flex-col text-right">
+                            <div className=" flex flex-col text-center">
                               {/* Bowler */}
                               <p>
                                 <GiTennisBall className=" inline-block rotate-180 text-pink-600 " />{" "}
