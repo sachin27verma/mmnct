@@ -315,7 +315,7 @@ const OngoingMatchCard = (props) => {
                                 )
                               </p>
 
-                              <sup>
+                              <p className="text-xs" >
                                 {
                                   getOver(
                                     curElem.Team1Score,
@@ -323,7 +323,7 @@ const OngoingMatchCard = (props) => {
                                     curElem.Team1Extra
                                   )[1]
                                 }
-                              </sup>
+                              </p>
                             </div>
                           ) : (
                             <></>
