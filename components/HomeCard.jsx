@@ -253,9 +253,6 @@ const HomeCard = () => {
                       {teams[team[0].Team1Id].teamCode} Batting
                     </p>
                     <p className=" text-xs font-semibold">
-                      <span className="">
-                        <GiCricketBat className=" inline-block rotate-180 text-pink-600 " />
-                      </span>
                       {
                         team[0].Team1Players[team[0].striker]?.playerName.split(
                           " "
@@ -263,6 +260,9 @@ const HomeCard = () => {
                       }
                       :{" "}
                       {getPlayerScore(team[0]?.Team1Players, team[0]?.striker)}
+                      <span className="">
+                        <GiCricketBat className=" inline-block rotate-180 text-pink-600 " />
+                      </span>
                     </p>
                     <p className="text-xs font-light pr-1">
                       {
