@@ -60,17 +60,17 @@ const HomeCard = () => {
   const over = over_summary.map((bowl_value) => (
     <div
       key={bowl_value}
-      className={`h-[25px] w-[25px] text-xs font-semibold ${
-        bowl_value === "W"
+      className={`h-[25px] w-[25px] text-xs font-semibold ${bowl_value.toString().slice(-2).toUpperCase().endsWith("W") ||
+          bowl_value.toString().slice(-2).toUpperCase().endsWith("R")
           ? "bg-red-600"
           : bowl_value === "4" || bowl_value === "6"
-          ? "bg-[#6360FF]"
-          : bowl_value.toString().slice(-2).toUpperCase() === "WD" ||
-            bowl_value.toString().slice(-2).toUpperCase() === "NB"
-          ? "bg-green-500 text-[10px]"
-          : "bg-gray-500"
-      }  flex justify-center items-center rounded-full text-white ring-2 ring-[#F9BD48]`}>
-      <span className="  ">{bowl_value}</span>
+            ? "bg-[#6360FF]"
+            : bowl_value.toString().slice(-2).toUpperCase().endsWith("WD") ||
+              bowl_value.toString().slice(-2).toUpperCase().endsWith("NB")
+              ? "bg-green-500 text-[10px]"
+              : "bg-gray-500"
+        }  flex justify-center items-center rounded-full text-white ring-2 ring-[#F9BD48]`}>
+      <span className="  ">{bowl_value.toUpperCase() === "0W" ? "W" : bowl_value.slice(-1).toUpperCase() === "R"?`${parseInt(bowl_value, 10)}w`:bowl_value}</span>
     </div>
   ));
 
@@ -127,11 +127,11 @@ const HomeCard = () => {
                       team[0].Team1Extra,
                       team[0].Team1Wicket
                     ) === "0/0" &&
-                    getOver(
-                      team[0].Team1Score,
-                      team[0].Team1prev,
-                      team[0].Team1Extra
-                    )[0] === "0.0" ? (
+                      getOver(
+                        team[0].Team1Score,
+                        team[0].Team1prev,
+                        team[0].Team1Extra
+                      )[0] === "0.0" ? (
                       "Yet to bat"
                     ) : (
                       <>
@@ -147,17 +147,17 @@ const HomeCard = () => {
                             team[0].Team1Extra,
                             team[0].Team1Wicket
                           ) === "0/0" &&
-                          getOver(
-                            team[0].Team1Score,
-                            team[0].Team1prev,
-                            team[0].Team1Extra
-                          )[0] === "0.0"
+                            getOver(
+                              team[0].Team1Score,
+                              team[0].Team1prev,
+                              team[0].Team1Extra
+                            )[0] === "0.0"
                             ? "Yet to bat"
                             : getOver(
-                                team[0].Team1Score,
-                                team[0].Team1prev,
-                                team[0].Team1Extra
-                              )[0]}
+                              team[0].Team1Score,
+                              team[0].Team1prev,
+                              team[0].Team1Extra
+                            )[0]}
                           )
                         </p>{" "}
                       </>
@@ -202,11 +202,11 @@ const HomeCard = () => {
                       team[0].Team2Extra,
                       team[0].Team2Wicket
                     ) === "0/0" &&
-                    getOver(
-                      team[0].Team2Score,
-                      team[0].Team2prev,
-                      team[0].Team2Extra
-                    )[0] === "0.0" ? (
+                      getOver(
+                        team[0].Team2Score,
+                        team[0].Team2prev,
+                        team[0].Team2Extra
+                      )[0] === "0.0" ? (
                       "Yet to bat"
                     ) : (
                       <>
@@ -222,17 +222,17 @@ const HomeCard = () => {
                             team[0].Team2Extra,
                             team[0].Team2Wicket
                           ) === "0/0" &&
-                          getOver(
-                            team[0].Team2Score,
-                            team[0].Team2prev,
-                            team[0].Team2Extra
-                          )[0] === "0.0"
+                            getOver(
+                              team[0].Team2Score,
+                              team[0].Team2prev,
+                              team[0].Team2Extra
+                            )[0] === "0.0"
                             ? "Yet to bat"
                             : getOver(
-                                team[0].Team2Score,
-                                team[0].Team2prev,
-                                team[0].Team2Extra
-                              )[0]}
+                              team[0].Team2Score,
+                              team[0].Team2prev,
+                              team[0].Team2Extra
+                            )[0]}
                           )
                         </p>{" "}
                       </>
