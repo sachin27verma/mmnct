@@ -8,6 +8,8 @@ import teams from "./teams";
 import { VscCircleFilled } from "react-icons/vsc";
 import Image from "next/image";
 import { getPlayerScore } from "../components/matchFunctions";
+import { GiCricketBat, GiTennisBall } from "react-icons/gi";
+
 const HomeCard = () => {
   const [over_summary, setover_summary] = useState([]);
   const [team, setTeam] = useState([]);
@@ -251,6 +253,9 @@ const HomeCard = () => {
                       {teams[team[0].Team1Id].teamCode} Batting
                     </p>
                     <p className=" text-xs font-semibold">
+                      <span className="">
+                        <GiCricketBat className=" inline-block rotate-180 text-pink-600 " />
+                      </span>
                       {
                         team[0].Team1Players[team[0].striker]?.playerName.split(
                           " "
@@ -258,7 +263,6 @@ const HomeCard = () => {
                       }
                       :{" "}
                       {getPlayerScore(team[0]?.Team1Players, team[0]?.striker)}
-                      <sup>*</sup>
                     </p>
                     <p className="text-xs font-light pr-1">
                       {
@@ -279,6 +283,7 @@ const HomeCard = () => {
                       {teams[team[0].Team2Id].teamCode}-Bowling
                     </p>
                     <p className=" text-xs font-light">
+                      <GiTennisBall className=" inline-block rotate-180 text-pink-600 " />{" "}
                       {
                         team[0].Team2Players[team[0].baller]?.playerName.split(
                           " "
@@ -302,6 +307,7 @@ const HomeCard = () => {
                       {team[0]?.Team1Id.teamCode} Bowling
                     </p>
                     <p className=" text-xs font-light">
+                      <GiTennisBall className=" inline-block rotate-180 text-pink-600 " />{" "}
                       {
                         team[0]?.Team1Players[
                           team[0]?.baller
@@ -321,6 +327,9 @@ const HomeCard = () => {
                       {teams[team[0].Team2Id].teamCode} Batting
                     </p>
                     <p className=" text-xs font-semibold">
+                      <span className="">
+                        <GiCricketBat className=" inline-block rotate-180 text-pink-600 " />
+                      </span>
                       {
                         team[0]?.Team2Players[
                           team[0].striker
@@ -328,7 +337,6 @@ const HomeCard = () => {
                       }
                       :{" "}
                       {getPlayerScore(team[0]?.Team2Players, team[0]?.striker)}
-                      <sup>*</sup>
                     </p>
                     <p className="text-xs font-light pr-1">
                       {

@@ -24,6 +24,7 @@ import {
 const PlayerDetails = () => {
   const router = useRouter();
   const [gender, setGender] = useState("boy");
+  const [playerTeam,setPlayerTeam] = useState("");
   const getTeamCategory = () => {
     Object.keys(teams).map((key) => {
       const value = teams[key];
@@ -95,6 +96,7 @@ const PlayerDetails = () => {
         if (value.teamId === playerStats.teamId) {
          // console.log(value.teamCategory);
           (value.teamCategory === "female" ? setGender("girl") : setGender("boy"));
+          setPlayerTeam(key);
         }
       })
     };
@@ -168,6 +170,11 @@ const PlayerDetails = () => {
                 {playerStats?.name}
                 {/* {player Name} */}
               </p>
+              <p className={gender == "boy" ? `text-lg font-medium md:mt-4 text-center md:text-left lg:text-left mt-2 text-blue-500` 
+              :`text-lg font-medium md:mt-4 text-center md:text-left lg:text-left mt-2 text-pink-500`}>
+                {" "}
+                {playerTeam}
+              </p>
               <p className="text-lg font-bold md:mt-4 text-center md:text-left lg:text-left mt-2">
                 {" "}
                 {playerStats?.roll_no}
@@ -184,7 +191,7 @@ const PlayerDetails = () => {
               <p className=" flex  text-lg font-bold text-center md:text-left lg:text-left md:mt-4 justify-center md:justify-start lg:justify-start mt-2">
                 {/* Role :{" "} */}
                 {/* <TbCricket className=" text-lg mx-2 font-medium h-[30px] w-[20px]" />{" "} */}
-                {playerStats?.role === "" || playerStats.role === undefined ? "All-Rounder" : playerStats.role}
+                {playerStats.role}
                 {/* {Role} */}
               </p>
             </div>
