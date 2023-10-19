@@ -160,7 +160,7 @@ export default function Stars({ playerStats }) {
                 ))}
             </ul> */}
       <Head>
-        <title>Stars</title>
+        <title>MMNCT Stars</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

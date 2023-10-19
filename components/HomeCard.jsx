@@ -62,16 +62,17 @@ const HomeCard = () => {
   const over = over_summary.map((bowl_value) => (
     <div
       key={bowl_value}
-      className={`h-[25px] w-[25px] text-xs font-semibold ${bowl_value === "W"
-        ? "bg-red-600"
-        : bowl_value === "4" || bowl_value === "6"
-          ? "bg-[#6360FF]"
-          : bowl_value.toString().slice(-2).toUpperCase() === "WD" ||
-            bowl_value.toString().slice(-2).toUpperCase() === "NB"
-            ? "bg-green-500 text-[10px]"
-            : "bg-gray-500"
+      className={`h-[25px] w-[25px] text-xs font-semibold ${bowl_value.toString().slice(-2).toUpperCase().endsWith("W") ||
+          bowl_value.toString().slice(-2).toUpperCase().endsWith("R")
+          ? "bg-red-600"
+          : bowl_value === "4" || bowl_value === "6"
+            ? "bg-[#6360FF]"
+            : bowl_value.toString().slice(-2).toUpperCase().endsWith("WD") ||
+              bowl_value.toString().slice(-2).toUpperCase().endsWith("NB")
+              ? "bg-green-500 text-[10px]"
+              : "bg-gray-500"
         }  flex justify-center items-center rounded-full text-white ring-2 ring-[#F9BD48]`}>
-      <span className="  ">{bowl_value}</span>
+      <span className="  ">{bowl_value.toUpperCase() === "0W" ? "W" : bowl_value.slice(-1).toUpperCase() === "R"?`${parseInt(bowl_value, 10)}w`:bowl_value}</span>
     </div>
   ));
 
@@ -252,9 +253,6 @@ const HomeCard = () => {
                       {teams[team[0].Team1Id].teamCode} Batting
                     </p>
                     <p className=" text-xs font-semibold">
-                      <span className="">
-                        <GiCricketBat className=" inline-block rotate-180 text-pink-600 " />
-                      </span>
                       {
                         team[0].Team1Players[team[0].striker]?.playerName.split(
                           " "
@@ -262,6 +260,9 @@ const HomeCard = () => {
                       }
                       :{" "}
                       {getPlayerScore(team[0]?.Team1Players, team[0]?.striker)}
+                      <span className="">
+                        <GiCricketBat className=" inline-block rotate-180 text-pink-600 " />
+                      </span>
                     </p>
                     <p className="text-xs font-light pr-1">
                       {
