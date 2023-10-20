@@ -215,24 +215,6 @@ export default function Stars({ playerStats }) {
 
   return (
     <div>
-      {/* <h1>Male Documents</h1>
-      <ul>
-        {console.log(malePlayers)}
-        {malePlayers.map((document) => (
-          <li key={document.id}>
-            Document ID: {document.id},Name : {document.name} , edition : {document.edition} Total Score: {getPlayerScore(document.stats)}
-          </li>
-        ))}
-      </ul>
-      <h1>Female Documents</h1>
-      <ul>
-        {console.log(malePlayers)}
-        {femalePlayers.map((document) => (
-          <li key={document.id}>
-            Document ID: {document.id},Name : {document.name} , edition : {document.edition} Total Score: {getPlayerScore(document.stats)}
-          </li>
-        ))}
-      </ul> */}
       <Head>
         <title>MMNCT Stars</title>
         <link rel="icon" href="/favicon.ico" />
@@ -243,7 +225,7 @@ export default function Stars({ playerStats }) {
         <div>
           {" "}
           <p className=" text-4xl md:text-7xl font-extrabold text-white py-4 text-center tracking-widest">
-            MMNCT'23
+            MMNCT'23 STARS
           </p>
         </div>
         <div className="bg-white my-2 mt-4 text-gray-500 flex justify-evenly w-[290px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-6">
@@ -279,26 +261,55 @@ export default function Stars({ playerStats }) {
         <div className="w-5/6 mx-auto my-5">
           <div className=" w-full mx-auto gap-2 grid-cols-1 md:grid-cols-2  grid lg:grid-cols-3">
 
+            {selectedGender === "male"
+              ? <><HighestScoreCard
+                playerStats={top5malebatsman[0]}
+                title="Most Runs"
+                selectedGender={selectedGender}
+              />
+                <HighestScoreCard
+                  playerStats={top5malebowler[0]}
+                  title="Most Wickets"
+                  selectedGender={selectedGender}
+                />
+                <HighestScoreCard playerStats={top5malefourer[0]} title="Most 4s" selectedGender={selectedGender} />
+                <HighestScoreCard playerStats={top5malesixer[0]} title="Most 6s" selectedGender={selectedGender} />
+                <HighestScoreCard
+                  playerStats={top5maletutktukbatsman[0]}
+                  title="Most Dot Balls"
+                  selectedGender={selectedGender}
+                />
+                <HighestScoreCard
+                  playerStats={top5malehighestbatsman[0]}
+                  title="Highest Score"
+                  selectedGender={selectedGender}
+                />
+              </>
+              : <><HighestScoreCard
+                playerStats={top5femalebatsman[0]}
+                title="Most Runs"
+                selectedGender={selectedGender}
+              />
+                <HighestScoreCard
+                  playerStats={top5femalebowler[0]}
+                  title="Most Wickets"
+                  selectedGender={selectedGender}
+                />
+                <HighestScoreCard playerStats={top5femalefourer[0]} title="Most 4s" selectedGender={selectedGender} />
+                <HighestScoreCard playerStats={top5femalesixer[0]} title="Most 6s" selectedGender={selectedGender} />
+                <HighestScoreCard
+                  playerStats={top5femaletuktukbatsman[0]}
+                  title="Most Dot Balls"
+                  selectedGender={selectedGender}
+                />
+                <HighestScoreCard
+                  playerStats={top5femalehighestbatsman[0]}
+                  title="Highest Score"
+                  selectedGender={selectedGender}
+                />
+              </>
+            }
 
-            <HighestScoreCard
-             
-              title="Most Runs"
-              selectedGender={selectedGender}
-            />
-            <HighestScoreCard
-              title="Most Wickets"
-              selectedGender={selectedGender}
-            />
-            <HighestScoreCard title="Most 4s" selectedGender={selectedGender} />
-            <HighestScoreCard title="Most 6s" selectedGender={selectedGender} />
-            <HighestScoreCard
-              title="Most Dot Balls"
-              selectedGender={selectedGender}
-            />
-            <HighestScoreCard
-              title="Highest Score"
-              selectedGender={selectedGender}
-            />
           </div>
           <div className="w-full  flex-col mx-auto mt-10 ">
             <p className="text-left text-3xl font-bold mb-5  text-black ">
@@ -327,7 +338,7 @@ export default function Stars({ playerStats }) {
 
                 ))}
 
-            
+
             </div>
           </div>
           <div className="w-full  flex-col mx-auto mt-10 ">
@@ -354,30 +365,6 @@ export default function Stars({ playerStats }) {
                   />
 
                 })
-                /* <PlayerProfilecard
-                  selectedGender={selectedGender}
-                  title={"bowler"}
-                />
-                <PlayerProfilecard
-                  selectedGender={selectedGender}
-                  title={"bowler"}
-                />
-                <PlayerProfilecard
-                  selectedGender={selectedGender}
-                  title={"bowler"}
-                />
-                <PlayerProfilecard
-                  selectedGender={selectedGender}
-                  title={"bowler"}
-                />
-                <PlayerProfilecard
-                  selectedGender={selectedGender}
-                  title={"bowler"}
-                />
-                <PlayerProfilecard
-                  selectedGender={selectedGender}
-                  title={"bowler"}
-                /> */
               }
             </div>
           </div>
@@ -471,160 +458,6 @@ export default function Stars({ playerStats }) {
     </div>
   );
 }
-
-// {selectedGender === "male" ? (
-//   <div className=" w-full md:w-5/6 mx-auto py-5 px-2 ">
-//     <div className=" leading_batsman w-full md:w-4/6 mx-auto bg-white rounded-md shadow-md">
-//       <div className=" py-3   px-3 rounded-sm shadow-md flex justify-between items-center ">
-//         <p className=" text-md md:text-xl font-extrabold text-drop-shadow-2xl text-blue-700 ">
-//           Leading Run Scorer{" "}
-//           <span>
-//             {" "}
-//             <GiCricketBat className=" inline-block rotate-180 text-blue-700 font-extrabold" />
-//           </span>
-//         </p>
-//         <p
-//           className={` bg-${maleColor} text-white rounded-md font-bold shadow-lg px-2`}>
-//           Boys
-//         </p>
-//       </div>
-//       <div>
-//         <div className=" py-2  flex justify-between items-center px-3 text-sm md:text-lg font-semibold ">
-//           <div className=" w-[10%]">Pos</div>
-//           <div class="flex items-center space-x-4 w-[45%] text-sm md:text-lg font-bold px-1">
-//             Batsman
-//           </div>
-
-//           <div className=" w-[12%] text-right">INN</div>
-//           <div className=" w-[12%] text-right">RUN</div>
-//           <div className=" w-[20%] text-right">S/R</div>
-//         </div>
-//         {/* Best batsman male */}
-//         {renderPlayerDetails("batsman")}
-//       </div>
-//     </div>
-//     <div className=" leading_batsman w-full md:w-4/6 mx-auto bg-white rounded-md my-1 shadow-md">
-//       <div className=" py-3   px-3 rounded-sm shadow-md flex justify-between items-center ">
-//         <p className=" text-md md:text-xl font-extrabold text-drop-shadow-2xl text-blue-700 ">
-//           Leading Wicket Tacker
-//           <span>
-//             {" "}
-//             <GiThrowingBall className=" inline-block   font-extrabold" />
-//           </span>
-//         </p>
-//         <p
-//           className={` bg-${maleColor} text-white rounded-md font-bold shadow-lg px-2`}>
-//           Boys
-//         </p>
-//       </div>
-//       <div>
-//         <div className=" py-2  flex justify-between items-center px-3 text-sm md:text-lg font-semibold ">
-//           <div className=" w-[10%]">Pos</div>
-//           <div class="flex items-center  space-x-4 w-[45%] text-sm md:text-lg font-bold px-1">
-//             Bowler
-//           </div>
-
-//           <div className=" w-[12%] text-right">INN</div>
-//           <div className=" w-[12%] text-right">W</div>
-//           <div className=" w-[20%] text-right">ECO</div>
-//         </div>
-//         {/* best bowler male */}
-//         {renderPlayerDetails("bowler")}
-//       </div>
-//     </div>
-//     <div className=" leading_batsman w-full md:w-4/6 mx-auto bg-white rounded-md my-1 shadow-md">
-//       <div className=" py-3   px-3 rounded-sm shadow-md flex justify-between items-center ">
-//         <p className=" text-md md:text-xl font-extrabold text-drop-shadow-2xl text-blue-700 ">
-//           Leading Wicket Tacker
-//           <span>
-//             {" "}
-//             <GiThrowingBall className=" inline-block   font-extrabold" />
-//           </span>
-//         </p>
-//         <p
-//           className={` bg-${maleColor} text-white rounded-md font-bold shadow-lg px-2`}>
-//           Boys
-//         </p>
-//       </div>
-//       <div>
-//         <div className=" py-2  flex justify-between items-center px-3 text-sm md:text-lg font-semibold ">
-//           <div className=" w-[10%]">Pos</div>
-//           <div class="flex items-center  space-x-4 w-[45%] text-sm md:text-lg font-bold px-1">
-//             Bowler
-//           </div>
-
-//           <div className=" w-[12%] text-right">INN</div>
-//           <div className=" w-[12%] text-right">W</div>
-//           <div className=" w-[20%] text-right">ECO</div>
-//         </div>
-//         {/* best bowler male */}
-//         {renderPlayerDetails("bowler")}
-//       </div>
-//     </div>
-//   </div>
-// ) : (
-//   <div className=" w-full md:w-5/6 mx-auto py-5 px-2 ">
-//     <div className=" leading_batsman w-full md:w-4/6 mx-auto bg-white rounded-md shadow-md">
-//       <div className=" py-3   px-3 rounded-sm shadow-md flex justify-between items-center ">
-//         <p className=" text-md md:text-xl font-extrabold text-drop-shadow-2xl text-pink-700 ">
-//           Leading Run Scorer
-//           <span>
-//             {" "}
-//             <GiCricketBat className=" inline-block rotate-180  font-extrabold" />
-//           </span>
-//         </p>
-//         <p
-//           className={` bg-${femaleColor} text-white rounded-md font-bold shadow-lg px-2`}>
-//           Girls
-//         </p>
-//       </div>
-//       <div>
-//         <div className=" py-2  flex justify-between items-center px-3 text-sm md:text-lg font-semibold ">
-//           <div className=" w-[10%]">Pos</div>
-//           <div class="flex items-center space-x-4 w-[45%] text-sm md:text-lg font-bold px-1">
-//             Batsman
-//           </div>
-
-//           <div className=" w-[12%] text-right">INN</div>
-//           <div className=" w-[12%] text-right">RUN</div>
-//           <div className=" w-[20%] text-right">S/R</div>
-//         </div>
-//         {/* best batsman girl */}
-//         {renderPlayerDetails("batsman")}
-//       </div>
-//     </div>
-//     <div className=" leading_batsman w-full md:w-4/6 mx-auto bg-white rounded-md my-1 shadow-md">
-//       <div className=" py-3   px-3 rounded-sm shadow-md flex justify-between items-center ">
-//         <p className=" text-md md:text-xl font-extrabold text-drop-shadow-2xl text-pink-700 ">
-//           Leading Wicket Tacker{" "}
-//           <span>
-//             {" "}
-//             <GiThrowingBall className=" inline-block   font-extrabold" />
-//           </span>
-//         </p>
-//         <p
-//           className={` bg-${femaleColor} text-white rounded-md font-bold shadow-lg px-2`}>
-//           Girls
-//         </p>
-//       </div>
-//       <div>
-//         <div className=" py-2  flex justify-between items-center px-3 text-sm md:text-lg font-semibold ">
-//           <div className=" w-[10%]">Pos</div>
-//           <div class="flex items-center space-x-4 w-[45%] text-sm md:text-lg font-bold px-1">
-//             Bowler
-//           </div>
-
-//           <div className=" w-[12%] text-right">INN</div>
-//           <div className=" w-[12%] text-right">W</div>
-//           <div className=" w-[20%] text-right">ECO</div>
-//         </div>
-//         {/* best bowler girl */}
-//         {renderPlayerDetails("bolwer")}
-//       </div>
-//     </div>
-//   </div>
-// )}
-// {/* </div> */} */
 const PlayerProfilecard = ({ playerStats, selectedGender, title }) => {
   let statTitle1 = "",
     statTitle2 = "",
@@ -824,33 +657,40 @@ const HighestScoreCard = ({ playerStats, title, selectedGender }) => {
         <div className="w-1/2">
           <div className="h-[120px] w-[120px] items-center flex-col justify-center mx-auto ">
             <Image
-              // src={playerStats?.imgUrl !== ""
-              //   ? playerStats?.imgUrl
-              //   : selectedGender == "male"
-              //     ? "/male.jpg"
-              //     : "/female.jpg"}
-              src={"/male.jpg"}
+              src={playerStats?.imgUrl !== ""
+                ? playerStats?.imgUrl
+                : selectedGender == "male"
+                  ? "/male.jpg"
+                  : "/female.jpg"}
+              // src={"/male.jpg"}
               alt="profile_pic"
               width={100}
               height={100}
               className="rounded-full flex justify-center   mx-auto aspect-square   align-middle items-center  border-2 sm:align-middle "
             />
-            <p className="text-center mt-2 font-semibold">
+            <p className={
+              selectedGender == "male"
+                ? `text-md font-bold  text-center  text-blue-900`
+                : `text-md font-bold text-center   text-pink-500`
+            }>
               {" "}
-              VNGC {/*teamName*/}
+              {getTeamCategory(playerStats?.teamId)} {/*teamName*/}
             </p>
           </div>
         </div>
         <div className="mx-auto text-center w-1/2 ">
           <p className="text-center space-y-1 font-medium">
-            Nitin Meena {/*playerName*/}{" "}
+            {playerStats?.name} {/*playerName*/}{" "}
           </p>
           <p className="text-center space-y-1 font-medium">
-            U21CS106 {/*playerRollNo*/}{" "}
+            {playerStats?.roll_no} {/*playerRollNo*/}{" "}
           </p>
 
           <p className="text-center space-y-1 font-medium">
-            Computer Science And Engineering {/*playerDepartment*/}{" "}
+            {playerStats?.type}{/*playerDepartment*/}{" "}
+          </p>
+          <p className="text-center space-y-1 font-medium">
+            {playerStats?.branch}{/*playerDepartment*/}{" "}
           </p>
         </div>
       </div>
