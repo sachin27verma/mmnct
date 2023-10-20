@@ -299,7 +299,7 @@ export default function Stars({ playerStats }) {
                 <HighestScoreCard playerStats={top5femalesixer[0]} title="Most 6s" selectedGender={selectedGender} />
                 <HighestScoreCard
                   playerStats={top5femaletuktukbatsman[0]}
-                  title="Most Dot Balls"
+                  title="Tuk Tuk Player"
                   selectedGender={selectedGender}
                 />
                 <HighestScoreCard
@@ -698,7 +698,24 @@ const HighestScoreCard = ({ playerStats, title, selectedGender }) => {
         className={`mx-auto text-5xl font-bold mb-5  ${selectedGender == "male" ? `text-[#508CD4]` : `text-[#CE3AB3]`
           }`}
       >
-        152 {/*count */}{" "}
+        {/* 152 count */}
+        {
+                  playerStats &&
+                    playerStats?.stats &&
+                    playerStats?.stats[10] ?
+                    title === "Most Runs" ?
+                      getPlayerScored(playerStats?.stats) :
+                      title === "Most wickets" ?
+                        playerStats?.stats[14] :
+                        statTitle2 === "Most 6s" ?
+                          playerStats?.stats[6] :
+                          statTitle2 === "Most 4s" ?
+                            playerStats?.stats[4] :
+                            statTitle2 === "Tuk Tuk Player" ?
+                              playerStats?.stats[0] :
+                              0 :
+                    0
+                }{" "}
       </div>
     </div>
   );
