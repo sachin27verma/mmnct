@@ -432,14 +432,14 @@ const PlayerDetails = () => {
             containerClass="carousel-container"
             autoPlay={true}
           >
-            <>
-              {playerStats.pastrecords &&
-                Object.keys(playerStats.pastrecords).reverse().map((key) => {
-                  const value = playerStats.pastrecords[key];
+            {playerStats?.pastrecords ?
+                Object.keys(playerStats?.pastrecords).reverse().map((key) => {
+                  const value = playerStats?.pastrecords[key];
                   // Render PlayerPastRecord component here with value and key
-                  return <PlayerPastRecord value={value} id={key} gender={gender} />;
-                })}
-            </>
+                  return <PlayerPastRecord value={value} id={key} key={key} gender={gender} />;
+                }) :<></>}
+              
+            
           </Carousel>
         </div>
       </div>
