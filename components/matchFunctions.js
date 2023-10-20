@@ -476,11 +476,11 @@ async function afterMatchClosed(matchId) {
 
   let playerDetail = Object.entries(data.Team1Players);
   for (const [key, value] of playerDetail) {
-    await updatePlayerHistory(key, value, matchId, data.Team2Id);
+    await updatePlayerHistory(key, value, matchId, data.Team2Id, data.Team1Players);
   }
   playerDetail = Object.entries(data.Team2Players);
   for (const [key, value] of playerDetail) {
-    await updatePlayerHistory(key, value, matchId, data.Team1Id);
+    await updatePlayerHistory(key, value, matchId, data.Team1Id, data.Team2Players);
   }
   return 0;
 }
@@ -502,10 +502,10 @@ const getPlayerScore = (players, player) => {
   return totalRuns + "(" + ballPlayed + ")";
 }
 
-async function updatePlayerHistory(playerId, playerData, matchId, OpponentId) {
+async function updatePlayerHistory(playerId, playerData, matchId, OpponentId, data) {
 
   const playerDocRef = doc(db, `participating-team-member/${playerId}`);
-  playerData[11] = getPlayerScore(playerData.score);
+  playerData[11] = getPlayerScore(data, playerId).split('(')[0];
   getDoc(playerDocRef)
     .then((docSnapshot) => {
       if (docSnapshot.exists()) {
@@ -523,7 +523,7 @@ async function updatePlayerHistory(playerId, playerData, matchId, OpponentId) {
         } else {
           const existingStats = data['stats'];
           const updatedStats = existingStats.map((value, index) => {
-            (index !== 11) ?
+            return (index !== 11) ?
               value + playerData.score[index] :
               (playerData[11] > value ? playerData[11] : value)
           })
