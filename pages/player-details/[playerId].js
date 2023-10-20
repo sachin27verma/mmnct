@@ -6,6 +6,7 @@ import Image from "next/image";
 import { TbCricket } from "react-icons/tb";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Link from "next/link";
 import { db } from "../../components/db/Firebase";
 import PlayerPastRecord from "../../components/playerpastrecord";
 import teams from "../../components/teams";
@@ -436,7 +437,7 @@ const PlayerDetails = () => {
                 Object.keys(playerStats?.pastrecords).reverse().map((key) => {
                   const value = playerStats?.pastrecords[key];
                   // Render PlayerPastRecord component here with value and key
-                  return <PlayerPastRecord value={value} id={key} key={key} gender={gender} />;
+                  return <Link href={`/scorecard?matchId=${key}`}><PlayerPastRecord value={value} id={key} key={key} gender={gender} /></Link>;
                 }) :<></>}
               
             
