@@ -2,14 +2,12 @@
 import { useEffect, useState } from "react";
 import { db } from "../components/db/Firebase";
 import { collection, where, getDocs, query } from "firebase/firestore";
-import { getPlayerScore } from "../components/matchFunctions";
-//import teams from "../components/teams";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
+import Link from "next/link";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Footer from "../components/Footer";
-import { GiCricketBat, GiThrowingBall } from "react-icons/gi";
 import Image from "next/image";
 import teams from "../components/teams";
 const getTeamCategory = (teamId) => {
@@ -17,8 +15,6 @@ const getTeamCategory = (teamId) => {
   Object.keys(teams).map((key) => {
     const value = teams[key];
     if (value.teamId === teamId) {
-      // console.log(value.teamCategory);
-
       result = key;
     }
 
@@ -31,7 +27,6 @@ const getPlayerScored = (score) => {
   if (score) {
     for (var i = 0; i < 10; i++) {
       if (score[i]) {
-        // console.log(score[i]);
         totalRuns += i * score[i];
       }
     }
@@ -91,63 +86,107 @@ export default function Stars({ playerStats }) {
         break;
       }
     }
-    // console.log(result);
     return result;
   };
 
   const getTopBatsman = () => {
     setTop5malebatsman([...malePlayers].sort((a, b) => {
-      getPlayerScore(b.stats) - getPlayerScore(a.stats)
+      if (a.stats === undefined && b.stats === undefined) return 0;
+      else if (a.stats === undefined) return 1;
+      else if (b.stats === undefined) return -1;
+      return getPlayerScored(b.stats) - getPlayerScored(a.stats);
     }).slice(0, 5));
+
     setTop5femalebatsman([...femalePlayers].sort((a, b) => {
-      getPlayerScore(b.stats) - getPlayerScore(a.stats)
+      if (a.stats === undefined && b.stats === undefined) return 0;
+      else if (a.stats === undefined) return 1;
+      else if (b.stats === undefined) return -1;
+      return getPlayerScored(b.stats) - getPlayerScored(a.stats);
     }).slice(0, 5));
   }
 
   const getTopBaller = () => {
     setTop5malebowler([...malePlayers].sort((a, b) => {
-      a.stats && b.stats && b.stats[14] - a.stats[14]
+      if (a.stats === undefined && b.stats === undefined) return 0;
+      else if (a.stats === undefined) return 1;
+      else if (b.stats === undefined) return -1;
+      return b.stats[14] - a.stats[14];
     }).slice(0, 5));
+
     setTop5femalebowler([...femalePlayers].sort((a, b) => {
-      a.stats && b.stats && b.stats[14] - a.stats[14]
+      if (a.stats === undefined && b.stats === undefined) return 0;
+      else if (a.stats === undefined) return 1;
+      else if (b.stats === undefined) return -1;
+      return b.stats[14] - a.stats[14];
     }).slice(0, 5));
   }
+
 
   const getTopSixer = () => {
     setTop5malesixer([...malePlayers].sort((a, b) => {
-      a.stats && b.stats && b.stats[6] - a.stats[6]
+      if (a.stats === undefined && b.stats === undefined) return 0;
+      else if (a.stats === undefined) return 1;
+      else if (b.stats === undefined) return -1;
+      else return b.stats[6] - a.stats[6];
     }).slice(0, 5));
+
     setTop5femalesixer([...femalePlayers].sort((a, b) => {
-      a.stats && b.stats && b.stats[6] - a.stats[6]
+      if (a.stats === undefined && b.stats === undefined) return 0;
+      else if (a.stats === undefined) return 1;
+      else if (b.stats === undefined) return -1;
+      else return b.stats[6] - a.stats[6];
     }).slice(0, 5));
   }
+
 
   const getTopfourer = () => {
     setTop5malefourer([...malePlayers].sort((a, b) => {
-      a.stats && b.stats && b.stats[4] - a.stats[4]
+      if (a.stats === undefined && b.stats === undefined) return 0;
+      else if (a.stats === undefined) return 1;
+      else if (b.stats === undefined) return -1;
+      return b.stats[4] - a.stats[4];
     }).slice(0, 5));
+
     setTop5femalefourer([...femalePlayers].sort((a, b) => {
-      a.stats && b.stats && b.stats[4] - a.stats[4]
+      if (a.stats === undefined && b.stats === undefined) return 0;
+      else if (a.stats === undefined) return 1;
+      else if (b.stats === undefined) return -1;
+      return b.stats[4] - a.stats[4];
     }).slice(0, 5));
   }
 
+
   const getTophighestbatsaman = () => {
     setTop5malehighestbatsman([...malePlayers].sort((a, b) => {
-      a.stats && b.stats && b.stats[10] - a.stats[10]
+      if (a.stats === undefined && b.stats === undefined) return 0;
+      else if (a.stats === undefined) return 1;
+      else if (b.stats === undefined) return -1;
+      return b.stats[10] - a.stats[10];
     }).slice(0, 5));
     setTop5femalehighestbatsman([...femalePlayers].sort((a, b) => {
-      a.stats && b.stats && b.stats[10] - a.stats[10]
+      if (a.stats === undefined && b.stats === undefined) return 0;
+      else if (a.stats === undefined) return 1;
+      else if (b.stats === undefined) return -1;
+      return b.stats[10] - a.stats[10];
     }).slice(0, 5));
   }
 
   const getToptuktukbatsman = () => {
     setTop5maletuktukbatsman([...malePlayers].sort((a, b) => {
-      a.stats && b.stats && b.stats[10] - a.stats[10]
+      if (a.stats === undefined && b.stats === undefined) return 0;
+      else if (a.stats === undefined) return 1;
+      else if (b.stats === undefined) return -1;
+      return b.stats[10] - a.stats[10];
     }).slice(0, 5));
+
     setTop5femaletuktukbatsman([...femalePlayers].sort((a, b) => {
-      a.stats && b.stats && b.stats[10] - a.stats[10]
+      if (a.stats === undefined && b.stats === undefined) return 0;
+      else if (a.stats === undefined) return 1;
+      else if (b.stats === undefined) return -1;
+      return b.stats[10] - a.stats[10];
     }).slice(0, 5));
   }
+
 
   useEffect(() => {
     const getData = async () => {
@@ -207,12 +246,6 @@ export default function Stars({ playerStats }) {
 
     return finalDecision;
   }
-  const players = [1, 2, 3, 4, 5];
-
-  //   player card definead for girl and boy
-
-
-
   return (
     <div>
       <Head>
@@ -260,54 +293,57 @@ export default function Stars({ playerStats }) {
         </div>
         <div className="w-5/6 mx-auto my-5">
           <div className=" w-full mx-auto gap-2 grid-cols-1 md:grid-cols-2  grid lg:grid-cols-3">
-
             {selectedGender === "male"
-              ? <><HighestScoreCard
+              ? <><Link href={`/player-details/${top5malebatsman[0]?.id}`}><HighestScoreCard
                 playerStats={top5malebatsman[0]}
                 title="Most Runs"
                 selectedGender={selectedGender}
-              />
-                <HighestScoreCard
-                  playerStats={top5malebowler[0]}
-                  title="Most Wickets"
-                  selectedGender={selectedGender}
-                />
-                <HighestScoreCard playerStats={top5malefourer[0]} title="Most 4s" selectedGender={selectedGender} />
-                <HighestScoreCard playerStats={top5malesixer[0]} title="Most 6s" selectedGender={selectedGender} />
-                <HighestScoreCard
+              /></Link>
+                <Link href={`/player-details/${top5malebowler[0]?.id}`}>
+                  <HighestScoreCard
+                    playerStats={top5malebowler[0]}
+                    title="Most Wickets"
+                    selectedGender={selectedGender}
+                  /></Link>
+                <Link href={`/player-details/${top5malefourer[0]?.id}`}><HighestScoreCard playerStats={top5malefourer[0]} title="Most 4s" selectedGender={selectedGender} /></Link>
+                <Link href={`/player-details/${top5malesixer[0]?.id}`}><HighestScoreCard playerStats={top5malesixer[0]} title="Most 6s" selectedGender={selectedGender} /></Link>
+                <Link href={`/player-details/${top5maletutktukbatsman[0]?.id}`}><HighestScoreCard
                   playerStats={top5maletutktukbatsman[0]}
                   title="Most Dot Balls"
                   selectedGender={selectedGender}
-                />
-                <HighestScoreCard
-                  playerStats={top5malehighestbatsman[0]}
-                  title="Highest Score"
-                  selectedGender={selectedGender}
-                />
+                /></Link>
+                <Link href={`/player-details/${top5malehighestbatsman[0]?.id}`}>
+                  <HighestScoreCard
+                    playerStats={top5malehighestbatsman[0]}
+                    title="Highest Score"
+                    selectedGender={selectedGender}
+                  /></Link>
               </>
-              : <><HighestScoreCard
-                playerStats={top5femalebatsman[0]}
-                title="Most Runs"
-                selectedGender={selectedGender}
-              />
+              : <><Link href={`/player-details/${top5femalebatsman[0]?.id}`}><HighestScoreCard
+              playerStats={top5femalebatsman[0]}
+              title="Most Runs"
+              selectedGender={selectedGender}
+            /></Link>
+              <Link href={`/player-details/${top5femalebowler[0]?.id}`}>
                 <HighestScoreCard
                   playerStats={top5femalebowler[0]}
                   title="Most Wickets"
                   selectedGender={selectedGender}
-                />
-                <HighestScoreCard playerStats={top5femalefourer[0]} title="Most 4s" selectedGender={selectedGender} />
-                <HighestScoreCard playerStats={top5femalesixer[0]} title="Most 6s" selectedGender={selectedGender} />
-                <HighestScoreCard
-                  playerStats={top5femaletuktukbatsman[0]}
-                  title="Tuk Tuk Player"
-                  selectedGender={selectedGender}
-                />
+                /></Link>
+              <Link href={`/player-details/${top5femalefourer[0]?.id}`}><HighestScoreCard playerStats={top5femalefourer[0]} title="Most 4s" selectedGender={selectedGender} /></Link>
+              <Link href={`/player-details/${top5femalesixer[0]?.id}`}><HighestScoreCard playerStats={top5femalesixer[0]} title="Most 6s" selectedGender={selectedGender} /></Link>
+              <Link href={`/player-details/${top5femaletuktukbatsman[0]?.id}`}><HighestScoreCard
+                playerStats={top5femaletuktukbatsman[0]}
+                title="Most Dot Balls"
+                selectedGender={selectedGender}
+              /></Link>
+              <Link href={`/player-details/${top5femalehighestbatsman[0]?.id}`}>
                 <HighestScoreCard
                   playerStats={top5femalehighestbatsman[0]}
                   title="Highest Score"
                   selectedGender={selectedGender}
-                />
-              </>
+                /></Link>
+            </>
             }
 
           </div>
@@ -319,26 +355,23 @@ export default function Stars({ playerStats }) {
               className="w-full grid grid-flow-col overflow-x-auto   gap-x-5 scrollbar-hide "
               style={{}}
             >
-              {console.log(top5malebatsman)}
               {selectedGender === "male"
                 ? top5malebatsman.map(player => {
-                  return <PlayerProfilecard
+                  return <Link href={`/player-details/${player.id}`}><PlayerProfilecard
                     playerStats={player}
                     selectedGender={selectedGender}
                     title={"batsman"}
-                  />
+                  /> </Link>
                 })
                 : top5femalebatsman.map(player => (
-
-                  <PlayerProfilecard
-                    playerStats={player}
-                    selectedGender={selectedGender}
-                    title={"batsman"}
-                  />
+                  <Link href={`/player-details/${player.id}`}>
+                    <PlayerProfilecard
+                      playerStats={player}
+                      selectedGender={selectedGender}
+                      title={"batsman"}
+                    /></Link>
 
                 ))}
-
-
             </div>
           </div>
           <div className="w-full  flex-col mx-auto mt-10 ">
@@ -351,18 +384,18 @@ export default function Stars({ playerStats }) {
             >
               {selectedGender === "male"
                 ? top5malebowler.map(player => {
-                  return <PlayerProfilecard
+                  return <Link href={`/player-details/${player.id}`}><PlayerProfilecard
                     playerStats={player}
                     selectedGender={selectedGender}
                     title={"bowler"}
-                  />
+                  /></Link>
                 })
                 : top5femalebowler.map(player => {
-                  return <PlayerProfilecard
+                  return <Link href={`/player-details/${player.id}`}><PlayerProfilecard
                     playerStats={player}
                     selectedGender={selectedGender}
                     title={"bowler"}
-                  />
+                  /></Link>
 
                 })
               }
@@ -378,22 +411,20 @@ export default function Stars({ playerStats }) {
             >
               {selectedGender === "male"
                 ? top5malesixer.map(player => {
-                  return <PlayerProfilecard
+                  return <Link href={`/player-details/${player.id}`}><PlayerProfilecard
                     playerStats={player}
                     selectedGender={selectedGender}
                     title={"six"}
-                  />
+                  /></Link>
                 })
                 : top5femalesixer.map(player => {
-                  return <PlayerProfilecard
+                  return <Link href={`/player-details/${player.id}`}><PlayerProfilecard
                     playerStats={player}
                     selectedGender={selectedGender}
                     title={"six"}
-                  />
-
+                  /></Link>
                 })
               }
-
             </div>
           </div>
           <div className="w-full  flex-col mx-auto mt-10 ">
@@ -406,21 +437,52 @@ export default function Stars({ playerStats }) {
             >
               {selectedGender === "male"
                 ? top5malefourer.map(player => {
-                  return <PlayerProfilecard
+                  return <Link href={`/player-details/${player.id}`}><PlayerProfilecard
                     playerStats={player}
                     selectedGender={selectedGender}
                     title={"four"}
-                  />
+                  /></Link>
                 })
                 : top5femalefourer.map(player => {
-                  return <PlayerProfilecard
+                  return <Link href={`/player-details/${player.id}`}><PlayerProfilecard
                     playerStats={player}
                     selectedGender={selectedGender}
                     title={"four"}
                   />
-
+                  </Link>
                 })
               }
+
+            </div>
+          </div>
+          <div className="w-full  flex-col mx-auto mt-10 ">
+            <p className="text-left text-3xl font-bold mb-5  text-black ">
+              Top 5 Highest Scorers
+            </p>
+            <div
+              className="w-full grid grid-flow-col overflow-x-auto   gap-x-5 scrollbar-hide "
+              style={{}}
+            >
+              {selectedGender === "male"
+                ? top5malehighestbatsman.map(player => {
+                  return <Link href={`/player-details/${player.id}`}>
+                    <PlayerProfilecard
+                      playerStats={player}
+                      selectedGender={selectedGender}
+                      title={"batsman"}
+                    />
+                  </Link>
+                })
+                : top5femalehighestbatsman.map(player => (
+                  <Link href={`/player-details/${player.id}`}>
+                    <PlayerProfilecard
+                      playerStats={player}
+                      selectedGender={selectedGender}
+                      title={"batsman"}
+                    />
+                  </Link>
+                ))}
+
 
             </div>
           </div>
@@ -434,19 +496,19 @@ export default function Stars({ playerStats }) {
             >
               {selectedGender === "male"
                 ? top5maletutktukbatsman.map(player => {
-                  return <PlayerProfilecard
+                  return <Link href={`/player-details/${player.id}`} ><PlayerProfilecard
                     playerStats={player}
                     selectedGender={selectedGender}
                     title={"tuktuk"}
-                  />
+                  /></Link>
                 })
                 : top5femaletuktukbatsman.map(player => {
-                  return <PlayerProfilecard
+                  return <Link href={`/player-details/${player.id}`} ><PlayerProfilecard
                     playerStats={player}
                     selectedGender={selectedGender}
                     title={"tuktuk"}
                   />
-
+                  </Link>
                 })
               }
 
@@ -700,22 +762,22 @@ const HighestScoreCard = ({ playerStats, title, selectedGender }) => {
       >
         {/* 152 count */}
         {
-                  playerStats &&
-                    playerStats?.stats &&
-                    playerStats?.stats[10] ?
-                    title === "Most Runs" ?
-                      getPlayerScored(playerStats?.stats) :
-                      title === "Most wickets" ?
-                        playerStats?.stats[14] :
-                        statTitle2 === "Most 6s" ?
-                          playerStats?.stats[6] :
-                          statTitle2 === "Most 4s" ?
-                            playerStats?.stats[4] :
-                            statTitle2 === "Tuk Tuk Player" ?
-                              playerStats?.stats[0] :
-                              0 :
-                    0
-                }{" "}
+          playerStats &&
+            playerStats?.stats &&
+            playerStats?.stats[10] ?
+            title === "Most Runs" ?
+              getPlayerScored(playerStats?.stats) :
+              title === "Most wickets" ?
+                playerStats?.stats[14] :
+                title === "Most 6s" ?
+                  playerStats?.stats[6] :
+                  title === "Most 4s" ?
+                    playerStats?.stats[4] :
+                    title === "Tuk Tuk Player" ?
+                      playerStats?.stats[0] :
+                      0 :
+            0
+        }{" "}
       </div>
     </div>
   );
