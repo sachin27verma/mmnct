@@ -12,100 +12,110 @@ import Footer from "../components/Footer";
 import { GiCricketBat, GiThrowingBall } from "react-icons/gi";
 import Image from "next/image";
 export default function Stars({ playerStats }) {
-  // const [malePlayers, setmalePlayers] = useState([]);
-  // const [femalePlayers, setfemalePlayers] = useState([]);
-  // const [top5malebatsman, setTop5malebatsman] = useState([]);
-  // const [top5femalebatsman, setTop5femalebatsman] = useState([]);
-  // const [top5malebowler, setTop5malebowler] = useState([]);
-  // const [top5femalebowler, setTop5femalebowler] = useState([]);
-  // const [top5malesixer, setTop5malesixer] = useState([]);
-  // const [top5femalesixer, setTop5femalesixer] = useState([]);
-  // const [top5malefourer, setTop5malefourer] = useState([]);
-  // const [top5femalefourer, setTop5femalefourer] = useState([]);
-  // const [top5malehighestbatsamn, setTop5malehighestbatsman] = useState([]);
-  // const [top5femalehighestbatsamn, setTop5femalehighestbatsman] = useState([]);
-  // // const [top5maletutktukbatsamn, setTop5maletuktukbatsman] = useState([]);
-  // // const [top5femaletuktukbatsamn, setTop5femaletuktukbatsman] = useState([]);
+  const [malePlayers, setmalePlayers] = useState([]);
+  const [femalePlayers, setfemalePlayers] = useState([]);
+  const [top5malebatsman, setTop5malebatsman] = useState([]);
+  const [top5femalebatsman, setTop5femalebatsman] = useState([]);
+  const [top5malebowler, setTop5malebowler] = useState([]);
+  const [top5femalebowler, setTop5femalebowler] = useState([]);
+  const [top5malesixer, setTop5malesixer] = useState([]);
+  const [top5femalesixer, setTop5femalesixer] = useState([]);
+  const [top5malefourer, setTop5malefourer] = useState([]);
+  const [top5femalefourer, setTop5femalefourer] = useState([]);
+  const [top5malehighestbatsamn, setTop5malehighestbatsman] = useState([]);
+  const [top5femalehighestbatsamn, setTop5femalehighestbatsman] = useState([]);
+  const [top5maletutktukbatsamn, setTop5maletuktukbatsman] = useState([]);
+  const [top5femaletuktukbatsamn, setTop5femaletuktukbatsman] = useState([]);
 
-  // const getGender = (teamid) => {
-  //     let result;
-  //     for (const val in teams) {
-  //         const value = teams[val];
-  //         if (value.teamId === teamid) {
-  //             result = value.teamCategory;
-  //             break;
-  //         }
-  //     }
-  //     return result;
-  // };
+  const getGender = (teamid) => {
+      let result;
+      for (const val in teams) {
+          const value = teams[val];
+          if (value.teamId === teamid) {
+              result = value.teamCategory;
+              break;
+          }
+      }
+      return result;
+  };
 
-  // const getTopBatsman = () => {
-  //     setTop5malebatsman([...malePlayers].sort((a, b) => {
-  //         getPlayerScore(b.stats) - getPlayerScore(a.stats)
-  //     }).slice(0, 5));
-  //     setTop5femalebatsman([...femalePlayers].sort((a, b) => {
-  //         getPlayerScore(b.stats) - getPlayerScore(a.stats)
-  //     }).slice(0, 5));
-  // }
+  const getTopBatsman = () => {
+      setTop5malebatsman([...malePlayers].sort((a, b) => {
+          getPlayerScore(b.stats) - getPlayerScore(a.stats)
+      }).slice(0, 5));
+      setTop5femalebatsman([...femalePlayers].sort((a, b) => {
+          getPlayerScore(b.stats) - getPlayerScore(a.stats)
+      }).slice(0, 5));
+  }
 
-  // const getTopBaller = () => {
-  //     setTop5malebowler([...malePlayers].sort((a, b) => {
-  //         getPlayerScore(b.stats) - getPlayerScore(a.stats)
-  //     }).slice(0, 5));
-  //     setTop5femalebowler([...femalePlayers].sort((a, b) => {
-  //         getPlayerScore(b.stats) - getPlayerScore(a.stats)
-  //     }).slice(0, 5));
-  // }
+  const getTopBaller = () => {
+      setTop5malebowler([...malePlayers].sort((a, b) => {
+          getPlayerScore(b.stats) - getPlayerScore(a.stats)
+      }).slice(0, 5));
+      setTop5femalebowler([...femalePlayers].sort((a, b) => {
+          getPlayerScore(b.stats) - getPlayerScore(a.stats)
+      }).slice(0, 5));
+  }
 
-  // const getTopSixer = () => {
-  //     setTop5malesixer([...malePlayers].sort((a, b) => {
-  //         getPlayerScore(b.stats) - getPlayerScore(a.stats)
-  //     }).slice(0, 5));
-  //     setTop5femalesixer([...femalePlayers].sort((a, b) => {
-  //         getPlayerScore(b.stats) - getPlayerScore(a.stats)
-  //     }).slice(0, 5));
-  // }
+  const getTopSixer = () => {
+      setTop5malesixer([...malePlayers].sort((a, b) => {
+          b.stats && a.stats ? b.stats[6] - a.stats[6] : 0
+      }).slice(0, 5));
+      setTop5femalesixer([...femalePlayers].sort((a, b) => {
+        b.stats && a.stats ? b.stats[6] - a.stats[6] : 0
+      }).slice(0, 5));
+  }
 
-  // const getTopfourer = () => {
-  //     setTop5malefourer([...malePlayers].sort((a, b) => {
-  //         getPlayerScore(b.stats) - getPlayerScore(a.stats)
-  //     }).slice(0, 5));
-  //     setTop5femalefourer([...femalePlayers].sort((a, b) => {
-  //         getPlayerScore(b.stats) - getPlayerScore(a.stats)
-  //     }).slice(0, 5));
-  // }
+  const getTopfourer = () => {
+      setTop5malefourer([...malePlayers].sort((a, b) => {
+        b.stats && a.stats ? b.stats[4] - a.stats[4] : 0
+      }).slice(0, 5));
+      setTop5femalefourer([...femalePlayers].sort((a, b) => {
+        b.stats && a.stats ? b.stats[4] - a.stats[4] : 0
+      }).slice(0, 5));
+  }
 
-  // const getTophighestbatsaman = () => {
-  //     setTop5malehighestbatsman([...malePlayers].sort((a, b) => {
-  //         getPlayerScore(b.stats) - getPlayerScore(a.stats)
-  //     }).slice(0, 5));
-  //     setTop5femalehighestbatsman([...femalePlayers].sort((a, b) => {
-  //         getPlayerScore(b.stats) - getPlayerScore(a.stats)
-  //     }).slice(0, 5));
-  // }
+  const getTophighestbatsaman = () => {
+      setTop5malehighestbatsman([...malePlayers].sort((a, b) => {
+        b.stats && a.stats ? b.stats[10] - a.stats[10] : 0
+      }).slice(0, 5));
+      setTop5femalehighestbatsman([...femalePlayers].sort((a, b) => {
+        b.stats && a.stats ? b.stats[10] - a.stats[10] : 0
+      }).slice(0, 5));
+  }
 
-  // useEffect(async () => {
+  const getTopTukTukBatsman = () => {
+    setTop5maletuktukbatsman([...malePlayers].sort((a, b) => {
+      b.stats && a.stats ? b.stats[0] - a.stats[0] : 0
+    }).slice(0, 5));
+    setTop5femaletuktukbatsman([...femalePlayers].sort((a, b) => {
+      b.stats && a.stats ? b.stats[0] - a.stats[0] : 0
+    }).slice(0, 5));
+}
 
-  //     const maleData = [];
-  //     const femaleData = [];
-  //     const querySnapshot = await getDocs(query(collection(db, "participating-team-member"), where("edition", "==", "17")));
-  //     const documents = [];
-  //     querySnapshot.forEach((doc) => {
-  //         const data = { id: doc.id, ...doc.data() };
-  //         if (getGender(data.teamId) === "male") {
-  //             maleData.push(data);
-  //         } else {
-  //             femaleData.push(data);
-  //         }
-  //     })
-  //     setmalePlayers(maleData);
-  //     setfemalePlayers(femaleData);
-  //     getTopBatsman();
-  //     getTopBaller();
-  //     getTopSixer();
-  //     getTopfourer();
-  //     getTophighestbatsaman();
-  // }, []);
+  useEffect(async () => {
+
+      const maleData = [];
+      const femaleData = [];
+      const querySnapshot = await getDocs(query(collection(db, "participating-team-member"), where("edition", "==", "17")));
+      const documents = [];
+      querySnapshot.forEach((doc) => {
+          const data = { id: doc.id, ...doc.data() };
+          if (getGender(data.teamId) === "male") {
+              maleData.push(data);
+          } else {
+              femaleData.push(data);
+          }
+      })
+      setmalePlayers(maleData);
+      setfemalePlayers(femaleData);
+      getTopBatsman();
+      getTopBaller();
+      getTopSixer();
+      getTopfourer();
+      getTophighestbatsaman();
+      getTopTukTukBatsman();
+  }, []);
 
 
   const [selectedGender, setSelectedGender] = useState("male");
@@ -141,9 +151,8 @@ export default function Stars({ playerStats }) {
 
   return (
     <div>
-      {/* <h1>Male Documents</h1>
+      <h1>Male Documents</h1>
             <ul>
-                {console.log(malePlayers)}
                 {malePlayers.map((document) => (
                     <li key={document.id}>
                         Document ID: {document.id},Name : {document.name} , edition : {document.edition} Total Score: {getPlayerScore(document.stats)}
@@ -152,13 +161,12 @@ export default function Stars({ playerStats }) {
             </ul>
             <h1>Female Documents</h1>
             <ul>
-                {console.log(malePlayers)}
                 {femalePlayers.map((document) => (
                     <li key={document.id}>
                         Document ID: {document.id},Name : {document.name} , edition : {document.edition} Total Score: {getPlayerScore(document.stats)}
                     </li>
                 ))}
-            </ul> */}
+            </ul>
       <Head>
         <title>MMNCT Stars</title>
         <link rel="icon" href="/favicon.ico" />
