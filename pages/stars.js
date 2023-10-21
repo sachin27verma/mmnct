@@ -767,14 +767,16 @@ const HighestScoreCard = ({ playerStats, title, selectedGender }) => {
             playerStats?.stats[10] ?
             title === "Most Runs" ?
               getPlayerScored(playerStats?.stats) :
-              title === "Most wickets" ?
+              title === "Most Wickets" ?
                 playerStats?.stats[14] :
                 title === "Most 6s" ?
                   playerStats?.stats[6] :
                   title === "Most 4s" ?
                     playerStats?.stats[4] :
-                    title === "Tuk Tuk Player" ?
+                    title === "Most Dot Balls" ?
                       playerStats?.stats[0] :
+                      title === "Highest Score" ?
+                      playerStats?.stats[11]:
                       0 :
             0
         }{" "}
