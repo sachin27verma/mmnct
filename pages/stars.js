@@ -94,14 +94,32 @@ export default function Stars({ playerStats }) {
       if (a.stats === undefined && b.stats === undefined) return 0;
       else if (a.stats === undefined) return 1;
       else if (b.stats === undefined) return -1;
-      return getPlayerScored(b.stats) - getPlayerScored(a.stats);
+      
+      const scoreDiff = getPlayerScored(b.stats) - getPlayerScored(a.stats);
+      
+      if (scoreDiff === 0) {
+     
+        const strikeRateDiff = calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats)) - calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats));
+        return strikeRateDiff;
+      }
+      
+      return scoreDiff;
     }).slice(0, 5));
 
     setTop5femalebatsman([...femalePlayers].sort((a, b) => {
       if (a.stats === undefined && b.stats === undefined) return 0;
       else if (a.stats === undefined) return 1;
       else if (b.stats === undefined) return -1;
-      return getPlayerScored(b.stats) - getPlayerScored(a.stats);
+      
+      const scoreDiff = getPlayerScored(b.stats) - getPlayerScored(a.stats);
+      
+      if (scoreDiff === 0) {
+     
+        const strikeRateDiff = calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats)) - calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats));
+        return strikeRateDiff;
+      }
+      
+      return scoreDiff;
     }).slice(0, 5));
   }
 
@@ -110,14 +128,33 @@ export default function Stars({ playerStats }) {
       if (a.stats === undefined && b.stats === undefined) return 0;
       else if (a.stats === undefined) return 1;
       else if (b.stats === undefined) return -1;
-      return b.stats[14] - a.stats[14];
-    }).slice(0, 5));
+      
+      const wicketDiff = b.stats[14] - a.stats[14];
+      
+      if (wicketDiff === 0) {
+        // If wickets are the same, sort based on economy rate
+        const economyRateDiff = calculateEconomyRate(a.stats[13], a.stats[12]) - calculateEconomyRate(b.stats[13], b.stats[12]);
+        return economyRateDiff;
+      }
+      
+      return wicketDiff;
+    })
+    .slice(0, 5));
 
     setTop5femalebowler([...femalePlayers].sort((a, b) => {
       if (a.stats === undefined && b.stats === undefined) return 0;
       else if (a.stats === undefined) return 1;
       else if (b.stats === undefined) return -1;
-      return b.stats[14] - a.stats[14];
+      
+      const wicketDiff = b.stats[14] - a.stats[14];
+      
+      if (wicketDiff === 0) {
+        // If wickets are the same, sort based on economy rate
+        const economyRateDiff = calculateEconomyRate(a.stats[13], a.stats[12]) - calculateEconomyRate(b.stats[13], b.stats[12]);
+        return economyRateDiff;
+      }
+      
+      return wicketDiff;
     }).slice(0, 5));
   }
 
@@ -127,14 +164,30 @@ export default function Stars({ playerStats }) {
       if (a.stats === undefined && b.stats === undefined) return 0;
       else if (a.stats === undefined) return 1;
       else if (b.stats === undefined) return -1;
-      else return b.stats[6] - a.stats[6];
+  
+      const sixesDiff = b.stats[6] - a.stats[6];
+      if (sixesDiff === 0) {
+        // If the number of sixes is the same, sort based on strike rate
+        const strikeRateDiff = calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats)) - calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats));
+        return strikeRateDiff;
+      }
+  
+      return sixesDiff;
     }).slice(0, 5));
 
     setTop5femalesixer([...femalePlayers].sort((a, b) => {
       if (a.stats === undefined && b.stats === undefined) return 0;
       else if (a.stats === undefined) return 1;
       else if (b.stats === undefined) return -1;
-      else return b.stats[6] - a.stats[6];
+  
+      const sixesDiff = b.stats[6] - a.stats[6];
+      if (sixesDiff === 0) {
+        // If the number of sixes is the same, sort based on strike rate
+        const strikeRateDiff = calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats)) - calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats));
+        return strikeRateDiff;
+      }
+  
+      return sixesDiff;
     }).slice(0, 5));
   }
 
@@ -144,14 +197,30 @@ export default function Stars({ playerStats }) {
       if (a.stats === undefined && b.stats === undefined) return 0;
       else if (a.stats === undefined) return 1;
       else if (b.stats === undefined) return -1;
-      return b.stats[4] - a.stats[4];
+  
+      const fourDiff = b.stats[4] - a.stats[4];
+      if (fourDiff === 0) {
+        // If the number of sixes is the same, sort based on strike rate
+        const strikeRateDiff = calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats)) - calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats));
+        return strikeRateDiff;
+      }
+  
+      return fourDiff;
     }).slice(0, 5));
 
     setTop5femalefourer([...femalePlayers].sort((a, b) => {
       if (a.stats === undefined && b.stats === undefined) return 0;
       else if (a.stats === undefined) return 1;
       else if (b.stats === undefined) return -1;
-      return b.stats[4] - a.stats[4];
+  
+      const fourDiff = b.stats[4] - a.stats[4];
+      if (fourDiff === 0) {
+        // If the number of sixes is the same, sort based on strike rate
+        const strikeRateDiff =calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats)) - calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats));
+        return strikeRateDiff;
+      }
+  
+      return fourDiff;
     }).slice(0, 5));
   }
 
@@ -161,13 +230,29 @@ export default function Stars({ playerStats }) {
       if (a.stats === undefined && b.stats === undefined) return 0;
       else if (a.stats === undefined) return 1;
       else if (b.stats === undefined) return -1;
-      return b.stats[10] - a.stats[10];
+  
+      const highestDiff = b.stats[10] - a.stats[10];
+      if (highestDiff === 0) {
+        // If the number of sixes is the same, sort based on strike rate
+        const strikeRateDiff = calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats)) - calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats));
+        return strikeRateDiff;
+      }
+  
+      return highestDiff;
     }).slice(0, 5));
     setTop5femalehighestbatsman([...femalePlayers].sort((a, b) => {
       if (a.stats === undefined && b.stats === undefined) return 0;
       else if (a.stats === undefined) return 1;
       else if (b.stats === undefined) return -1;
-      return b.stats[10] - a.stats[10];
+  
+      const highestDiff = b.stats[10] - a.stats[10];
+      if (highestDiff === 0) {
+        // If the number of sixes is the same, sort based on strike rate
+        const strikeRateDiff = calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats)) - calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats));
+        return strikeRateDiff;
+      }
+  
+      return highestDiff;
     }).slice(0, 5));
   }
 
@@ -176,14 +261,30 @@ export default function Stars({ playerStats }) {
       if (a.stats === undefined && b.stats === undefined) return 0;
       else if (a.stats === undefined) return 1;
       else if (b.stats === undefined) return -1;
-      return b.stats[10] - a.stats[10];
+  
+      const tuktukDiff = b.stats[0] - a.stats[0];
+      if (tuktukDiff === 0) {
+        // If the number of sixes is the same, sort based on strike rate
+        const strikeRateDiff = calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats)) - calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats));
+        return strikeRateDiff;
+      }
+  
+      return tuktukDiff;
     }).slice(0, 5));
 
     setTop5femaletuktukbatsman([...femalePlayers].sort((a, b) => {
       if (a.stats === undefined && b.stats === undefined) return 0;
       else if (a.stats === undefined) return 1;
       else if (b.stats === undefined) return -1;
-      return b.stats[10] - a.stats[10];
+  
+      const tuktukDiff = b.stats[0] - a.stats[0];
+      if (tuktukDiff === 0) {
+        // If the number of sixes is the same, sort based on strike rate
+        const strikeRateDiff = calculateStrikeRate(getPlayerScored(a.stats),getPlayerBalls(a.stats)) - calculateStrikeRate(getPlayerScored(b.stats),getPlayerBalls(b.stats));
+        return strikeRateDiff;
+      }
+  
+      return tuktukDiff;
     }).slice(0, 5));
   }
 
@@ -469,7 +570,7 @@ export default function Stars({ playerStats }) {
                     <PlayerProfilecard
                       playerStats={player}
                       selectedGender={selectedGender}
-                      title={"batsman"}
+                      title={"highest"}
                     />
                   </Link>
                 })
@@ -478,7 +579,7 @@ export default function Stars({ playerStats }) {
                     <PlayerProfilecard
                       playerStats={player}
                       selectedGender={selectedGender}
-                      title={"batsman"}
+                      title={"highest"}
                     />
                   </Link>
                 ))}
@@ -547,6 +648,10 @@ const PlayerProfilecard = ({ playerStats, selectedGender, title }) => {
     statTitle1 = "Matches Played";
     statTitle2 = "Dot Balls";
     statTitle3 = "Strike Rate";
+  } else if(title == "highest") {
+    statTitle1 = "Matches Played";
+    statTitle2 = "Runs";
+    statTitle3 = "";
   }
   return (
     <div className="w-[300px] border-2 bg-white rounded-lg">
@@ -656,6 +761,8 @@ const PlayerProfilecard = ({ playerStats, selectedGender, title }) => {
                             playerStats?.stats[4] :
                             statTitle2 === "Dot Balls" ?
                               playerStats?.stats[0] :
+                              statTitle2 === "Runs" ?
+                        playerStats?.stats[11] :
                               0 :
                     0
                 }
