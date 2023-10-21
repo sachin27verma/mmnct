@@ -650,9 +650,9 @@ const PlayerProfilecard = ({ playerStats, selectedGender, title }) => {
                       getPlayerScored(playerStats?.stats) :
                       statTitle2 === "Wickets" ?
                         playerStats?.stats[14] :
-                        statTitle2 === "sixes" ?
+                        statTitle2 === "Sixes" ?
                           playerStats?.stats[6] :
-                          statTitle2 === "fours" ?
+                          statTitle2 === "Fours" ?
                             playerStats?.stats[4] :
                             statTitle2 === "Dot Balls" ?
                               playerStats?.stats[0] :
