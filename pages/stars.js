@@ -1143,7 +1143,7 @@ const PlayerProfilecard = ({ playerStats, selectedGender, title, Rank }) => {
                             playerStats?.stats[4] :
                             statTitle2 === "Dot Balls" ?
                               playerStats?.stats[0] :
-                              statTitle2 === "Runs" ?
+                              statTitle2 === "Highest Score" ?
                         playerStats?.stats[11] :
                               0 :
                     0
