@@ -161,13 +161,13 @@ export default function Stars({ playerStats }) {
       if (a.stats === undefined && b.stats === undefined) return 0;
       else if (a.stats === undefined) return 1;
       else if (b.stats === undefined) return -1;
-      return b.stats[10] - a.stats[10];
+      return b.stats[11] - a.stats[11];
     }).slice(0, 5));
     setTop5femalehighestbatsman([...femalePlayers].sort((a, b) => {
       if (a.stats === undefined && b.stats === undefined) return 0;
       else if (a.stats === undefined) return 1;
       else if (b.stats === undefined) return -1;
-      return b.stats[10] - a.stats[10];
+      return b.stats[11] - a.stats[11];
     }).slice(0, 5));
   }
 
@@ -176,14 +176,14 @@ export default function Stars({ playerStats }) {
       if (a.stats === undefined && b.stats === undefined) return 0;
       else if (a.stats === undefined) return 1;
       else if (b.stats === undefined) return -1;
-      return b.stats[10] - a.stats[10];
+      return b.stats[0] - a.stats[0];
     }).slice(0, 5));
 
     setTop5femaletuktukbatsman([...femalePlayers].sort((a, b) => {
       if (a.stats === undefined && b.stats === undefined) return 0;
       else if (a.stats === undefined) return 1;
       else if (b.stats === undefined) return -1;
-      return b.stats[10] - a.stats[10];
+      return b.stats[0] - a.stats[0];
     }).slice(0, 5));
   }
 
