@@ -145,8 +145,8 @@ const PlayerDetails = () => {
       <Navbar />
       <div className={`${gender === "girl" ? " " : ""}text-white`}>
         <div className="w-5/6 mx-auto my-4 shadow-lg text-black bg-white rounded-md">
-          <div className="flex justify-center  p-4 flex-col md:flex-row  gap-10 border-none  ">
-            <div className=" ">
+          <div className="w-fit mx-auto flex justify-center  p-4 flex-col md:flex-row  gap-10 border-none  ">
+            
               <Image
                 src={playerStats.imgUrl !== ""
                   ? playerStats.imgUrl
@@ -157,16 +157,16 @@ const PlayerDetails = () => {
                 width={200}
                 height={100}
                 className={`${gender === "girl"
-                  ? " rounded-full flex justify-center h-full w-full  mx-auto aspect-square   align-middle items-center ring-4 ring-offset-4 ring-pink-500 sm:align-middle  "
-                  : " rounded-full flex justify-center  w-4/5   mx-auto aspect-square   align-middle items-center ring-4 ring-offset-4 ring-blue-500 sm:align-middle "
+                  ? " rounded-full flex justify-center h-[280px] w-[280px]  mx-auto aspect-square   align-middle items-center ring-4 ring-offset-4 ring-pink-500 sm:align-middle  "
+                  : " rounded-full flex justify-center h-[280px] w-[280px]    mx-auto aspect-square   align-middle items-center ring-4 ring-offset-4 ring-blue-500 sm:align-middle "
                   }
                  `}
               />
-            </div>
+            
 
             {/* <hr className=" h-1  bg-green-500 my-3 lg:hidden md:hidden sm:block" /> */}
             <div className="     px-2  ">
-              <p className=" text-5xl font-medium md:mt-4 text-center md:text-left lg:text-left mt-2 ">
+              <p className=" text-3xl font-bold uppercase md:mt-4 text-center md:text-left lg:text-left mt-2 ">
                 {" "}
                 {playerStats?.name}
                 {/* {player Name} */}

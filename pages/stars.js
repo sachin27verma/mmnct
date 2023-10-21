@@ -10,6 +10,8 @@ import "react-multi-carousel/lib/styles.css";
 import Footer from "../components/Footer";
 import Image from "next/image";
 import teams from "../components/teams";
+import { TfiArrowCircleRight, TfiArrowCircleLeft } from "react-icons/tfi";
+
 const getTeamCategory = (teamId) => {
   var result;
   Object.keys(teams).map((key) => {
@@ -17,10 +19,9 @@ const getTeamCategory = (teamId) => {
     if (value.teamId === teamId) {
       result = key;
     }
-
-  })
+  });
   return result;
-}
+};
 const getPlayerScored = (score) => {
   var totalRuns = 0;
   //var ballPlayed = 0;
@@ -61,6 +62,29 @@ function calculateEconomyRate(runsConceded, noOfBallsBowled) {
   const economyRate = (runsConceded / noOfBallsBowled) * 6;
   return economyRate.toFixed(2); // Rounding to two decimal places
 }
+
+const responsive = {
+  largeDesktop: {
+    breakpoint: { max: 3000, min: 1275 },
+    items: 4,
+    partialVisibilityGutter: 40,
+  },
+  desktop: {
+    breakpoint: { max: 1275, min: 950 },
+    items: 3,
+    partialVisibilityGutter: 40,
+  },
+  tablet: {
+    breakpoint: { max: 950, min: 550 },
+    items: 2,
+    partialVisibilityGutter: 30,
+  },
+  mobile: {
+    breakpoint: { max: 550, min: 0 },
+    items: 1,
+    partialVisibilityGutter: 30,
+  },
+};
 export default function Stars({ playerStats }) {
   const [malePlayers, setmalePlayers] = useState([]);
   const [femalePlayers, setfemalePlayers] = useState([]);
@@ -90,109 +114,158 @@ export default function Stars({ playerStats }) {
   };
 
   const getTopBatsman = () => {
-    setTop5malebatsman([...malePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-      return getPlayerScored(b.stats) - getPlayerScored(a.stats);
-    }).slice(0, 5));
+    setTop5malebatsman(
+      [...malePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+          return getPlayerScored(b.stats) - getPlayerScored(a.stats);
+        })
+        .slice(0, 5)
+    );
 
-    setTop5femalebatsman([...femalePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-      return getPlayerScored(b.stats) - getPlayerScored(a.stats);
-    }).slice(0, 5));
-  }
+    setTop5femalebatsman(
+      [...femalePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+          return getPlayerScored(b.stats) - getPlayerScored(a.stats);
+        })
+        .slice(0, 5)
+    );
+  };
 
   const getTopBaller = () => {
-    setTop5malebowler([...malePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-      return b.stats[14] - a.stats[14];
-    }).slice(0, 5));
+    setTop5malebowler(
+      [...malePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+          return b.stats[14] - a.stats[14];
+        })
+        .slice(0, 5)
+    );
 
-    setTop5femalebowler([...femalePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-      return b.stats[14] - a.stats[14];
-    }).slice(0, 5));
-  }
-
+    setTop5femalebowler(
+      [...femalePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+          return b.stats[14] - a.stats[14];
+        })
+        .slice(0, 5)
+    );
+  };
 
   const getTopSixer = () => {
-    setTop5malesixer([...malePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-      else return b.stats[6] - a.stats[6];
-    }).slice(0, 5));
+    setTop5malesixer(
+      [...malePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+          else return b.stats[6] - a.stats[6];
+        })
+        .slice(0, 5)
+    );
 
-    setTop5femalesixer([...femalePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-      else return b.stats[6] - a.stats[6];
-    }).slice(0, 5));
-  }
-
+    setTop5femalesixer(
+      [...femalePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+          else return b.stats[6] - a.stats[6];
+        })
+        .slice(0, 5)
+    );
+  };
 
   const getTopfourer = () => {
-    setTop5malefourer([...malePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-      return b.stats[4] - a.stats[4];
-    }).slice(0, 5));
+    setTop5malefourer(
+      [...malePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+          return b.stats[4] - a.stats[4];
+        })
+        .slice(0, 5)
+    );
 
-    setTop5femalefourer([...femalePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-      return b.stats[4] - a.stats[4];
-    }).slice(0, 5));
-  }
-
+    setTop5femalefourer(
+      [...femalePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+          return b.stats[4] - a.stats[4];
+        })
+        .slice(0, 5)
+    );
+  };
 
   const getTophighestbatsaman = () => {
-    setTop5malehighestbatsman([...malePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-      return b.stats[10] - a.stats[10];
-    }).slice(0, 5));
-    setTop5femalehighestbatsman([...femalePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-      return b.stats[10] - a.stats[10];
-    }).slice(0, 5));
-  }
+    setTop5malehighestbatsman(
+      [...malePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+          return b.stats[10] - a.stats[10];
+        })
+        .slice(0, 5)
+    );
+    setTop5femalehighestbatsman(
+      [...femalePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+          return b.stats[10] - a.stats[10];
+        })
+        .slice(0, 5)
+    );
+  };
 
   const getToptuktukbatsman = () => {
-    setTop5maletuktukbatsman([...malePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-      return b.stats[10] - a.stats[10];
-    }).slice(0, 5));
+    setTop5maletuktukbatsman(
+      [...malePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+          return b.stats[10] - a.stats[10];
+        })
+        .slice(0, 5)
+    );
 
-    setTop5femaletuktukbatsman([...femalePlayers].sort((a, b) => {
-      if (a.stats === undefined && b.stats === undefined) return 0;
-      else if (a.stats === undefined) return 1;
-      else if (b.stats === undefined) return -1;
-      return b.stats[10] - a.stats[10];
-    }).slice(0, 5));
-  }
-
+    setTop5femaletuktukbatsman(
+      [...femalePlayers]
+        .sort((a, b) => {
+          if (a.stats === undefined && b.stats === undefined) return 0;
+          else if (a.stats === undefined) return 1;
+          else if (b.stats === undefined) return -1;
+          return b.stats[10] - a.stats[10];
+        })
+        .slice(0, 5)
+    );
+  };
 
   useEffect(() => {
     const getData = async () => {
       const maleData = [];
       const femaleData = [];
-      const querySnapshot = await getDocs(query(collection(db, "participating-team-member"), where("edition", "==", "17")));
+      const querySnapshot = await getDocs(
+        query(
+          collection(db, "participating-team-member"),
+          where("edition", "==", "17")
+        )
+      );
       querySnapshot.forEach((doc) => {
         const data = { id: doc.id, ...doc.data() };
         if (getGender(data.teamId) === "male") {
@@ -200,15 +273,14 @@ export default function Stars({ playerStats }) {
         } else {
           femaleData.push(data);
         }
-      })
+      });
       setmalePlayers(maleData);
       setfemalePlayers(femaleData);
-    }
+    };
     getData();
   }, []);
 
   useEffect(() => {
-
     const setData = () => {
       getTopBatsman();
       getTopBaller();
@@ -216,10 +288,9 @@ export default function Stars({ playerStats }) {
       getTopfourer();
       getTophighestbatsaman();
       getToptuktukbatsman();
-    }
+    };
     setData();
   }, [malePlayers, femalePlayers]);
-
 
   const [selectedGender, setSelectedGender] = useState("male");
   const maleColor = "[#508CD4]";
@@ -261,7 +332,7 @@ export default function Stars({ playerStats }) {
             MMNCT'23 STARS
           </p>
         </div>
-        <div className="bg-white my-2 mt-4 text-gray-500 flex justify-evenly w-[290px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-6">
+        <div className="bg-white my-2 mt-4 text-gray-500 flex justify-evenly w-[270px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-6">
           <div
             onClick={() => {
               setSelectedGender("male");
@@ -291,94 +362,179 @@ export default function Stars({ playerStats }) {
             </p>
           </div>
         </div>
-        <div className="w-5/6 mx-auto my-5">
-          <div className=" w-full mx-auto gap-2 grid-cols-1 md:grid-cols-2  grid lg:grid-cols-3">
-            {selectedGender === "male"
-              ? <><Link href={`/player-details/${top5malebatsman[0]?.id}`}><HighestScoreCard
-                playerStats={top5malebatsman[0]}
-                title="Most Runs"
-                selectedGender={selectedGender}
-              /></Link>
+        <div>
+          <div className=" w-5/6 mx-auto gap-2 grid-cols-1 md:grid-cols-2  grid lg:grid-cols-3">
+            {selectedGender === "male" ? (
+              <>
+                <Link href={`/player-details/${top5malebatsman[0]?.id}`}>
+                  <HighestScoreCard
+                    playerStats={top5malebatsman[0]}
+                    title="Most Runs"
+                    selectedGender={selectedGender}
+                  />
+                </Link>
                 <Link href={`/player-details/${top5malebowler[0]?.id}`}>
                   <HighestScoreCard
                     playerStats={top5malebowler[0]}
                     title="Most Wickets"
                     selectedGender={selectedGender}
-                  /></Link>
-                <Link href={`/player-details/${top5malefourer[0]?.id}`}><HighestScoreCard playerStats={top5malefourer[0]} title="Most 4s" selectedGender={selectedGender} /></Link>
-                <Link href={`/player-details/${top5malesixer[0]?.id}`}><HighestScoreCard playerStats={top5malesixer[0]} title="Most 6s" selectedGender={selectedGender} /></Link>
-                <Link href={`/player-details/${top5maletutktukbatsman[0]?.id}`}><HighestScoreCard
-                  playerStats={top5maletutktukbatsman[0]}
-                  title="Most Dot Balls"
-                  selectedGender={selectedGender}
-                /></Link>
+                  />
+                </Link>
+                <Link href={`/player-details/${top5malefourer[0]?.id}`}>
+                  <HighestScoreCard
+                    playerStats={top5malefourer[0]}
+                    title="Most 4s"
+                    selectedGender={selectedGender}
+                  />
+                </Link>
+                <Link href={`/player-details/${top5malesixer[0]?.id}`}>
+                  <HighestScoreCard
+                    playerStats={top5malesixer[0]}
+                    title="Most 6s"
+                    selectedGender={selectedGender}
+                  />
+                </Link>
+                <Link href={`/player-details/${top5maletutktukbatsman[0]?.id}`}>
+                  <HighestScoreCard
+                    playerStats={top5maletutktukbatsman[0]}
+                    title="Most Dot Balls"
+                    selectedGender={selectedGender}
+                  />
+                </Link>
                 <Link href={`/player-details/${top5malehighestbatsman[0]?.id}`}>
                   <HighestScoreCard
                     playerStats={top5malehighestbatsman[0]}
                     title="Highest Score"
                     selectedGender={selectedGender}
-                  /></Link>
+                  />
+                </Link>
               </>
-              : <><Link href={`/player-details/${top5femalebatsman[0]?.id}`}><HighestScoreCard
-              playerStats={top5femalebatsman[0]}
-              title="Most Runs"
-              selectedGender={selectedGender}
-            /></Link>
-              <Link href={`/player-details/${top5femalebowler[0]?.id}`}>
-                <HighestScoreCard
-                  playerStats={top5femalebowler[0]}
-                  title="Most Wickets"
-                  selectedGender={selectedGender}
-                /></Link>
-              <Link href={`/player-details/${top5femalefourer[0]?.id}`}><HighestScoreCard playerStats={top5femalefourer[0]} title="Most 4s" selectedGender={selectedGender} /></Link>
-              <Link href={`/player-details/${top5femalesixer[0]?.id}`}><HighestScoreCard playerStats={top5femalesixer[0]} title="Most 6s" selectedGender={selectedGender} /></Link>
-              <Link href={`/player-details/${top5femaletuktukbatsman[0]?.id}`}><HighestScoreCard
-                playerStats={top5femaletuktukbatsman[0]}
-                title="Most Dot Balls"
-                selectedGender={selectedGender}
-              /></Link>
-              <Link href={`/player-details/${top5femalehighestbatsman[0]?.id}`}>
-                <HighestScoreCard
-                  playerStats={top5femalehighestbatsman[0]}
-                  title="Highest Score"
-                  selectedGender={selectedGender}
-                /></Link>
-            </>
-            }
-
+            ) : (
+              <>
+                <Link href={`/player-details/${top5femalebatsman[0]?.id}`}>
+                  <HighestScoreCard
+                    playerStats={top5femalebatsman[0]}
+                    title="Most Runs"
+                    selectedGender={selectedGender}
+                  />
+                </Link>
+                <Link href={`/player-details/${top5femalebowler[0]?.id}`}>
+                  <HighestScoreCard
+                    playerStats={top5femalebowler[0]}
+                    title="Most Wickets"
+                    selectedGender={selectedGender}
+                  />
+                </Link>
+                <Link href={`/player-details/${top5femalefourer[0]?.id}`}>
+                  <HighestScoreCard
+                    playerStats={top5femalefourer[0]}
+                    title="Most 4s"
+                    selectedGender={selectedGender}
+                  />
+                </Link>
+                <Link href={`/player-details/${top5femalesixer[0]?.id}`}>
+                  <HighestScoreCard
+                    playerStats={top5femalesixer[0]}
+                    title="Most 6s"
+                    selectedGender={selectedGender}
+                  />
+                </Link>
+                <Link
+                  href={`/player-details/${top5femaletuktukbatsman[0]?.id}`}
+                >
+                  <HighestScoreCard
+                    playerStats={top5femaletuktukbatsman[0]}
+                    title="Most Dot Balls"
+                    selectedGender={selectedGender}
+                  />
+                </Link>
+                <Link
+                  href={`/player-details/${top5femalehighestbatsman[0]?.id}`}
+                >
+                  <HighestScoreCard
+                    playerStats={top5femalehighestbatsman[0]}
+                    title="Highest Score"
+                    selectedGender={selectedGender}
+                  />
+                </Link>
+              </>
+            )}
           </div>
           <div className="w-full  flex-col mx-auto mt-10 ">
-            <p className="text-left text-3xl font-bold mb-5  text-black ">
+            <p className="text-center  text-2xl md:text-4xl font-bold mb-5  text-black ">
               Top 5 Batsmen
             </p>
-            <div
-              className="w-full grid grid-flow-col overflow-x-auto   gap-x-5 scrollbar-hide "
-              style={{}}
-            >
-              {selectedGender === "male"
-                ? top5malebatsman.map(player => {
-                  return <Link href={`/player-details/${player.id}`}><PlayerProfilecard
-                    playerStats={player}
-                    selectedGender={selectedGender}
-                    title={"batsman"}
-                  /> </Link>
-                })
-                : top5femalebatsman.map(player => (
-                  <Link href={`/player-details/${player.id}`}>
-                    <PlayerProfilecard
-                      playerStats={player}
-                      selectedGender={selectedGender}
-                      title={"batsman"}
-                    /></Link>
 
-                ))}
+            {/* <button
+                onClick={() => {
+                  const container = document.querySelector(".bat");
+                  const scrollAmount = -300; // You can adjust the scroll amount as needed
+                  container.scrollBy({
+                    left: scrollAmount,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                <TfiArrowCircleLeft className="h-[25px] w-[25px] md:h-[40px] md:w-[40px] mx-1 md:mr-2" />
+              </button> */}
+            <div className="w-full mx-auto  rounded-md p-5 ">
+              <Carousel
+                itemClass="react-multi-carousel-item"
+                partialVisible={false}
+                responsive={responsive}
+                swipeable={true}
+                draggable={true}
+                arrows={false}
+                showDots={true}
+                infinite={true}
+                keyBoardControl={true}
+                className="gd-carousel"
+                containerClass="carousel-container"
+                autoPlay={true}
+              >
+                {selectedGender === "male"
+                  ? top5malebatsman.map((player, index) => {
+                      return (
+                        <Link href={`/player-details/${player.id}`} key={index}>
+                          <PlayerProfilecard
+                            playerStats={player}
+                            selectedGender={selectedGender}
+                            title={"batsman"}
+                            Rank={index + 1}
+                          />{" "}
+                        </Link>
+                      );
+                    })
+                  : top5femalebatsman.map((player, index) => (
+                      <Link href={`/player-details/${player.id}`} key={index}>
+                        <PlayerProfilecard
+                          playerStats={player}
+                          selectedGender={selectedGender}
+                          title={"batsman"}
+                          Rank={index + 1}
+                        />
+                      </Link>
+                    ))}
+              </Carousel>
             </div>
+            {/* <button
+                onClick={() => {
+                  const container = document.querySelector(".bat");
+                  const scrollAmount = 300; // You can adjust the scroll amount as needed
+                  container.scrollBy({
+                    left: scrollAmount,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                <TfiArrowCircleRight className="h-[25px] w-[25px] md:h-[40px] md:w-[40px] mx-1 md:ml-2" />
+              </button> */}
           </div>
           <div className="w-full  flex-col mx-auto mt-10 ">
-            <p className="text-left text-3xl font-bold mb-5  text-black">
+            <p className="text-center  text-2xl md:text-4xl font-bold mb-5  text-black ">
               Top 5 Bowlers
             </p>
-            <div
+            {/* <div
               className="w-full grid grid-flow-col overflow-x-auto   gap-x-5 scrollbar-hide "
               style={{}}
             >
@@ -399,120 +555,372 @@ export default function Stars({ playerStats }) {
 
                 })
               }
+            </div> */}
+
+            {/* <button
+                onClick={() => {
+                  const container = document.querySelector(".ixer");
+                  const scrollAmount = -300; // You can adjust the scroll amount as needed
+                  container.scrollBy({
+                    left: scrollAmount,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                <TfiArrowCircleLeft className="h-[25px] w-[25px] md:h-[40px] md:w-[40px] mx-1 md:mr-2" />
+              </button> */}
+            <div className="w-full mx-auto  rounded-md p-5 ">
+              <Carousel
+                itemClass="react-multi-carousel-item"
+                partialVisible={false}
+                responsive={responsive}
+                swipeable={true}
+                draggable={true}
+                arrows={false}
+                showDots={true}
+                infinite={true}
+                keyBoardControl={true}
+                className="gd-carousel"
+                containerClass="carousel-container"
+                autoPlay={true}
+              >
+                {selectedGender === "male"
+                  ? top5malebowler.map((player, index) => (
+                      <Link
+                        href={`/player-details/${player.id}`}
+                        key={player.id}
+                      >
+                        <PlayerProfilecard
+                          playerStats={player}
+                          selectedGender={selectedGender}
+                          title={"bowler"}
+                          Rank={index + 1}
+                        />
+                      </Link>
+                    ))
+                  : top5femalebowler.map((player, index) => (
+                      <Link
+                        href={`/player-details/${player.id}`}
+                        key={player.id}
+                      >
+                        <PlayerProfilecard
+                          playerStats={player}
+                          selectedGender={selectedGender}
+                          title={"bowler"}
+                          Rank={index + 1}
+                        />
+                      </Link>
+                    ))}
+              </Carousel>
             </div>
+            {/* <button
+                onClick={() => {
+                  const container = document.querySelector(".ixer");
+                  const scrollAmount = 300; // You can adjust the scroll amount as needed
+                  container.scrollBy({
+                    left: scrollAmount,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                <TfiArrowCircleRight className="h-[25px] w-[25px] md:h-[40px] md:w-[40px] mx-1 md:ml-2" />
+              </button> */}
           </div>
           <div className="w-full  flex-col mx-auto mt-10 ">
-            <p className="text-left text-3xl font-bold mb-5  text-black">
+            <p className="text-center  text-2xl md:text-4xl font-bold mb-5  text-black ">
               Top 5 Sixer
             </p>
-            <div
-              className="w-full grid grid-flow-col overflow-x-auto   gap-x-5 scrollbar-hide "
-              style={{}}
-            >
-              {selectedGender === "male"
-                ? top5malesixer.map(player => {
-                  return <Link href={`/player-details/${player.id}`}><PlayerProfilecard
-                    playerStats={player}
-                    selectedGender={selectedGender}
-                    title={"six"}
-                  /></Link>
-                })
-                : top5femalesixer.map(player => {
-                  return <Link href={`/player-details/${player.id}`}><PlayerProfilecard
-                    playerStats={player}
-                    selectedGender={selectedGender}
-                    title={"six"}
-                  /></Link>
-                })
-              }
+
+            {/* <button
+                onClick={() => {
+                  const container = document.querySelector(".sixer");
+                  const scrollAmount = -300; // You can adjust the scroll amount as needed
+                  container.scrollBy({
+                    left: scrollAmount,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                <TfiArrowCircleLeft className="h-[25px] w-[25px] md:h-[40px] md:w-[40px] mx-1 md:mr-2" />
+              </button> */}
+            <div className="w-full mx-auto  rounded-md p-5 ">
+              <Carousel
+                itemClass="react-multi-carousel-item"
+                partialVisible={false}
+                responsive={responsive}
+                swipeable={true}
+                draggable={true}
+                arrows={false}
+                showDots={true}
+                infinite={true}
+                keyBoardControl={true}
+                className="gd-carousel"
+                containerClass="carousel-container"
+                autoPlay={true}
+              >
+                {selectedGender === "male"
+                  ? top5malesixer.map((player, index) => {
+                      return (
+                        <Link href={`/player-details/${player.id}`} key={index}>
+                          <PlayerProfilecard
+                            playerStats={player}
+                            selectedGender={selectedGender}
+                            title={"six"}
+                            Rank={index + 1}
+                          />
+                        </Link>
+                      );
+                    })
+                  : top5femalesixer.map((player, index) => {
+                      return (
+                        <Link href={`/player-details/${player.id}`} key={index}>
+                          <PlayerProfilecard
+                            playerStats={player}
+                            selectedGender={selectedGender}
+                            title={"six"}
+                            Rank={index + 1}
+                          />
+                        </Link>
+                      );
+                    })}
+              </Carousel>
             </div>
+            {/* <button
+                onClick={() => {
+                  const container = document.querySelector(".sixer");
+                  const scrollAmount = 300; // You can adjust the scroll amount as needed
+                  container.scrollBy({
+                    left: scrollAmount,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                <TfiArrowCircleRight className="h-[25px] w-[25px] md:h-[40px] md:w-[40px] mx-1 md:ml-2" />
+              </button> */}
           </div>
           <div className="w-full  flex-col mx-auto mt-10 ">
-            <p className="text-left text-3xl font-bold mb-5  text-black">
+            <p className="text-center  text-2xl md:text-4xl font-bold mb-5  text-black ">
               Top 5 Fourer
             </p>
-            <div
-              className="w-full grid grid-flow-col overflow-x-auto   gap-x-5 scrollbar-hide "
-              style={{}}
-            >
-              {selectedGender === "male"
-                ? top5malefourer.map(player => {
-                  return <Link href={`/player-details/${player.id}`}><PlayerProfilecard
-                    playerStats={player}
-                    selectedGender={selectedGender}
-                    title={"four"}
-                  /></Link>
-                })
-                : top5femalefourer.map(player => {
-                  return <Link href={`/player-details/${player.id}`}><PlayerProfilecard
-                    playerStats={player}
-                    selectedGender={selectedGender}
-                    title={"four"}
-                  />
-                  </Link>
-                })
-              }
 
+            {/* <button
+                onClick={() => {
+                  const container = document.querySelector(".fourer");
+                  const scrollAmount = -300; // You can adjust the scroll amount as needed
+                  container.scrollBy({
+                    left: scrollAmount,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                <TfiArrowCircleLeft className="h-[25px] w-[25px] md:h-[40px] md:w-[40px] mx-1 md:mr-2" />
+              </button> */}
+
+            {/* <div
+                className="w-full grid grid-flow-col overflow-x-auto fourer  gap-x-5 scrollbar-hide "
+                data-selected-gender={selectedGender}
+              > */}
+            <div className="w-full mx-auto  rounded-md p-5 ">
+              <Carousel
+                itemClass="react-multi-carousel-item"
+                partialVisible={false}
+                responsive={responsive}
+                swipeable={true}
+                draggable={true}
+                arrows={false}
+                showDots={true}
+                infinite={true}
+                keyBoardControl={true}
+                className="gd-carousel"
+                containerClass="carousel-container"
+                autoPlay={true}
+              >
+                {selectedGender === "male"
+                  ? top5malefourer.map((player, index) => {
+                      return (
+                        <Link href={`/player-details/${player.id}`} key={index}>
+                          <PlayerProfilecard
+                            playerStats={player}
+                            selectedGender={selectedGender}
+                            title={"four"}
+                            Rank={index + 1}
+                          />
+                        </Link>
+                      );
+                    })
+                  : top5femalefourer.map((player, index) => {
+                      return (
+                        <Link href={`/player-details/${player.id}`} key={index}>
+                          <PlayerProfilecard
+                            playerStats={player}
+                            selectedGender={selectedGender}
+                            title={"four"}
+                            Rank={index + 1}
+                          />
+                        </Link>
+                      );
+                    })}
+              </Carousel>
             </div>
+            {/* </div> */}
+            {/* <button
+                onClick={() => {
+                  const container = document.querySelector(".fourer");
+                  const scrollAmount = 300; // You can adjust the scroll amount as needed
+                  container.scrollBy({
+                    left: scrollAmount,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                <TfiArrowCircleRight className="h-[25px] w-[25px] md:h-[40px] md:w-[40px] mx-1 md:ml-2" />
+              </button> */}
           </div>
           <div className="w-full  flex-col mx-auto mt-10 ">
-            <p className="text-left text-3xl font-bold mb-5  text-black ">
-              Top 5 Highest Scorers
+            <p className="text-center  text-2xl md:text-4xl font-bold mb-5  text-black ">
+              Top 5 Highest Scores
             </p>
-            <div
-              className="w-full grid grid-flow-col overflow-x-auto   gap-x-5 scrollbar-hide "
-              style={{}}
-            >
-              {selectedGender === "male"
-                ? top5malehighestbatsman.map(player => {
-                  return <Link href={`/player-details/${player.id}`}>
-                    <PlayerProfilecard
-                      playerStats={player}
-                      selectedGender={selectedGender}
-                      title={"batsman"}
-                    />
-                  </Link>
-                })
-                : top5femalehighestbatsman.map(player => (
-                  <Link href={`/player-details/${player.id}`}>
-                    <PlayerProfilecard
-                      playerStats={player}
-                      selectedGender={selectedGender}
-                      title={"batsman"}
-                    />
-                  </Link>
-                ))}
 
+            {/* <button
+                onClick={() => {
+                  const container = document.querySelector(".highest");
+                  const scrollAmount = -300; // You can adjust the scroll amount as needed
+                  container.scrollBy({
+                    left: scrollAmount,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                <TfiArrowCircleLeft className="h-[25px] w-[25px] md:h-[40px] md:w-[40px] mx-1 md:mr-2" />
+              </button> */}
 
+            <div className="w-full mx-auto  rounded-md p-5 ">
+              <Carousel
+                itemClass="react-multi-carousel-item"
+                partialVisible={false}
+                responsive={responsive}
+                swipeable={true}
+                draggable={true}
+                arrows={false}
+                showDots={true}
+                infinite={true}
+                keyBoardControl={true}
+                className="gd-carousel"
+                containerClass="carousel-container"
+                autoPlay={true}
+              >
+                {selectedGender === "male"
+                  ? top5malehighestbatsman.map((player, index) => {
+                      return (
+                        <Link href={`/player-details/${player.id}`} key={index}>
+                          <PlayerProfilecard
+                            playerStats={player}
+                            selectedGender={selectedGender}
+                            title={"highestScore"}
+                            Rank={index + 1}
+                          />
+                        </Link>
+                      );
+                    })
+                  : top5femalehighestbatsman.map((player, index) => (
+                      <Link href={`/player-details/${player.id}`} key={index}>
+                        <PlayerProfilecard
+                          playerStats={player}
+                          selectedGender={selectedGender}
+                          title={"highestScore"}
+                          Rank={index + 1}
+                        />
+                      </Link>
+                    ))}
+              </Carousel>
             </div>
+            {/* <button
+                onClick={() => {
+                  const container = document.querySelector(".highest");
+                  const scrollAmount = 300; // You can adjust the scroll amount as needed
+                  container.scrollBy({
+                    left: scrollAmount,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                <TfiArrowCircleRight className="h-[25px] w-[25px] md:h-[40px] md:w-[40px] mx-1 md:ml-2" />
+              </button> */}
           </div>
           <div className="w-full  flex-col mx-auto mt-10 ">
-            <p className="text-left text-3xl font-bold mb-5 text-black">
-              Top 5 Tuk-Tuk Player
+            <p className="text-center  text-2xl md:text-4xl font-bold mb-5  text-black ">
+              Top 5 Tuk Tuk Players
             </p>
-            <div
-              className="w-full grid grid-flow-col overflow-x-auto   gap-x-5 scrollbar-hide "
-              style={{}}
-            >
-              {selectedGender === "male"
-                ? top5maletutktukbatsman.map(player => {
-                  return <Link href={`/player-details/${player.id}`} ><PlayerProfilecard
-                    playerStats={player}
-                    selectedGender={selectedGender}
-                    title={"tuktuk"}
-                  /></Link>
-                })
-                : top5femaletuktukbatsman.map(player => {
-                  return <Link href={`/player-details/${player.id}`} ><PlayerProfilecard
-                    playerStats={player}
-                    selectedGender={selectedGender}
-                    title={"tuktuk"}
-                  />
-                  </Link>
-                })
-              }
 
-            </div>
+            
+              {/* <button
+                onClick={() => {
+                  const container = document.querySelector(".tuktuk");
+                  const scrollAmount = -300; // You can adjust the scroll amount as needed
+                  container.scrollBy({
+                    left: scrollAmount,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                <TfiArrowCircleLeft className="h-[25px] w-[25px] md:h-[40px] md:w-[40px] mx-1 md:mr-2" />
+              </button> */}
+
+<div className="w-full mx-auto  rounded-md p-5 ">
+              <Carousel
+                itemClass="react-multi-carousel-item"
+                partialVisible={false}
+                responsive={responsive}
+                swipeable={true}
+                draggable={true}
+                arrows={false}
+                showDots={true}
+                infinite={true}
+                keyBoardControl={true}
+                className="gd-carousel"
+                containerClass="carousel-container"
+                autoPlay={true}
+              >
+                {selectedGender === "male"
+                  ? top5maletutktukbatsman.map((player, index) => {
+                      return (
+                        <Link href={`/player-details/${player.id}`} key={index}>
+                          <PlayerProfilecard
+                            playerStats={player}
+                            selectedGender={selectedGender}
+                            title={"tuktuk"}
+                            Rank={index + 1}
+                          />
+                        </Link>
+                      );
+                    })
+                  : top5femaletuktukbatsman.map((player, index) => {
+                      return (
+                        <Link href={`/player-details/${player.id}`} key={index}>
+                          <PlayerProfilecard
+                            playerStats={player}
+                            selectedGender={selectedGender}
+                            title={"tuktuk"}
+                            Rank={index + 1}
+                          />
+                        </Link>
+                      );
+                    })}
+                    </Carousel>
+              </div>
+              {/* <button
+                onClick={() => {
+                  const container = document.querySelector(".tuktuk");
+                  const scrollAmount = 300; // You can adjust the scroll amount as needed
+                  container.scrollBy({
+                    left: scrollAmount,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                <TfiArrowCircleRight className="h-[25px] w-[25px] md:h-[40px] md:w-[40px] mx-1 md:ml-2" />
+              </button> */}
+            
           </div>
         </div>
       </div>
@@ -520,7 +928,7 @@ export default function Stars({ playerStats }) {
     </div>
   );
 }
-const PlayerProfilecard = ({ playerStats, selectedGender, title }) => {
+const PlayerProfilecard = ({ playerStats, selectedGender, title, Rank }) => {
   let statTitle1 = "",
     statTitle2 = "",
     statTitle3 = "",
@@ -547,33 +955,48 @@ const PlayerProfilecard = ({ playerStats, selectedGender, title }) => {
     statTitle1 = "Matches Played";
     statTitle2 = "Dot Balls";
     statTitle3 = "Strike Rate";
+  } else if (title == "highestScore") {
+    statTitle1 = "Matches Played";
+    statTitle2 = "Highest Score";
+    statTitle3 = "Strike Rate";
   }
   return (
-    <div className="w-[300px] border-2 bg-white rounded-lg">
+    <div className="w-[250px] md:w-[280px] lg:w-[300px] border-2 mx-auto bg-white rounded-lg my-8">
       {/* w-[300px] */}
       <div className=" w-full justify-center  p-4 flex-col   gap-1 border-none  ">
+        <div
+          className={`font-bold text-center align-middle items-center rounded-full aspect-square border-2 ${
+            selectedGender === "female"
+              ? "border-pink-500 text-pink-600"
+              : "border-blue-500 text-blue-600"
+          } text-lg  h-[30px] w-[30px]`}
+        >
+          {Rank}{" "}
+        </div>
         <div className="h-[100px] w-[100px] items-center justify-center mx-auto">
           <Image
-            src={playerStats?.imgUrl !== ""
-              ? playerStats?.imgUrl
-              : selectedGender == "male"
+            src={
+              playerStats?.imgUrl !== ""
+                ? playerStats?.imgUrl
+                : selectedGender == "male"
                 ? "/male.jpg"
-                : "/female.jpg"}
-
+                : "/female.jpg"
+            }
             alt="profile_pic"
             width={80}
             height={80}
-            className={`${selectedGender === "female"
-              ? " rounded-full flex justify-center   mx-auto aspect-square   align-middle items-center ring-4 ring-offset-4 ring-pink-500 sm:align-middle  "
-              : " rounded-full flex justify-center     mx-auto aspect-square   align-middle items-center ring-4 ring-offset-4 ring-blue-500 sm:align-middle "
-              }
+            className={`${
+              selectedGender === "female"
+                ? " rounded-full flex justify-center   mx-auto aspect-square   align-middle items-center ring-4 ring-offset-4 ring-pink-500 sm:align-middle  "
+                : " rounded-full flex justify-center     mx-auto aspect-square   align-middle items-center ring-4 ring-offset-4 ring-blue-500 sm:align-middle "
+            }
                  `}
           />
         </div>
 
         {/* <hr className=" h-1  bg-green-500 my-3 lg:hidden md:hidden sm:block" /> */}
         <div className="  w-full  px-2  ">
-          <p className=" text-xl font-medium  text-center   ">
+          <p className=" text-md md:text-lg font-medium  text-center   ">
             {/* Sunny Das */}
             {playerStats?.name}
             {/* {player Name} */}
@@ -588,7 +1011,6 @@ const PlayerProfilecard = ({ playerStats, selectedGender, title }) => {
             {" "}
             {/* {playerTeam} */}
             {/* Vengeance */}
-
             {getTeamCategory(playerStats?.teamId)}
           </p>
           <p className="text-sm font-bold  text-center  ">
@@ -597,11 +1019,11 @@ const PlayerProfilecard = ({ playerStats, selectedGender, title }) => {
             {/* U21CS102 */}
             {/* {player Roll No} */}
           </p>
-          <p className="text-lg font-bold  text-center ">
+          <p className="text-md font-bold  text-center ">
             {playerStats?.type}
             {/* {branch} */}
           </p>
-          <p className="text-md font-bold text-center  ">
+          <p className="text-sm font-bold text-center  ">
             {playerStats?.branch}
             {/* {branch} */}
             {/* Computer Science And Engineering */}
@@ -609,10 +1031,11 @@ const PlayerProfilecard = ({ playerStats, selectedGender, title }) => {
         </div>
       </div>
       <hr
-        className={`${selectedGender === "female"
-          ? " h-1 bg-pink-400 m-1 "
-          : "h-1 bg-blue-500 m-1"
-          }`}
+        className={`${
+          selectedGender === "female"
+            ? " h-1 bg-pink-400 m-1 "
+            : "h-1 bg-blue-500 m-1"
+        }`}
       />
       <div className="p-3 mx-auto  w-full">
         <div className=" rounded-xl w-5/6 mx-auto sm:flex md:flex-row gap-1">
@@ -630,10 +1053,11 @@ const PlayerProfilecard = ({ playerStats, selectedGender, title }) => {
               </span>
             </div>
             <hr
-              className={`${selectedGender === "female"
-                ? " h-1 bg-pink-400 my-4 "
-                : "h-1 bg-blue-500 my-4"
-                }`}
+              className={`${
+                selectedGender === "female"
+                  ? " h-1 bg-pink-400 my-4 "
+                  : "h-1 bg-blue-500 my-4"
+              }`}
             />
             <div className="  w-full mx-auto flex gap-5 justify-between px-2">
               <span className=" text-center   text-sm font-bold  rounded-l-md text-black space-x-1">
@@ -642,31 +1066,27 @@ const PlayerProfilecard = ({ playerStats, selectedGender, title }) => {
               </span>
               <span className="   text-center    text-sm font-bold  text-black space-x-1">
                 {" "}
-                {
-                  playerStats &&
-                    playerStats?.stats &&
-                    playerStats?.stats[10] ?
-                    statTitle2 === "Runs Scored" ?
-                      getPlayerScored(playerStats?.stats) :
-                      statTitle2 === "Wickets" ?
-                        playerStats?.stats[14] :
-                        statTitle2 === "sixes" ?
-                          playerStats?.stats[6] :
-                          statTitle2 === "fours" ?
-                            playerStats?.stats[4] :
-                            statTitle2 === "Dot Balls" ?
-                              playerStats?.stats[0] :
-                              0 :
-                    0
-                }
-
+                {playerStats && playerStats?.stats && playerStats?.stats[10]
+                  ? statTitle2 === "Runs Scored"
+                    ? getPlayerScored(playerStats?.stats)
+                    : statTitle2 === "Wickets"
+                    ? playerStats?.stats[14]
+                    : statTitle2 === "sixes"
+                    ? playerStats?.stats[6]
+                    : statTitle2 === "fours"
+                    ? playerStats?.stats[4]
+                    : statTitle2 === "Dot Balls"
+                    ? playerStats?.stats[0]
+                    : 0
+                  : 0}
               </span>
             </div>
             <hr
-              className={`${selectedGender === "female"
-                ? " h-1 bg-pink-400 my-4 "
-                : "h-1 bg-blue-500 my-4"
-                }`}
+              className={`${
+                selectedGender === "female"
+                  ? " h-1 bg-pink-400 my-4 "
+                  : "h-1 bg-blue-500 my-4"
+              }`}
             />
             {statTitle3 !== "" && (
               <div className="  w-full mx-auto flex gap-5 justify-between px-2">
@@ -676,27 +1096,29 @@ const PlayerProfilecard = ({ playerStats, selectedGender, title }) => {
                 </span>
                 <span className="   text-center    text-sm font-bold  text-black space-x-1">
                   {" "}
-                  {
-                    playerStats &&
-                      playerStats?.stats &&
-                      playerStats?.stats[12] ?
-                      statTitle3 === "Economy" ?
-                        calculateEconomyRate(playerStats?.stats[13], playerStats?.stats[12]) :
-                        statTitle3 === "Strike Rate" ?
-                          calculateStrikeRate(getPlayerScored(playerStats?.stats), getPlayerBalls(playerStats?.stats)) :
-                          0 :
-                      0
-                  }
-
+                  {playerStats && playerStats?.stats && playerStats?.stats[12]
+                    ? statTitle3 === "Economy"
+                      ? calculateEconomyRate(
+                          playerStats?.stats[13],
+                          playerStats?.stats[12]
+                        )
+                      : statTitle3 === "Strike Rate"
+                      ? calculateStrikeRate(
+                          getPlayerScored(playerStats?.stats),
+                          getPlayerBalls(playerStats?.stats)
+                        )
+                      : 0
+                    : 0}
                 </span>
               </div>
             )}
             {statTitle3 !== "" && (
               <hr
-                className={`${selectedGender === "female"
-                  ? " h-1 bg-pink-400 my-4 "
-                  : "h-1 bg-blue-500 my-4"
-                  }`}
+                className={`${
+                  selectedGender === "female"
+                    ? " h-1 bg-pink-400 my-4 "
+                    : "h-1 bg-blue-500 my-4"
+                }`}
               />
             )}
           </div>
@@ -710,8 +1132,9 @@ const HighestScoreCard = ({ playerStats, title, selectedGender }) => {
   return (
     <div className="flex flex-col border-2 rounded-lg gap-8 h-[285px] w-full bg-white">
       <div
-        className={`text-center mx-auto font-bold text-3xl mt-2 ${selectedGender == "male" ? `text-[#508CD4]` : `text-[#CE3AB3]`
-          } `}
+        className={`text-center mx-auto font-bold text-3xl mt-2 ${
+          selectedGender == "male" ? `text-[#508CD4]` : `text-[#CE3AB3]`
+        } `}
       >
         {title}
       </div>
@@ -719,22 +1142,26 @@ const HighestScoreCard = ({ playerStats, title, selectedGender }) => {
         <div className="w-1/2">
           <div className="h-[120px] w-[120px] items-center flex-col justify-center mx-auto ">
             <Image
-              src={playerStats?.imgUrl !== ""
-                ? playerStats?.imgUrl
-                : selectedGender == "male"
+              src={
+                playerStats?.imgUrl !== ""
+                  ? playerStats?.imgUrl
+                  : selectedGender == "male"
                   ? "/male.jpg"
-                  : "/female.jpg"}
+                  : "/female.jpg"
+              }
               // src={"/male.jpg"}
               alt="profile_pic"
               width={100}
               height={100}
               className="rounded-full flex justify-center   mx-auto aspect-square   align-middle items-center  border-2 sm:align-middle "
             />
-            <p className={
-              selectedGender == "male"
-                ? `text-md font-bold  text-center  text-blue-900`
-                : `text-md font-bold text-center   text-pink-500`
-            }>
+            <p
+              className={
+                selectedGender == "male"
+                  ? `text-md font-bold  text-center  text-blue-900`
+                  : `text-md font-bold text-center   text-pink-500`
+              }
+            >
               {" "}
               {getTeamCategory(playerStats?.teamId)} {/*teamName*/}
             </p>
@@ -749,38 +1176,35 @@ const HighestScoreCard = ({ playerStats, title, selectedGender }) => {
           </p>
 
           <p className="text-center space-y-1 font-medium">
-            {playerStats?.type}{/*playerDepartment*/}{" "}
+            {playerStats?.type}
+            {/*playerDepartment*/}{" "}
           </p>
           <p className="text-center space-y-1 font-medium">
-            {playerStats?.branch}{/*playerDepartment*/}{" "}
+            {playerStats?.branch}
+            {/*playerDepartment*/}{" "}
           </p>
         </div>
       </div>
       <div
-        className={`mx-auto text-5xl font-bold mb-5  ${selectedGender == "male" ? `text-[#508CD4]` : `text-[#CE3AB3]`
-          }`}
+        className={`mx-auto text-5xl font-bold mb-5  ${
+          selectedGender == "male" ? `text-[#508CD4]` : `text-[#CE3AB3]`
+        }`}
       >
         {/* 152 count */}
-        {
-          playerStats &&
-            playerStats?.stats &&
-            playerStats?.stats[10] ?
-            title === "Most Runs" ?
-              getPlayerScored(playerStats?.stats) :
-              title === "Most wickets" ?
-                playerStats?.stats[14] :
-                title === "Most 6s" ?
-                  playerStats?.stats[6] :
-                  title === "Most 4s" ?
-                    playerStats?.stats[4] :
-                    title === "Tuk Tuk Player" ?
-                      playerStats?.stats[0] :
-                      0 :
-            0
-        }{" "}
+        {playerStats && playerStats?.stats && playerStats?.stats[10]
+          ? title === "Most Runs"
+            ? getPlayerScored(playerStats?.stats)
+            : title === "Most wickets"
+            ? playerStats?.stats[14]
+            : title === "Most 6s"
+            ? playerStats?.stats[6]
+            : title === "Most 4s"
+            ? playerStats?.stats[4]
+            : title === "Tuk Tuk Player"
+            ? playerStats?.stats[0]
+            : 0
+          : 0}{" "}
       </div>
     </div>
   );
 };
-
-
