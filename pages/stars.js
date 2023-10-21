@@ -677,28 +677,31 @@ const PlayerProfilecard = ({ playerStats, selectedGender, title }) => {
                 <span className="   text-center    text-sm font-bold  text-black space-x-1">
                   {" "}
                   {
-                    playerStats &&
-                      playerStats?.stats &&
-                      playerStats?.stats[12] ?
-                      statTitle3 === "Economy" ?
-                        calculateEconomyRate(playerStats?.stats[13], playerStats?.stats[12]) :
-                        statTitle3 === "Strike Rate" ?
-                          calculateStrikeRate(getPlayerScored(playerStats?.stats), getPlayerBalls(playerStats?.stats)) :
-                          0 :
-                      0
-                  }
+  playerStats &&
+    playerStats?.stats  ?
+    statTitle3 === "Economy" &&  playerStats?.stats[12] ?
+      calculateEconomyRate(playerStats?.stats[13], playerStats?.stats[12]) :
+      statTitle3 === "Strike Rate" ?
+        (() => {
+          const strikeRate = calculateStrikeRate(getPlayerScored(playerStats?.stats), getPlayerBalls(playerStats?.stats));
+          {/* console.log(playerStats?.name+" "+getPlayerBalls(playerStats?.stats)); */}
+          return strikeRate;
+        })() :
+        0 :
+    0
+}
 
                 </span>
               </div>
             )}
-            {statTitle3 !== "" && (
+            {/* {statTitle3 !== "" && (
               <hr
                 className={`${selectedGender === "female"
                   ? " h-1 bg-pink-400 my-4 "
                   : "h-1 bg-blue-500 my-4"
                   }`}
               />
-            )}
+            )} */}
           </div>
         </div>
       </div>
