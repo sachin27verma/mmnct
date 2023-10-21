@@ -38,7 +38,7 @@ const AddMatch = ({ auth_users }) => {
     //console.log(snapshot.val());
     setFormData({
       ...formData,
-      id: snapshot.val() === null ? 1 : Object.keys(snapshot.val()).length + 1,
+      id: snapshot.val() === null ? 1 : Object.keys(snapshot.val()).length,
     });
   };
 

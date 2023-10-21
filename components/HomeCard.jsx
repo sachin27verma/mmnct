@@ -292,9 +292,9 @@ const HomeCard = () => {
                       : {team[0].Team2Players[team[0].baller]?.score[14]}-
                       {team[0].Team2Players[team[0].baller]?.score[13]}(
                       {Math.floor(
-                        team[0].Team2Players[team[0].baller]?.score[12] / 6
+                        team[0].Team2Players[team[0].baller]?.score[12]  === undefined ? 0 : team[0].Team2Players[team[0].baller]?.score[12] / 6
                       )}
-                      .{team[0].Team2Players[team[0].baller]?.score[12] % 6})
+                      .{team[0].Team2Players[team[0].baller]?.score[12]  === undefined ? 0 : team[0].Team2Players[team[0].baller]?.score[12] % 6})
                     </p>
                   </div>
                 </>
@@ -316,9 +316,9 @@ const HomeCard = () => {
                       : {team[0]?.Team1Players[team[0].baller]?.score[14]}-
                       {team[0]?.Team1Players[team[0].baller]?.score[13]}(
                       {Math.floor(
-                        team[0]?.Team1Players[team[0].baller]?.score[12] / 6
+                        team[0]?.Team1Players[team[0].baller]?.score[12] === undefined ? 0 :team[0]?.Team1Players[team[0].baller]?.score[12] / 6 
                       )}
-                      .{team[0]?.Team1Players[team[0]?.baller]?.score[12] % 6})
+                      .{team[0]?.Team1Players[team[0]?.baller]?.score[12] === undefined ? 0 : team[0]?.Team1Players[team[0]?.baller]?.score[12] % 6})
                     </p>
                   </div>
                   <div className=" Bat_stat text-right  ">
