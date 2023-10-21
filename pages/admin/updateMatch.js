@@ -115,8 +115,8 @@ const UpdateMatch = ({ auth_users }) => {
 
       if (team1Run.length == 2 && (team1Run[1] === "w" || team1Run[1] === "r")) { wicket++; callModal = true; }
       if (team1Run.length == 3) extras++;
-      if ((totalBall - extras) % 6 == 0 && (totalBall - extras) / 6 != 0) { callModal = true; handleForcedStrikerChange() }
-      if ((totalBall - extras) % 6 == 0) { prev = totalBall + 1; }
+      if ((totalBall - extras) % 6 == 0 && (totalBall - extras) / 6 != 0 && team1Run.length !== 3) { callModal = true; handleForcedStrikerChange() }
+      if ((totalBall - extras) % 6 == 0 && team1Run.length !== 3) { prev = totalBall + 1; }
       await Team1Update(
         currId,
         wicket,
@@ -145,8 +145,8 @@ const UpdateMatch = ({ auth_users }) => {
 
       if (team2Run.length == 2 && (team2Run[1] === "w" || team2Run[1] === "r")) { wicket++; callModal = true; }
       if (team2Run.length == 3) extras++;
-      if ((totalBall - extras) % 6 == 0 && (totalBall - extras) / 6 != 0) { callModal = true; handleForcedStrikerChange() }
-      if ((totalBall - extras) % 6 == 0) { prev = totalBall + 1; }
+      if ((totalBall - extras) % 6 == 0 && (totalBall - extras) / 6 != 0 && team2Run.length !== 3) { callModal = true; handleForcedStrikerChange() }
+      if ((totalBall - extras) % 6 == 0 && team2Run.length !== 3) { prev = totalBall + 1; }
       await Team2Update(
         currId,
         wicket,
