@@ -519,7 +519,7 @@ const getPlayerScore = (players, player) => {
 async function updatePlayerHistory(playerId, playerData, matchId, OpponentId, data) {
 
   const playerDocRef = doc(db, `participating-team-member/${playerId}`);
-  playerData.score[11] = getPlayerScored(playerData.stats);
+  playerData.score[11] = getPlayerScored(playerData.score);
   getDoc(playerDocRef)
     .then((docSnapshot) => {
       if (docSnapshot.exists()) {
