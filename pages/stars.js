@@ -389,7 +389,7 @@ export default function Stars({ playerStats }) {
             MMNCT'23 STARS
           </p>
         </div>
-        <div className="bg-white my-2 mt-4 text-gray-500 flex justify-evenly w-[270px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-6">
+        <div className="bg-white my-2 mt-4 text-gray-500 flex justify-evenly w-[270px] md:w-[290px] mx-auto text-center font-[600] text-[16px] rounded-lg mb-6">
           <div
             onClick={() => {
               setSelectedGender("male");
@@ -548,6 +548,7 @@ export default function Stars({ playerStats }) {
                 className="gd-carousel"
                 containerClass="carousel-container"
                 autoPlay={true}
+                autoPlaySpeed={2000}
               >
                 {selectedGender === "male"
                   ? top5malebatsman.map((player, index) => {
@@ -640,6 +641,7 @@ export default function Stars({ playerStats }) {
                 className="gd-carousel"
                 containerClass="carousel-container"
                 autoPlay={true}
+                autoPlaySpeed={2000}
               >
                 {selectedGender === "male"
                   ? top5malebowler.map((player, index) => (
@@ -714,6 +716,7 @@ export default function Stars({ playerStats }) {
                 className="gd-carousel"
                 containerClass="carousel-container"
                 autoPlay={true}
+                autoPlaySpeed={2000}
               >
                 {selectedGender === "male"
                   ? top5malesixer.map((player, index) => {
@@ -791,6 +794,7 @@ export default function Stars({ playerStats }) {
                 className="gd-carousel"
                 containerClass="carousel-container"
                 autoPlay={true}
+                autoPlaySpeed={2000}
               >
                 {selectedGender === "male"
                   ? top5malefourer.map((player, index) => {
@@ -865,6 +869,7 @@ export default function Stars({ playerStats }) {
                 className="gd-carousel"
                 containerClass="carousel-container"
                 autoPlay={true}
+                autoPlaySpeed={2000}
               >
                 {selectedGender === "male"
                   ? top5malehighestbatsman.map((player, index) => {
@@ -937,6 +942,7 @@ export default function Stars({ playerStats }) {
                 className="gd-carousel"
                 containerClass="carousel-container"
                 autoPlay={true}
+                autoPlaySpeed={2000}
               >
                 {selectedGender === "male"
                   ? top5maletutktukbatsman.map((player, index) => {
