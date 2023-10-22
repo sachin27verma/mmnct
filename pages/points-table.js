@@ -93,8 +93,11 @@ export default function PointsTable({ maleTable, femaleTable }) {
   const sortedMaleTable = maleTable.sort((teamA, teamB) => {
     const teamARunRate=teamA.runRate || [];
     const teamBRunRate=teamB.runRate || [];
-    const positiveTermsA = teamARunRate.filter((val) => val > 0).length;
-    const positiveTermsB = teamBRunRate.filter((val) => val > 0).length;
+    const superOverA=teamA.superOver || 0;
+    const superOverB=teamB.superOver || 0;
+    // console.log(superOverA + " "+superOverB);
+    const positiveTermsA = teamARunRate.filter((val) => val > 0).length +superOverA ;
+    const positiveTermsB = teamBRunRate.filter((val) => val > 0).length+superOverB;
   
     if (positiveTermsA !== positiveTermsB) {
       return positiveTermsB - positiveTermsA;
