@@ -98,8 +98,8 @@ const HomeCard = () => {
                 </p>
               </div>
             </div>
-            <div className=" teams items-center flex px-2 mb-1">
-              <div className=" team_1 flex justify-around items-center w-[43%]">
+            <div className=" teams  flex px-2 mb-1">
+              <div className=" team_1 flex justify-around  w-[43%]">
                 <div className=" flex justify-center text-center items-center w-full sm:w-[50%] flex-col  ">
                   <div className="flex flex-row  " id="middle">
                     <div id="logo" className="">
@@ -121,7 +121,7 @@ const HomeCard = () => {
                     ({teams[team[0].Team1Id].teamType})
                   </p>
                 </div>
-                <div className=" score text-red-600 w-auto sm:w-[50%] text-center ">
+                <div className=" score text-red-600 w-auto sm:w-[50%] mt-5 text-center  ">
                   {/* team 1 score */}
                   <p className=" text-sm font-bold">
                     {totalScore(
@@ -167,7 +167,7 @@ const HomeCard = () => {
                   </p>
                 </div>
               </div>
-              <div className=" w-[14%] flex justify-center  ">
+              <div className=" w-[14%] mt-3 ">
                 <Image
                   src="/vector-8.png"
                   height={60}
@@ -175,7 +175,7 @@ const HomeCard = () => {
                   className=" object-contain aspect-square"
                 />
               </div>
-              <div className=" team_2 flex  flex-row-reverse items-center justify-around  w-[43%]">
+              <div className=" team_2 flex  flex-row-reverse justify-around  w-[43%]">
                 <div className=" flex justify-center text-center items-center w-full sm:w-[50%] flex-col  ">
                   <div className="flex flex-row " id="middle">
                     <div id="logo" className=" ">
@@ -197,7 +197,7 @@ const HomeCard = () => {
                     ({teams[team[0].Team2Id].teamType})
                   </p>
                 </div>
-                <div className=" score w-auto sm:w-[50%] text-red-600  text-center ">
+                <div className=" score w-auto sm:w-[50%] text-red-600 mt-5 text-center ">
                   <p className=" text-sm font-bold ">
                     {totalScore(
                       team[0].Team2Score,
