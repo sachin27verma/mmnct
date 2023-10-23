@@ -852,17 +852,16 @@ const Scorecard = () => {
 
   // man of the match ******************************************************
 
-  const man_of_the_match = (
-    <div className="hidden man_of_the_match h-[100px] shadow-sm w-5/6 mx-auto justify-center rounded-md my-3 flex flex-col align-middle items-center bg-blue-900">
+  const man_of_the_match = matchData?.manofthematch !== "" ? (
+    <div className="man_of_the_match h-[100px] shadow-sm w-5/6 mx-auto justify-center rounded-md my-3 flex flex-col align-middle items-center bg-blue-900">
       <p className="text-white text-sm sm:text-2xl not-italic font-bold leading-[normal]">
         Man of the match
       </p>
       <p className=" text-white text-sm sm:text-2xl not-italic font-normal leading-[normal]">
-        player 5
+        {matchData?.manofthematch}
       </p>
     </div>
-  );
-
+  ) : null;
   return (
     <div>
       <div
