@@ -671,8 +671,8 @@ export default function Stars({ playerStats }) {
                 keyBoardControl={true}
                 className="gd-carousel"
                 containerClass="carousel-container"
-                autoPlay={true}
-                autoPlaySpeed={2000}
+                
+                
               >
                 {selectedGender === "male"
                   ? top5malebatsman.map((player, index) => {
@@ -763,8 +763,8 @@ export default function Stars({ playerStats }) {
                 keyBoardControl={true}
                 className="gd-carousel"
                 containerClass="carousel-container"
-                autoPlay={true}
-                autoPlaySpeed={2000}
+                
+               
               >
                 {selectedGender === "male"
                   ? top5malebowler.map((player, index) => (
@@ -837,8 +837,8 @@ export default function Stars({ playerStats }) {
                 keyBoardControl={true}
                 className="gd-carousel"
                 containerClass="carousel-container"
-                autoPlay={true}
-                autoPlaySpeed={2000}
+                
+                
               >
                 {selectedGender === "male"
                   ? top5malesixer.map((player, index) => {
@@ -914,8 +914,8 @@ export default function Stars({ playerStats }) {
                 keyBoardControl={true}
                 className="gd-carousel"
                 containerClass="carousel-container"
-                autoPlay={true}
-                autoPlaySpeed={2000}
+               
+                
               >
                 {selectedGender === "male"
                   ? top5malefourer.map((player, index) => {
@@ -988,8 +988,7 @@ export default function Stars({ playerStats }) {
                 keyBoardControl={true}
                 className="gd-carousel"
                 containerClass="carousel-container"
-                autoPlay={true}
-                autoPlaySpeed={2000}
+               
               >
                 {selectedGender === "male"
                   ? top5malehighestbatsman.map((player, index) => {
@@ -1059,8 +1058,6 @@ export default function Stars({ playerStats }) {
                 keyBoardControl={true}
                 className="gd-carousel"
                 containerClass="carousel-container"
-                autoPlay={true}
-                autoPlaySpeed={2000}
               >
                 {selectedGender === "male"
                   ? top5maletutktukbatsman.map((player, index) => {

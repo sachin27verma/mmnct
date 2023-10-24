@@ -887,6 +887,7 @@ const Scorecard = () => {
               : "bg-gradient-to-b from-blue-100 to-white"
           } rounded-2xl sm:w-5/6 mx-auto  pt-0 pb-0  sm:pb-5 `}>
           <div className="upper_section shadow-inner  ">
+            <p className="text-center text-sm md:text-lg  lg:text-xl text-black font-bold pt-8" >{matchData?.toss} won the Toss and Chose to {matchData?.decision} first</p>
             <div
               className={`match_stats rounded-2xl pt-4 px-2 sm:p-4 flex grow justify-between w-full sm:w-5/6  overflow-x-hidden z-1 mx-auto mb-3 items-center align-middle text-center   text-black `}>
               <div className=" flex items-center flex-col sm:flex-row gap-0 sm:gap-10 w-[45%] ">

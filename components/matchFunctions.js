@@ -30,7 +30,9 @@ const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
     status: "upcoming",
     category: category,
     currOrder: 1,
-    manofthematch: ""
+    manofthematch: "",
+    toss:"",
+    decision:""
   }).then(() => {
     console.log("mattch added");
   }).catch(err => console.log(err));
@@ -592,6 +594,15 @@ const updateManOfTheMatch = async (matchID, playerName) => {
   }).catch(err => console.log(err));
 
 };
+const updateToss = async (matchID, winner, choice) => {
+
+  await update(ref(database, "match/" + matchID), {
+    "toss":winner,
+    "decision": choice
+  }).then(() => {
+  }).catch(err => console.log(err));
+
+};
 async function updateNetRunRate(teamOneId, teamTwoId, team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls) {
 
 
@@ -642,6 +653,7 @@ export {
   getPlayerScore,
   changeInnings,
   extraOfInnings,
-  updateManOfTheMatch
+  updateManOfTheMatch,
+  updateToss
 };
 
