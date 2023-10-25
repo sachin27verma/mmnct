@@ -19,7 +19,74 @@ function decideWinner(maleWinnerTeamCode, FemaleWinnerTeamCode, teamList) {
 function HomePage({ teamlist }) {
   const [screenSize, setScreenSize] = useState(0);
   const [winnerTeamList, setWinnerTeamList] = useState([]);
+  const currDate= new Date().getDate();
+  const currTime= new Date().getHours();
+  const aaj= new Date();
+  const targetDate = new Date(2023, 9, 30);
+  function getTime(todayDate){
+    if(todayDate === 26)
+    {
+        return 17;
+    }
+    else if(todayDate === 27){
+       
+      return 16;
+    }
+    else if(todayDate === 28){
 
+      return 12;
+    }
+    else if(todayDate === 29){
+      return 14;
+    }
+  }
+
+  function getFirstTitle(todayDate){
+    if(todayDate === 26)
+    {
+          return "MMNCT  kicks off today! ";
+    }
+    else if(todayDate === 27){
+  
+          return "Day 2 ";         
+    }
+    else if(todayDate === 28){
+
+          return "Day 3 ";
+    }
+    else if(todayDate === 29){
+          return "Final Day ";
+    }
+  }
+
+  function getSecondTitle(todayDate){
+    if(todayDate === 26)
+    {
+          return " at 5 : 00 PM";
+    }
+    else if(todayDate === 27){
+  
+          return " Matches to go Live at 4 : 00 PM";         
+    }
+    else if(todayDate === 28){
+
+          return " Matches to go Live at 12 : 30 PM";
+    }
+    else if(todayDate === 29){
+          return " Matches to go Live at 2 : 00 PM";
+    }
+  }
+function decider(date)
+{
+      if(getTime(date)<= currTime)
+      {
+        return "hidden";
+      }
+      else
+      {
+        return "block";
+      }
+}
   useEffect(() => {
     setScreenSize(window.innerWidth);
     setWinnerTeamList(() => decideWinner("SHM", "SAM", teamlist));
@@ -53,15 +120,17 @@ function HomePage({ teamlist }) {
 
         <div>
           <HomeCard />
-          {(new Date().getDate() === 26 && new Date().getMonth()===9 && new Date().getFullYear() === 2023 )?<>
+          {((aaj > targetDate) ? <></> : <div  className={`${decider(currDate)} `} >
+          {(daysCaluclator()<=0 )?<>
             <div className=" flex justify-center items-center w-4/5 md:w-[400px] days-counter mx-auto md:mx-0 md:mb-4 md:gap-4 h-[116px] md:h-[150px]">
             <div className="text-[#991746]">
-              <p className="font-bold text-lg text-center uppercase md:text-3xl leading-6">
-              Let the games begin!
+            <p className="font-bold text-lg text-center uppercase md:text-5xl leading-6">
+                
+                  {getFirstTitle(currDate)}
               </p>
-              <p className="font-bold text-lg text-center uppercase md:text-3xl leading-6">
-                {" "}
-                🎈 MMNCT  kicks off today! 🎈
+              <p className="font-bold text-lg text-center uppercase md:text-3xl px-5 leading-6">
+                
+                  {getSecondTitle(currDate)}
               </p>
             </div>
           </div>
@@ -78,7 +147,10 @@ function HomePage({ teamlist }) {
                 TO GO
               </p>
             </div>
-          </div>}
+          </div>
+          }
+          </div>)}
+          
 
           <p className="font-[600] text-[20px] hidden md:flex my-10  md:mx-auto leading-[24.38px]">
             Bring back the Cheers! Bring back the Slogans!
