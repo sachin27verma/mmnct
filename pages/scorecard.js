@@ -986,14 +986,14 @@ const Scorecard = () => {
               </div>
             </div>
             <div className=" text-center">
-              <p className="text-[#1E1E1E] text-md sm:text-2xl not-italic font-normal leading-[normal]">
+              <p className="text-[#1E1E1E] text-md sm:text-2xl not-italic font-bold leading-[normal]">
                 {" "}
                 {/* match summary */}
                 {/* IMR won by 4 wickets */}
                 {matchData && matchData.finalComment}
                 {/* {console.log(matchData && matchData.finalComment)} */}
               </p>
-              <p className="text-[#7F7F7F] text-md sm:text-2xl not-italic font-normal leading-[normal]">
+              <p className="text-[#7F7F7F] text-sm sm:text-xl not-italic font-bold leading-[normal]">
                 {" "}
                 {/* match detail */}
                 MMNCT 2023 | Match<span> {matchData && matchData.id}</span>
