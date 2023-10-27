@@ -105,7 +105,7 @@ const HomeCard = () => {
                   <div className="flex flex-row rounded-full justify-center items-center " id="middle" style={{
                           backgroundColor: teams[team[0].Team1Id].themeColor,
                         }}>
-                    <div id="logo" className="h-[100px] w-[100px]">
+                    <div id="logo" className="">
                       <img
                         alt="team-logo"
                         className={shortformstyle}
@@ -115,7 +115,7 @@ const HomeCard = () => {
                     </div>
                   </div>
                   {/* Team 1 name info */}
-                  <p className=" text-black text-sm font-bold">
+                  <p className=" text-black text-md font-bold">
                     {teams[team[0].Team1Id].teamCode}
                   </p>
                   <p className="text-[10px] text-gray-500">
@@ -124,7 +124,7 @@ const HomeCard = () => {
                 </div>
                 <div className=" score text-red-600 w-auto sm:w-[50%] mt-5 text-center  ">
                   {/* team 1 score */}
-                  <p className=" text-sm font-bold">
+                  <p className=" text-lg md:text-xl font-bold">
                     {totalScore(
                       team[0].Team1Score,
                       team[0].Team1Extra,
@@ -143,7 +143,7 @@ const HomeCard = () => {
                           team[0].Team1Extra,
                           team[0].Team1Wicket
                         )}
-                        <p className=" text-xs font-thin">
+                        <p className=" text-md md:text-lg text-blue-700 font-bold ">
                           (
                           {totalScore(
                             team[0].Team1Score,
@@ -171,8 +171,8 @@ const HomeCard = () => {
               <div className=" mt-3 flex justify-center ">
                 <Image
                   src="/vector-8.png"
-                  height={100}
-                  width={100}
+                  height={50}
+                  width={50}
                   className=" object-contain aspect-square"
                 />
               </div>
@@ -199,7 +199,7 @@ const HomeCard = () => {
                   </p>
                 </div>
                 <div className=" score w-auto sm:w-[50%] text-red-600 mt-5 text-center ">
-                  <p className=" text-sm font-bold ">
+                  <p className=" text-lg md:text-xl font-bold ">
                     {totalScore(
                       team[0].Team2Score,
                       team[0].Team2Extra,
@@ -218,7 +218,7 @@ const HomeCard = () => {
                           team[0].Team2Extra,
                           team[0].Team2Wicket
                         )}
-                        <p className=" text-xs font-thin">
+                        <p className=" text-md md:text-lg font-bold text-blue-600">
                           (
                           {totalScore(
                             team[0].Team2Score,
