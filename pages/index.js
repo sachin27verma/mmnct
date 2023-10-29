@@ -28,11 +28,6 @@ export default function Home({ teamList, sponsorImgList, matches }) {
 
       <HomePage teamlist={teamList} />
 
-      <div className="flex flex-col justify-center items-center mt-10">
-        <p className="font-semibold">Links</p>
-        <div className="border-b-4 border-[#F4A68D] w-5/12 md:w-1/5 lg:w-2/12 mx-auto mt-1"></div>
-      </div>
-      <Followup />
       {/* <div className="flex flex-col justify-center items-center pl-2 pr-1 mt-12 mb-8 md:mt-8">
         <p className="font-semibold">Share your MMNCT Experience</p>
         <div className="border-b-4 border-[#F4A68D] w-full md:w-3/5 lg:w-3/12 mx-auto mb-4 mt-1"></div>
@@ -46,7 +41,7 @@ export default function Home({ teamList, sponsorImgList, matches }) {
           <BsFillArrowRightCircleFill className="text-2xl" />
         </Link>
       </div> */}
-      <UpcomingMatches matches={matches} />
+      <UpcomingMatches />
       <ParticipatingTeams teamList={teamList} />
       <TournamentDetails />
       <TournamentHistory />
@@ -55,10 +50,16 @@ export default function Home({ teamList, sponsorImgList, matches }) {
       <div className="flex justify-center item-center mt-8">
         <Link href="/photocontest">
           <button className="bg-[#ffc4b1] text-white font-semibold py-3 px-20 rounded-full">
-            {/* Participate Now! */} See Winners!
+            {/* Participate Now! */}
+            See Winners!
           </button>
         </Link>
       </div>
+      <div className="flex flex-col justify-center items-center mt-10">
+        <p className="font-semibold">Links</p>
+        <div className="border-b-4 border-[#F4A68D] w-5/12 md:w-1/5 lg:w-2/12 mx-auto mt-1"></div>
+      </div>
+      <Followup />
       <SponsorCarousel urls={sponsorImgList} />
 
       <Footer />
@@ -101,30 +102,10 @@ export async function getServerSideProps() {
     })
   );
 
-  let matches = [];
-  let localMatches = [];
-  let snapshot = await get(child(dbRef, "match/"));
-  if (snapshot) {
-    localMatches = snapshot.val();
-    if (localMatches) {
-    const firstKey = Object.keys(localMatches)[0];
-    delete localMatches[firstKey];
-    let todayDate = fetchDate();
-    // localMatches.shift();
-    Object.keys(localMatches).map(key => {
-      const match = localMatches[key];
-      if (match.timeDate === todayDate && match.status !== "past") {
-        matches.push(match);
-      }
-    })
-  }}
-
-
   return {
     props: {
       teamList: data,
-       sponsorImgList: sponsor_img,
-      matches: matches,
+      sponsorImgList: sponsor_img,
     },
   };
 }

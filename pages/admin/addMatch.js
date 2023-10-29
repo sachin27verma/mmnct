@@ -34,7 +34,7 @@ const AddMatch = ({ auth_users }) => {
 
   const fetchData = async () => {
     const dbref = ref(database);
-    let snapshot = await get(child(dbref, "match/"));
+    let snapshot = await get(child(dbref, "matchDetail/"));
     //console.log(snapshot.val());
     setFormData({
       ...formData,

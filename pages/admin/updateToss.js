@@ -41,7 +41,7 @@ const UpdateMan = ({ auth_users }) => {
         return;
       }
 
-      let snapshot = await get(child(dbref, "match/" + enteredMatchId));
+      let snapshot = await get(child(dbref, "matchDetail/" + enteredMatchId));
 
       // Assuming snapshot.val() contains the required data structure
       setteam1name(teams[snapshot.val().Team1Id].teamCode);
@@ -62,7 +62,7 @@ const UpdateMan = ({ auth_users }) => {
   //     setcurrId(matchId.target.value);
   //     const dbref = ref(database);
   //     let snapshot = await get(
-  //       child(dbref, "match/" + matchId.target.value)
+  //       child(dbref, "matchDetail/" + matchId.target.value)
   //     );
   const submitData = async (e) => {
     e.preventDefault();
@@ -72,7 +72,7 @@ const UpdateMan = ({ auth_users }) => {
       // Assuming you want to update the "ManOfTheMatch" field with the value from the form
       //  UpdateManOfTheMatch(currId, formData.ManOfTheMatch);
       await updateToss(currId, formData.tossWinner, formData.decision);
-    console.log(formData);
+    // console.log(formData);
       alert("Toss Updated successfully");
     } catch (error) {
       console.error("Error updating Man of the Match:", error);

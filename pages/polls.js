@@ -35,7 +35,7 @@ function fetchDate() {
 export async function getServerSideProps(context) {
   let matches = [];
   let localMatches = [];
-  let snapshot = await get(child(dbRef, "match/"));
+  let snapshot = await get(child(dbRef, "matchDetail/"));
   if (snapshot) {
     localMatches = snapshot.val();
     if (localMatches) {

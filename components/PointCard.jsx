@@ -20,7 +20,7 @@ const PointCard = (props) => {
           const runRate = curElem.runRate || [];
           const superOver = curElem.superOver  || 0;
           const noOfMatchWon = runRate.filter(val => val > 0).length;
-          const bonus = runRate.filter(val => val >= 1.25).length;
+          const bonus = curElem.bonus||0;
           const noOfMatchPlayed =runRate.length;
 
 
@@ -91,7 +91,9 @@ const PointCard = (props) => {
           const runRate = curElem.runRate || [];
           const superOver = curElem.superOver  || 0;
           const noOfMatchWon = runRate.filter(val => val > 0).length;
-          const bonus = runRate.filter(val => val >= 1.25).length;
+          //const bonus = runRate.filter(val => val >= 1.25).length;
+          const bonus=curElem.bonus||0;
+          //console.log(bonus);
           const noOfMatchPlayed =runRate.length;
           const arrSum = runRate.reduce((acc, val) => acc + val, 0);
           const netRunRate =noOfMatchPlayed > 0 ?( arrSum / noOfMatchPlayed).toFixed(2) : "0.00";
@@ -139,7 +141,7 @@ const PointCard = (props) => {
               <div className="w-1/4 flex  items-center justify-center">
                 <p className="text-[15px] xl:text-[25px] lg:text-[20px] font-[600]">
                   {/* {curElem.matchPlayed - curElem.matchWon} */}
-                  {noOfMatchPlayed - (noOfMatchPlayed +superOver)}
+                  {noOfMatchPlayed - (noOfMatchWon +superOver)}
                 </p>
               </div>
               <div className="w-1/4 flex  items-center justify-center">

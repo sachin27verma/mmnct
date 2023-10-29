@@ -58,14 +58,14 @@ export async function getServerSideProps(context) {
     }
 
     // console.log(postDate);
-    if (postDate === "2023-1-26" && doc.data().likes > max_likes_26) {
+    if (postDate === "2023-10-26" && doc.data().likes > max_likes_26) {
       winners[0] = {
         id: doc.id,
         ...doc.data(),
       };
       max_likes_26 = doc.data().likes;
     }
-    if (postDate === "2023-1-27" && doc.data().likes > max_likes_27) {
+    if (postDate === "2023-10-27" && doc.data().likes > max_likes_27) {
       winners[1] = {
         id: doc.id,
         ...doc.data(),
@@ -79,7 +79,7 @@ export async function getServerSideProps(context) {
       };
       max_likes_28 = doc.data().likes;
     }
-    if (postDate === "2023-1-29" && doc.data().likes > max_likes_29) {
+    if (postDate === "2023-1-26" && doc.data().likes > max_likes_29) {
       winners[3] = {
         id: doc.id,
         ...doc.data(),
@@ -317,8 +317,8 @@ const photocontest = ({ posts, winners }) => {
                   //Reset the input
                   e.target.value = "";
                 }}
-              />
-              <div className="flex flex-row items-center justify-center gap-4 pt-12">
+              /> */}
+              {/* <div className="flex flex-row items-center justify-center gap-4 pt-12">
                 {session ? (
                   <>
                     <div
@@ -402,7 +402,7 @@ const photocontest = ({ posts, winners }) => {
           // </p>
           <>
             <p className="mt-14 lg:mt-0 text-center text-2xl font-semibold text-[#411F0D]">
-              Winners of the Last Edition Contest
+              Winners of the Contest
             </p>
             <div className="mt-2 mb-12 lg:mb-12 border-b-4 border-[#F4A68D] w-10/12 md:w-2/5 lg:w-3/12 mx-auto"></div>
             <div className="flex flex-col items-center justify-center">

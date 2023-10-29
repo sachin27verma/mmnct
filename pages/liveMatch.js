@@ -14,7 +14,7 @@ const HomeCard = () => {
   const [over_summary, setover_summary] = useState([]);
   const [team, setTeam] = useState([]);
   const getdata = async () => {
-    const temp = ref(database, "match/");
+    const temp = ref(database, "matchDetail/");
     onValue(temp, async (snapshot) => {
       const matchObject = await snapshot.val();
       let data = [];

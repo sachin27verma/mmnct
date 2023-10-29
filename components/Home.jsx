@@ -19,77 +19,10 @@ function decideWinner(maleWinnerTeamCode, FemaleWinnerTeamCode, teamList) {
 function HomePage({ teamlist }) {
   const [screenSize, setScreenSize] = useState(0);
   const [winnerTeamList, setWinnerTeamList] = useState([]);
-  const currDate= new Date().getDate();
-  const currTime= new Date().getHours();
-  const aaj= new Date();
-  const targetDate = new Date(2023, 9, 30);
-  function getTime(todayDate){
-    if(todayDate === 26)
-    {
-        return 17;
-    }
-    else if(todayDate === 27){
-       
-      return 16;
-    }
-    else if(todayDate === 28){
 
-      return 12;
-    }
-    else if(todayDate === 29){
-      return 14;
-    }
-  }
-
-  function getFirstTitle(todayDate){
-    if(todayDate === 26)
-    {
-          return "MMNCT  kicks off today! ";
-    }
-    else if(todayDate === 27){
-  
-          return "Day 2 ";         
-    }
-    else if(todayDate === 28){
-
-          return "Day 3 ";
-    }
-    else if(todayDate === 29){
-          return "Final Day ";
-    }
-  }
-
-  function getSecondTitle(todayDate){
-    if(todayDate === 26)
-    {
-          return " at 5 : 00 PM";
-    }
-    else if(todayDate === 27){
-  
-          return " Matches to go Live at 4 : 00 PM";         
-    }
-    else if(todayDate === 28){
-
-          return " Matches to go Live at 12 : 30 PM";
-    }
-    else if(todayDate === 29){
-          return " Matches to go Live at 2 : 00 PM";
-    }
-  }
-function decider(date)
-{
-      if(getTime(date)<= currTime)
-      {
-        return "hidden";
-      }
-      else
-      {
-        return "block";
-      }
-}
   useEffect(() => {
     setScreenSize(window.innerWidth);
-    setWinnerTeamList(() => decideWinner("SHM", "SAM", teamlist));
+    setWinnerTeamList(() => decideWinner("VIK", "PAR", teamlist));
   }, []);
 
   return (
@@ -112,29 +45,28 @@ function decider(date)
             October, 2023
           </p>
         </div>
-        {/* <WinnersAnnouncement teamlist={winnerTeamList} /> */}
+        <WinnersAnnouncement teamlist={winnerTeamList} />
       </div>
 
       <div className="w-full md:w-4/5 md:mx-auto flex flex-col md:flex-row md:items-center md:justify-between">
         {/* graphic and venue along with days to go */}
 
         <div>
-          <HomeCard />
-          {((aaj > targetDate) ? <></> : <div  className={`${decider(currDate)} `} >
-          {(daysCaluclator()<=0 )?<>
+          {/* <HomeCard /> */}
+          {/* {(new Date().getDate() === 25 && new Date().getMonth()===9 && new Date().getFullYear() === 2023 )?<>
             <div className=" flex justify-center items-center w-4/5 md:w-[400px] days-counter mx-auto md:mx-0 md:mb-4 md:gap-4 h-[116px] md:h-[150px]">
             <div className="text-[#991746]">
-            <p className="font-bold text-lg text-center uppercase md:text-5xl leading-6">
-                
-                  {getFirstTitle(currDate)}
+              <p className="font-bold text-lg text-center uppercase md:text-3xl leading-6">
+              Let the games begin!
               </p>
-              <p className="font-bold text-lg text-center uppercase md:text-3xl px-5 leading-6">
-                
-                  {getSecondTitle(currDate)}
+              <p className="font-bold text-lg text-center uppercase md:text-3xl leading-6">
+                {" "}
+                🎈 MMNCT  kicks off today! 🎈
               </p>
             </div>
           </div>
-          </>:<div className=" flex justify-center items-center w-4/5 md:w-[400px] days-counter mx-auto md:mx-0 md:mb-4 md:gap-4 h-[116px] md:h-[150px]">
+          </>: */}
+          {/* <div className=" flex justify-center items-center w-4/5 md:w-[400px] days-counter mx-auto md:mx-0 md:mb-4 md:gap-4 h-[116px] md:h-[150px]">
             <span className="text-[#F45178] font-[800] text-[96px] md:-[120px] leading-[117px] md:leading-[146.28px] text-center w-1/2 md:w-[35%]">
               {daysCaluclator()}
             </span>
@@ -147,10 +79,8 @@ function decider(date)
                 TO GO
               </p>
             </div>
-          </div>
-          }
-          </div>)}
-          
+          </div> */}
+          {/* } */}
 
           <p className="font-[600] text-[20px] hidden md:flex my-10  md:mx-auto leading-[24.38px]">
             Bring back the Cheers! Bring back the Slogans!
@@ -214,7 +144,7 @@ const WinnersAnnouncement = ({ teamlist }) => {
   } else {
     return (
       <div className="flex flex-col lg:flex-row justify-evenly mt-5">
-        <div className={"bg-[#1e648f] " + winnerTabStyle}>
+        <div className={"bg-[#a33a0f] " + winnerTabStyle}>
           <div className="flex-shrink-0 h-14 w-14">
             <Image
               src={teamlist[0].teamLogo}
@@ -229,7 +159,7 @@ const WinnersAnnouncement = ({ teamlist }) => {
             <p className="text-sm">{teamlist[0].teamType}</p>
           </div>
         </div>
-        <div className={"bg-[#fae039] " + winnerTabStyle}>
+        <div className={"bg-[#2dda98] " + winnerTabStyle}>
           <div className="flex-shrink-0 h-14 w-14">
             <Image
               src={teamlist[1].teamLogo}

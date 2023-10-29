@@ -65,7 +65,7 @@ const Scorecard = () => {
   };
   function calculateEconomyRate(runsConceded, noOfBallsBowled) {
     if (noOfBallsBowled === 0) {
-      console.error("Overs bowled cannot be zero.");
+      // console.error("Overs bowled cannot be zero.");
       return null;
     }
 
@@ -74,7 +74,7 @@ const Scorecard = () => {
   }
   useEffect(() => {
     if (matchId) {
-      const matchRef = ref(database, "match/" + matchId);
+      const matchRef = ref(database, "matchDetail/" + matchId);
 
       const unsubscribe = onValue(matchRef, (snapshot) => {
         if (snapshot.exists()) {
@@ -605,7 +605,7 @@ const Scorecard = () => {
                   <p
                     key={player.playerId}
                     className={` py-2   text-center `}>
-                    {console.log(teamColor)}
+                    {/* {console.log(teamColor)} */}
                     <Link href={`/player-details/${player.playerId}`}>
                       {player.playerName}
                     </Link>
@@ -624,7 +624,7 @@ const Scorecard = () => {
                         : `${teams[matchData?.Team2Id]?.themeColor}`,
                       
                     }}>
-                    {console.log(teamColor)}
+                    {/* {console.log(teamColor)} */}
                     <Link href={`/player-details/${player.playerId}`}>
                       {player.playerName}
                     </Link>
@@ -664,7 +664,7 @@ const Scorecard = () => {
                     ? "bg-white"
                     : `bg-[${teamColor.substring(1, teamColor.length - 1)}]`
                 }  text-center `}>
-                {console.log(teamColor)}
+                {/* {console.log(teamColor)} */}
                 <Link href={`/player-details/${player.playerId}`}>
                   {player.playerName}
                 </Link>
@@ -986,14 +986,14 @@ const Scorecard = () => {
               </div>
             </div>
             <div className=" text-center">
-              <p className="text-[#1E1E1E] text-md sm:text-2xl not-italic font-bold leading-[normal]">
+              <p className="text-[#1E1E1E] text-md sm:text-2xl not-italic font-normal leading-[normal]">
                 {" "}
                 {/* match summary */}
                 {/* IMR won by 4 wickets */}
                 {matchData && matchData.finalComment}
                 {/* {console.log(matchData && matchData.finalComment)} */}
               </p>
-              <p className="text-[#7F7F7F] text-sm sm:text-xl not-italic font-bold leading-[normal]">
+              <p className="text-[#7F7F7F] text-md sm:text-2xl not-italic font-normal leading-[normal]">
                 {" "}
                 {/* match detail */}
                 MMNCT 2023 | Match<span> {matchData && matchData.id}</span>

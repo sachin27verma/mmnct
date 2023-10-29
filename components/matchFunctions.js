@@ -11,9 +11,10 @@ import {
   updateDoc,
   where,
   arrayUnion,
+  increment
 } from "firebase/firestore";
 const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
-  await set(ref(database, "match/" + ID), {
+  await set(ref(database, "matchDetail/" + ID), {
     id: ID,
     timeDate: dateTime,
     Team1Id: Team1ID,
@@ -31,8 +32,8 @@ const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
     category: category,
     currOrder: 1,
     manofthematch: "",
-    toss:"",
-    decision:""
+    toss: "",
+    decision: ""
   }).then(() => {
     console.log("mattch added");
   }).catch(err => console.log(err));
@@ -40,7 +41,7 @@ const createMatch = async (ID, dateTime, Team1ID, Team2ID, category) => {
 
 const fetchData = async (matchId) => {
   const dbref = ref(database);
-  let snapshot = await get(child(dbref, "match/" + matchId));
+  let snapshot = await get(child(dbref, "matchDetail/" + matchId));
   return snapshot.val();
 }
 
@@ -48,7 +49,7 @@ const Team1Update = async (matchID, wicket, extras, run, prev, score, status, co
   let nowScore;
   if (run.length === 0) nowScore = [...score];
   else nowScore = [...score, run];
-  await update(ref(database, "match/" + matchID), {
+  await update(ref(database, "matchDetail/" + matchID), {
     "Team1Wicket": wicket, "Team1Extra": extras, "Team1prev": prev, "Team1Score": nowScore, "status": status, "finalComment": comment
   }).then(() => {
   }).catch(err => console.log(err));
@@ -58,7 +59,7 @@ const Team2Update = async (matchID, wicket, extras, run, prev, score, status, co
   let nowScore;
   if (run.length === 0) nowScore = [...score];
   else nowScore = [...score, run];
-  await update(ref(database, "match/" + matchID), {
+  await update(ref(database, "matchDetail/" + matchID), {
     "Team2Wicket": wicket, "Team2Extra": extras, "Team2prev": prev, "Team2Score": nowScore, "status": status, "finalComment": comment
   }).then(() => {
   }).catch(err => console.log(err));
@@ -122,7 +123,7 @@ const getPlayerScored = (score) => {
 const addPlayerToMatch = async (matchID, teamID, playerID, playerName) => {
   // Retrieve the current match data
   //let teamID="Team1Players";
-  const matchRef = ref(database, "match/" + matchID);
+  const matchRef = ref(database, "matchDetail/" + matchID);
   const matchSnapshot = await get(matchRef);
   const matchData = matchSnapshot.val();
   //console.log(teamID);
@@ -172,7 +173,7 @@ const forcefullyChangeStriker = async (matchId) => {
     const dbRef = ref(database);
 
     //Get the current data from the match node
-    let snapshot = await get(child(dbRef, "match/" + matchId));
+    let snapshot = await get(child(dbRef, "matchDetail/" + matchId));
 
     //Ensure that the match node exists
     if (snapshot) {
@@ -184,7 +185,7 @@ const forcefullyChangeStriker = async (matchId) => {
       updatedData["nonStriker"] = matchData["striker"];
 
       //Update the data in the database
-      await update(child(dbRef, "match/" + matchId), updatedData);
+      await update(child(dbRef, "matchDetail/" + matchId), updatedData);
 
       //console.log("Striker and non-striker data swapped successfully.");
     } else {
@@ -200,7 +201,7 @@ const strikerChange = async (matchId, run) => {
     const dbRef = ref(database);
 
     //Get the current data from the match node
-    let snapshot = await get(child(dbRef, "match/" + matchId));
+    let snapshot = await get(child(dbRef, "matchDetail/" + matchId));
 
     //Ensure that the match node exists
     run = parseInt(run);
@@ -213,7 +214,7 @@ const strikerChange = async (matchId, run) => {
       updatedData["nonStriker"] = matchData["striker"];
 
       //Update the data in the database
-      await update(child(dbRef, "match/" + matchId), updatedData);
+      await update(child(dbRef, "matchDetail/" + matchId), updatedData);
 
       console.log("Striker and non-striker data swapped successfully.");
     } else {
@@ -282,7 +283,7 @@ async function getPlayersByTeamName(teamName) {
 
 }
 const updateTeam1PlayerScore = async (matchID, playerID, run) => {
-  const matchRef = ref(database, "match/" + matchID + "/Team1Players");
+  const matchRef = ref(database, "matchDetail/" + matchID + "/Team1Players");
   const matchSnapshot = await get(matchRef);
   const matchData = matchSnapshot.val();
 
@@ -331,7 +332,7 @@ const updateTeam1PlayerScore = async (matchID, playerID, run) => {
   }
 };
 const updateTeam2PlayerScore = async (matchID, playerID, run) => {
-  const matchRef = ref(database, "match/" + matchID + "/Team2Players");
+  const matchRef = ref(database, "matchDetail/" + matchID + "/Team2Players");
   const matchSnapshot = await get(matchRef);
   const matchData = matchSnapshot.val();
 
@@ -376,7 +377,7 @@ const updateTeam2PlayerScore = async (matchID, playerID, run) => {
 };
 //for bowling stats the index of 12 used for no of ball bowled index 13 used for total runs index 14 used for  wicket 
 const updateTeam1BowlersStats = async (matchID, playerID, run) => {
-  const matchRef = ref(database, "match/" + matchID + "/Team1Players");
+  const matchRef = ref(database, "matchDetail/" + matchID + "/Team1Players");
   const matchSnapshot = await get(matchRef);
   const matchData = matchSnapshot.val();
 
@@ -419,7 +420,7 @@ const updateTeam1BowlersStats = async (matchID, playerID, run) => {
   }
 };
 const updateTeam2BowlersStats = async (matchID, playerID, run) => {
-  const matchRef = ref(database, "match/" + matchID + "/Team2Players");
+  const matchRef = ref(database, "matchDetail/" + matchID + "/Team2Players");
   const matchSnapshot = await get(matchRef);
   const matchData = matchSnapshot.val();
   if (!matchData) {
@@ -462,7 +463,7 @@ const updateTeam2BowlersStats = async (matchID, playerID, run) => {
 };
 
 async function changeInnings(matchId) {
-  await update(ref(database, "match/" + matchId), {
+  await update(ref(database, "matchDetail/" + matchId), {
     "striker": null,
     "nonStriker": null,
     "currBattingTeam": null,
@@ -474,9 +475,9 @@ async function changeInnings(matchId) {
 async function afterMatchClosed(matchId) {
 
   const matchNumber = parseInt(matchId, 10);
+  const data = await fetchData(matchId);
   //console.log(matchNumber);
   if (matchNumber < 22) {
-    const data = await fetchData(matchId);
     const Team1totalScore = totalScore(data.Team1Score, data.Team1Extra, data.Team1Wicket);
     const Team2totalScore = totalScore(data.Team2Score, data.Team2Extra, data.Team2Wicket);
     // console.log(Team1totalScore);
@@ -484,11 +485,15 @@ async function afterMatchClosed(matchId) {
 
     const team1over = getOver(data.Team1Score, data.Team1prev, data.Team1Extra)[0];
     const team2over = getOver(data.Team2Score, data.Team2prev, data.Team2Extra)[0];
-
+    const over1=team1over;
+    const over2=team2over;
+//console.log(team1over+" "+team2over);
     const teamOneid = await getTeamIdFromName(data.Team1Id);
     const teamTwoid = await getTeamIdFromName(data.Team2Id);
-    const team1TotalBalls = Math.floor(parseFloat(team1over) * 6) + parseInt(team1over.split('.')[1] || 0, 10);
-    const team2TotalBalls = Math.floor(parseFloat(team2over) * 6) + parseInt(team2over.split('.')[1] || 0, 10);
+    //console.log( Math.floor(parseFloat(team1over)));
+    //console.log(parseInt(over1.split('.')[1] || 0, 10));
+    const team1TotalBalls = (Math.floor(parseFloat(team1over) ))*6 + parseInt(over1.split('.')[1] || 0, 10);
+    const team2TotalBalls = (Math.floor(parseFloat(team2over)))*6 + parseInt(over2.split('.')[1] || 0, 10);
 
     //console.log(teamOneid);
     //console.log(teamTwoid);
@@ -569,6 +574,7 @@ async function updatePlayerHistory(playerId, playerData, matchId, OpponentId, da
 
 }
 function calculateMenRunRate(team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls) {
+  //console.log("hiii");
   const [team1runs, team1wickets] = team1TotalScore.split('/').map(Number);
   const assumedteam1TotalBalls = team1wickets === 10 ? 48 : team1TotalBalls;
   const [team2runs, team2wickets] = team2TotalScore.split('/').map(Number);
@@ -576,10 +582,57 @@ function calculateMenRunRate(team1TotalScore, team2TotalScore, team1TotalBalls, 
   //console.log(assumedteam1TotalBalls);
   //console.log(assumedteam2TotalBalls);
   const rate = (team1runs * 6) / assumedteam1TotalBalls - (team2runs * 6) / assumedteam2TotalBalls;
-  // console.log(rate);
+  const rate1=(team1runs * 6) / assumedteam1TotalBalls;
+  const rate2=(team2runs * 6) / assumedteam2TotalBalls;
+  //console.log("rates " + rate1+" "+rate2);
+   //console.log(rate);
   return rate.toFixed(2);
 }
+function calculateMenBonus(team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls) {
+  console.log("hiii");
+  const [team1runs, team1wickets] = team1TotalScore.split('/').map(Number);
+  const assumedteam1TotalBalls = team1wickets === 10 ? 48 : team1TotalBalls;
+  const [team2runs, team2wickets] = team2TotalScore.split('/').map(Number);
+  const assumedteam2TotalBalls = team2wickets === 10 ? 48 : team2TotalBalls;
+  //console.log(assumedteam1TotalBalls);
+  //console.log(assumedteam2TotalBalls);
+  //const rate = (team1runs * 6) / assumedteam1TotalBalls - (team2runs * 6) / assumedteam2TotalBalls;
+  const rate1=(team1runs * 6) / assumedteam1TotalBalls;
+  const rate2=(team2runs * 6) / assumedteam2TotalBalls;
+  if(rate1>1.25*rate2){
+    return 1;
+  }
+  if(rate2>1.25*rate1){
+    return 2;
+  }
+    console.log("rates " + rate1+" "+rate2);
+   //console.log(rate);
+  return 0;
+}
+function calculateWomenBonus(team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls) {
+  console.log("hiii");
+  const [team1runs, team1wickets] = team1TotalScore.split('/').map(Number);
+  const assumedteam1TotalBalls = team1wickets === 10 ? 36 : team1TotalBalls;
+  const [team2runs, team2wickets] = team2TotalScore.split('/').map(Number);
+  const assumedteam2TotalBalls = team2wickets === 10 ? 36 : team2TotalBalls;
+  //console.log(assumedteam1TotalBalls);
+  //console.log(assumedteam2TotalBalls);
+  //const rate = (team1runs * 6) / assumedteam1TotalBalls - (team2runs * 6) / assumedteam2TotalBalls;
+  const rate1=(team1runs * 6) / assumedteam1TotalBalls;
+  const rate2=(team2runs * 6) / assumedteam2TotalBalls;
+  if(rate1>1.25*rate2){
+    return 1;
+  }
+  if(rate2>1.25*rate1){
+    return 2;
+  }
+  //console.log("rates " + rate1+" "+rate2);
+   //console.log(rate);
+  return 0;
+}
+
 function calculateWomenRunRate(team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls) {
+  //console.log("hiii222");
   const [team1runs, team1wickets] = team1TotalScore.split('/').map(Number);
   const assumedteam1TotalBalls = team1wickets === 10 ? 36 : team1TotalBalls;
   const [team2runs, team2wickets] = team2TotalScore.split('/').map(Number);
@@ -587,57 +640,74 @@ function calculateWomenRunRate(team1TotalScore, team2TotalScore, team1TotalBalls
   //console.log(assumedteam1TotalBalls);
   //console.log(assumedteam2TotalBalls);
   const rate = (team1runs * 6) / assumedteam1TotalBalls - (team2runs * 6) / assumedteam2TotalBalls;
+  const rate1=(team1runs * 6) / assumedteam1TotalBalls;
+  const rate2=(team2runs * 6) / assumedteam2TotalBalls;
+  //console.log("rates " + rate1+" "+rate2);
   // console.log(rate);
-  return rate;
+  return rate.toFixed(2);
 }
 const updateManOfTheMatch = async (matchID, playerName) => {
 
-  await update(ref(database, "match/" + matchID), {
-    "manOfTheMatch": playerName
+  await update(ref(database, "matchDetail/" + matchID), {
+    "manofthematch": playerName
   }).then(() => {
   }).catch(err => console.log(err));
 
 };
 const updateToss = async (matchID, winner, choice) => {
 
-  await update(ref(database, "match/" + matchID), {
-    "toss":winner,
+  await update(ref(database, "matchDetail/" + matchID), {
+    "toss": winner,
     "decision": choice
   }).then(() => {
   }).catch(err => console.log(err));
 
 };
 async function updateNetRunRate(teamOneId, teamTwoId, team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls) {
-
-
-  // const team1Ref = db.collection('participating-teams').doc(teamOneId);
-  // const team2Ref = db.collection('participating-teams').doc(teamTwoId);
-
-  // const team1Data = await team1Ref.get();
-  // const team2Data = await team2Ref.get();
-  // console.log(team1Data);
-  //console.log(team2Data);
   const team1Ref = doc(db, 'participating-teams', teamOneId);
   const team2Ref = doc(db, 'participating-teams', teamTwoId);
-
+   //console.log(team1TotalScore+" "+team2TotalScore);
+   //console.log(team1TotalBalls+" "+team2TotalBalls);
   const team1Data = await getDoc(team1Ref);
   const team2Data = await getDoc(team2Ref);
   const team1RunRate = team1Data.exists ? (team1Data.data().runRate || []) : [];
   const team2RunRate = team2Data.exists ? (team2Data.data().runRate || []) : [];
 
-  const runRateTeam1 = (team1Data.data().gender == "Male") ? calculateMenRunRate(team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls) : calculateWomenRunRate(team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls);
+  const runRateTeam1 = (1)*(team1Data.data().teamGender == "Male") ? calculateMenRunRate(team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls) : calculateWomenRunRate(team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls);
   const runRateTeam2 = (-1) * runRateTeam1;
-
-  // team1RunRate.push(runRateTeam1);
-  // team2RunRate.push(runRateTeam2);
-
+  if(team1Data.data().teamGender==="Male"){
+    if(calculateMenBonus(team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls)===1){
+      await updateDoc(team1Ref, {
+           bonus: increment(1),
+          });
+    }
+    else if(calculateMenBonus(team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls)===2){
+      await updateDoc(team2Ref, {
+        bonus: increment(1),
+       });
+    }
+  }
+  if(team1Data.data().teamGender==="Female"){
+    if(calculateWomenBonus(team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls)===1){
+      await updateDoc(team1Ref, {
+           bonus: increment(1),
+          });
+    }
+    else if(calculateWomenBonus(team1TotalScore, team2TotalScore, team1TotalBalls, team2TotalBalls)===2){
+      await updateDoc(team2Ref, {
+        bonus: increment(1),
+       });
+    }
+  }
+//console.log(runRateTeam1+"  "+runRateTeam2);
+  
 
   await updateDoc(team1Ref, {
-    runRate: arrayUnion(runRateTeam1),
+    runRate: arrayUnion(parseFloat(runRateTeam1)),
   });
 
   await updateDoc(team2Ref, {
-    runRate: arrayUnion(runRateTeam2),
+    runRate: arrayUnion(parseFloat(runRateTeam2)),
   });
 
   console.log('Run rates for the current match updated successfully!');
