@@ -13,6 +13,8 @@ The announcements section of the website keeps users informed about any news and
 **Website link**
 https://www.mmnct.in/
 
+https://mmnct-yzbk-fmbbs5tru-ujjwalkirti.vercel.app/
+
 <br>
 
 **Screenshots**
